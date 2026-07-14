@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parker's 7th Birthday Plan</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #fff9c4 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(233,30,99,0.15);
+        }
+        .header h1 {
+            font-size: 2.2em;
+            color: #ad1457;
+            margin-bottom: 8px;
+        }
+        .header .subtitle {
+            font-size: 1.1em;
+            color: #c2185b;
+        }
+        .header .date {
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* Section */
+        .section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #ad1457;
+            font-size: 1.4em;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f8bbd0;
+        }
+
+        /* Activity Cards */
+        .cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 700px) { .cards { grid-template-columns: 1fr 1fr 1fr; } }
+
+        .card {
+            border: 2px solid #f8bbd0;
+            border-radius: 14px;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(233,30,99,0.2); }
+        .card.recommended { border-color: #e91e63; background: #fce4ec; }
+
+        .card .badge {
+            position: absolute;
+            top: -10px;
+            right: 16px;
+            background: #e91e63;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        .card h3 { color: #ad1457; margin-bottom: 6px; font-size: 1.15em; }
+        .card .price {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #c2185b;
+            margin: 8px 0;
+        }
+        .card .details { font-size: 0.9em; color: #555; line-height: 1.5; }
+        .card .rating { color: #ff9800; font-weight: 600; margin-top: 8px; }
+        .card .phone { font-size: 0.85em; color: #666; margin-top: 8px; }
+        .card .phone a { color: #ad1457; text-decoration: none; }
+        .card .cta {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: #e91e63;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .card .cta:hover { background: #c2185b; }
+
+        /* Itinerary */
+        .timeline { list-style: none; position: relative; padding-left: 30px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #e91e63, #f48fb1, #fff9c4);
+            border-radius: 3px;
+        }
+        .timeline li {
+            position: relative;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: #fff;
+            border-radius: 10px;
+            border-left: 3px solid #e91e63;
+        }
+        .timeline li::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 16px;
+            width: 12px;
+            height: 12px;
+            background: #e91e63;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .timeline .time { font-weight: 700; color: #ad1457; }
+        .timeline .desc { color: #555; font-size: 0.95em; }
+
+        /* Dinner */
+        .dinner-card {
+            background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+            color: white;
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+        .dinner-card h3 { color: #ffcdd2; font-size: 1.3em; margin-bottom: 10px; }
+        .dinner-card .info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.95em; }
+        .dinner-card .info span { display: block; }
+        .dinner-card .label { color: #ffcdd2; font-size: 0.8em; }
+        .dinner-card a { color: #ffcdd2; }
+
+        /* Pricing table */
+        .pricing-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        .pricing-table th {
+            background: #fce4ec;
+            color: #ad1457;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.85em;
+        }
+        .pricing-table td { padding: 10px; border-bottom: 1px solid #f8bbd0; font-size: 0.9em; }
+        .pricing-table tr:hover { background: #fce4ec; }
+
+        /* Checklist */
+        .checklist { list-style: none; }
+        .checklist li {
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            background: #fff;
+            border-radius: 8px;
+            border-left: 3px solid #e91e63;
+            font-size: 0.95em;
+        }
+        .checklist li::before { content: '[ ] '; color: #e91e63; font-weight: 700; }
+
+        /* Nail salon mini card */
+        .mini-card {
+            display: inline-block;
+            background: #fce4ec;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin: 8px 4px;
+            border: 1px solid #f8bbd0;
+        }
+        .mini-card .name { font-weight: 600; color: #ad1457; }
+        .mini-card .price-tag { font-size: 1.1em; font-weight: 700; color: #c2185b; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85em;
+            color: #999;
+        }
+
+        /* Guest table */
+        .guest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+        .guest {
+            background: #fff;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #f8bbd0;
+        }
+        .guest .age { font-size: 1.4em; font-weight: 700; color: #e91e63; }
+        .guest .role { font-size: 0.85em; color: #666; }
+        .guest.birthday { border-color: #e91e63; background: #fce4ec; }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Parker's 7th Birthday</h1>
+            <div class="subtitle">A Princess-Worthy Celebration in Rogers, AR</div>
+            <div class="date">Saturday, April 4, 2026 | Spring Break</div>
+        </div>
+
+        <!-- Who's Coming -->
+        <div class="section">
+            <h2>The Birthday Crew</h2>
+            <div class="guest-grid">
+                <div class="guest birthday">
+                    <div class="age">7</div>
+                    <div><strong>Parker</strong></div>
+                    <div class="role">Birthday Girl</div>
+                </div>
+                <div class="guest"><div class="age">13</div><div><strong>Sister</strong></div><div class="role">Teen vibes</div></div>
+                <div class="guest"><div class="age">10</div><div><strong>Brother</strong></div><div class="role">Hands-on fun</div></div>
+                <div class="guest"><div class="age">2</div><div><strong>Toddler</strong></div><div class="role">Nap schedule!</div></div>
+                <div class="guest"><div class="role">Dad</div></div>
+                <div class="guest"><div class="role">Wife</div></div>
+                <div class="guest"><div class="role">Mother-in-law</div></div>
+            </div>
+        </div>
+
+        <!-- Activity Options -->
+        <div class="section">
+            <h2>Activity Options (Before Dinner)</h2>
+            <div class="cards">
+
+                <!-- Paint Your Power -->
+                <div class="card recommended">
+                    <div class="badge">BEST FOR TODAY</div>
+                    <h3>Paint Your Power</h3>
+                    <div class="price">$390</div>
+                    <div class="details">
+                        Immersive art under blacklights with live DJ. Neon paints, glow canvases. Can request princess theme for Parker.<br><br>
+                        <strong>Covers:</strong> Up to 10 people (your 7 = perfect)<br>
+                        <strong>Address:</strong> 317 N 2nd St, Rogers
+                    </div>
+                    <div class="rating">5.0/5 (24 reviews)</div>
+                    <div class="phone">Call: <a href="tel:4793214160">(479) 321-4160</a></div>
+                    <a href="https://www.paintyourpowernwa.com/corporate-private-events" class="cta">View Packages</a>
+                </div>
+
+                <!-- Amazeum -->
+                <div class="card">
+                    <div class="badge" style="background:#4caf50;">WALK-IN OK</div>
+                    <h3>Scott Family Amazeum</h3>
+                    <div class="price">~$84</div>
+                    <div class="details">
+                        Hands-on kids museum. Hershey's Chocolate Lab, tinkering hub, outdoor playscape, kid-sized grocery store.<br><br>
+                        <strong>Admission:</strong> $14/person (under 2 free)<br>
+                        <strong>Hours:</strong> Sat 10am-5pm<br>
+                        <strong>Address:</strong> 1009 Museum Way, Bentonville
+                    </div>
+                    <div class="rating">4.6/5 (229 reviews)</div>
+                    <div class="phone">Call: <a href="tel:4796964280">(479) 696-4280</a></div>
+                    <a href="https://www.amazeum.org/" class="cta" style="background:#4caf50;">Visit Website</a>
+                </div>
+
+                <!-- Princess Party Palace -->
+                <div class="card">
+                    <div class="badge" style="background:#9c27b0;">BOOK FOR SPRING BREAK</div>
+                    <h3>Princess Party Palace</h3>
+                    <div class="price">$300+</div>
+                    <div class="details">
+                        Full princess experience. Dress-up, makeup, mini mani, sing-along, storytime, coronation with tiara.<br><br>
+                        <strong>Tea Party:</strong> $300 (5 kids)<br>
+                        <strong>Royal Ball:</strong> $425 (12 kids)<br>
+                        <strong>Address:</strong> 1748 W Sunset Ave, Springdale
+                    </div>
+                    <div class="rating">4.5/5 (19 reviews)</div>
+                    <div class="phone">Call: <a href="tel:8704802008">(870) 480-2008</a></div>
+                    <a href="https://www.princesspartypalace.com/" class="cta" style="background:#9c27b0;">View Packages</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Princess Party Palace Full Pricing -->
+        <div class="section">
+            <h2>Princess Party Palace — Full Package Breakdown</h2>
+            <table class="pricing-table">
+                <thead>
+                    <tr><th>Package</th><th>Price</th><th>Kids Included</th><th>Max</th><th>Includes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Tea Party</strong></td><td>$300</td><td>5</td><td>8</td><td>Dress-up, makeup, mani, storytime, tea set, tiara</td></tr>
+                    <tr><td><strong>Royal Ball</strong></td><td>$425</td><td>12</td><td>25</td><td>Everything above + bigger venue, more activities</td></tr>
+                    <tr><td><strong>Spa Party</strong></td><td>$550</td><td>12</td><td>20</td><td>Full spa treatment + princess host</td></tr>
+                    <tr><td><strong>Arty Party</strong></td><td>$550</td><td>12</td><td>20</td><td>Painting + princess experience</td></tr>
+                    <tr><td><strong>Black Light Bash</strong></td><td>$550</td><td>12</td><td>25</td><td>Dance party with princess host, blacklights</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.85em;color:#666;margin-top:10px;">Extra kids: $15-$25 each depending on package. Deposits non-refundable but reschedulable.</p>
+        </div>
+
+        <!-- Nail Salon Add-On -->
+        <div class="section">
+            <h2>Quick Add-On: Kids Nail Salon</h2>
+            <div class="mini-card">
+                <div class="name">Oasis Nail Bar (Rogers)</div>
+                <div>Kid Manicure: <span class="price-tag">$15</span></div>
+                <div>Kid Pedicure: <span class="price-tag">$25</span></div>
+                <div style="font-size:0.85em;color:#666;">Under 11 pricing</div>
+            </div>
+            <div class="mini-card">
+                <div class="name">Posh Nail Bar (Rogers)</div>
+                <div><span class="price-tag">$5 off</span> kids under 9</div>
+            </div>
+        </div>
+
+        <!-- Dinner -->
+        <div class="section">
+            <h2>Birthday Dinner</h2>
+            <div class="dinner-card">
+                <h3>Red Lobster — Parker's Favorite</h3>
+                <div class="info">
+                    <div>
+                        <span class="label">Address</span>
+                        <span>1710 S 46th St, Rogers, AR 72758</span>
+                    </div>
+                    <div>
+                        <span class="label">Phone</span>
+                        <span><a href="tel:4796361648">(479) 636-1648</a></span>
+                    </div>
+                    <div>
+                        <span class="label">Saturday Hours</span>
+                        <span>11:00 AM - 10:00 PM</span>
+                    </div>
+                    <div>
+                        <span class="label">Birthday Perks</span>
+                        <span>Free dessert + birthday celebration</span>
+                    </div>
+                </div>
+                <p style="margin-top:14px;font-size:0.9em;">
+                    <strong>Kids Menu:</strong> Popcorn Shrimp, Mac & Cheese, Chicken Tenders, Grilled Shrimp, Golden-Fried Fish<br>
+                    <strong>Pro Tip:</strong> Join the <a href="https://www.redlobster.com/seafood-restaurants/locations/ar/rogers/1710-s-46th-st/">online waitlist</a> before you leave the afternoon activity.
+                </p>
+            </div>
+        </div>
+
+        <!-- Itinerary -->
+        <div class="section">
+            <h2>Today's Itinerary</h2>
+            <ul class="timeline">
+                <li><span class="time">9:00 AM</span> <span class="desc">Special birthday breakfast (heart pancakes, birthday crown)</span></li>
+                <li><span class="time">10:30 AM</span> <span class="desc">Call Paint Your Power (479-321-4160) for same-day availability</span></li>
+                <li><span class="time">11:00 AM</span> <span class="desc">Head to activity: Paint Your Power (Rogers) or Amazeum (Bentonville)</span></li>
+                <li><span class="time">11:30 - 2:00 PM</span> <span class="desc">Activity time! ~2 hours of fun for all ages</span></li>
+                <li><span class="time">2:30 PM</span> <span class="desc">Optional: Oasis Nail Bar — Parker mani ($15)</span></li>
+                <li><span class="time">3:30 PM</span> <span class="desc">Home: rest, toddler nap, set up decorations</span></li>
+                <li><span class="time">5:00 PM</span> <span class="desc">Join Red Lobster waitlist online</span></li>
+                <li><span class="time">5:30 PM</span> <span class="desc">Head to Red Lobster (party of 7)</span></li>
+                <li><span class="time">6:00 - 7:30 PM</span> <span class="desc">Birthday dinner + free dessert celebration</span></li>
+                <li><span class="time">8:00 PM</span> <span class="desc">Home: cake, gifts, photos, birthday letter from Dad</span></li>
+            </ul>
+        </div>
+
+        <!-- Checklist -->
+        <div class="section">
+            <h2>Action Items</h2>
+            <ul class="checklist">
+                <li>Call Paint Your Power (479-321-4160) — ask about today</li>
+                <li>If no PYP, head to Amazeum (no booking needed)</li>
+                <li>Call Red Lobster (479-636-1648) — reserve for 7, mention birthday</li>
+                <li>Pick up birthday crown + decorations (Target or Dollar Tree)</li>
+                <li>Optional: Oasis Nail Bar for quick kids mani</li>
+                <li>Optional: Book Princess Party Palace for another day this week</li>
+                <li>Write Parker a birthday letter</li>
+            </ul>
+        </div>
+
+        <!-- Future -->
+        <div class="section">
+            <h2>More NWA Fun (Saved for Future)</h2>
+            <table class="pricing-table">
+                <thead><tr><th>Venue</th><th>Type</th><th>Price</th><th>Best Ages</th></tr></thead>
+                <tbody>
+                    <tr><td>Sky Zone</td><td>Trampoline Park</td><td>Varies</td><td>5-13</td></tr>
+                    <tr><td>Chuck E. Cheese</td><td>Arcade/Games</td><td>$99.99 (6 kids)</td><td>4-10</td></tr>
+                    <tr><td>Fast Lane Entertainment</td><td>Bowling/Laser Tag/VR</td><td>Varies</td><td>7-15</td></tr>
+                    <tr><td>Lokomotion</td><td>Go-Karts/Mini-Golf</td><td>$199-$450</td><td>6-14</td></tr>
+                    <tr><td>Crystal Bridges</td><td>Art Museum/Outdoors</td><td>Free</td><td>All ages</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            Parker's 7th Birthday Plan | April 4, 2026 | Rogers, AR<br>
+            Research: Codex CLI + NotebookLM | Notebook: Kids Activities NWA
+        </div>
+    </div>
+</body>
+</html>

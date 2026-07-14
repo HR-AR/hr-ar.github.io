@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="A decision tool for choosing where to give birth in Northwest Arkansas. Built with love.">
+<title>Where should we welcome our baby? — NWA Birthing Decision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F2EA;
+    --cream-dark: #EDE4D3;
+    --terracotta: #C4694A;
+    --terracotta-soft: #E89A7D;
+    --terracotta-bg: #F5E5DD;
+    --deep-green: #2F4F3F;
+    --deep-green-soft: #5D7A6A;
+    --charcoal: #2B2622;
+    --warm-gray: #8B8680;
+    --soft-gray: #D9D3C9;
+    --white: #FFFCF7;
+    --shadow-sm: 0 1px 3px rgba(43, 38, 34, 0.06);
+    --shadow-md: 0 4px 12px rgba(43, 38, 34, 0.08);
+    --shadow-lg: 0 12px 32px rgba(43, 38, 34, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.65;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .serif {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  h1 { font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 600; }
+  h2 { font-size: clamp(1.75rem, 3.5vw, 2.5rem); }
+  h3 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); }
+  h4 { font-size: 1.25rem; font-weight: 600; }
+
+  p { margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  a { color: var(--terracotta); text-decoration: none; border-bottom: 1px dotted currentColor; }
+  a:hover { color: var(--deep-green); }
+
+  /* Layout */
+  .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+  .container-wide { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--terracotta-bg) 100%);
+    padding: 80px 24px 100px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, var(--terracotta-soft) 0%, transparent 70%);
+    opacity: 0.3;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .hero-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+    color: var(--terracotta);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .hero h1 { margin-bottom: 20px; color: var(--charcoal); }
+  .hero-sub {
+    font-size: 1.25rem;
+    color: var(--warm-gray);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    margin-bottom: 36px;
+  }
+  .hero-note {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 28px 32px;
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: left;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--cream-dark);
+  }
+  .hero-note p { color: var(--charcoal); font-size: 1.05rem; }
+  .hero-note .sig { color: var(--warm-gray); font-style: italic; margin-top: 12px; }
+
+  /* Sections */
+  section { padding: 72px 24px; }
+  section.alt { background: var(--white); }
+
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 48px;
+  }
+  .section-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.7rem;
+    color: var(--terracotta);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .section-header h2 { margin-bottom: 14px; }
+  .section-header p { color: var(--warm-gray); font-size: 1.1rem; }
+
+  /* Cards */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--cream-dark);
+    transition: box-shadow 0.2s ease;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+
+  /* Preferences Quiz */
+  .quiz-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  .quiz-item {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .quiz-item:first-child { padding-top: 0; }
+  .quiz-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .quiz-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+  .quiz-hint {
+    color: var(--warm-gray);
+    font-size: 0.92rem;
+    margin-bottom: 16px;
+  }
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .radio-option {
+    flex: 1;
+    min-width: 120px;
+  }
+  .radio-option input[type="radio"] { display: none; }
+  .radio-option label {
+    display: block;
+    padding: 14px 16px;
+    background: var(--cream);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .radio-option label:hover {
+    background: var(--terracotta-bg);
+    border-color: var(--terracotta-soft);
+  }
+  .radio-option input[type="radio"]:checked + label {
+    background: var(--terracotta);
+    color: var(--white);
+    border-color: var(--terracotta);
+    font-weight: 500;
+  }
+  .slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .slider-label { font-size: 0.85rem; color: var(--warm-gray); min-width: 90px; }
+  .slider-label.right { text-align: right; }
+  input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 6px;
+    background: var(--cream-dark);
+    border-radius: 3px;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    border: 3px solid var(--white);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 16px; height: 16px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--white);
+  }
+
+  /* Recommendation */
+  .recommendation {
+    background: linear-gradient(135deg, var(--deep-green) 0%, var(--deep-green-soft) 100%);
+    color: var(--white);
+    padding: 48px 40px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .recommendation .rec-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-bottom: 16px;
+  }
+  .recommendation h3 {
+    font-size: 2.5rem;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .recommendation .rec-why {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    max-width: 520px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .rec-runnerup {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    margin-top: 24px;
+    font-size: 0.95rem;
+  }
+  .rec-runnerup strong { color: var(--terracotta-soft); }
+
+  /* Facility comparison */
+  .facilities-grid {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  .facility-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--cream-dark);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .facility-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--terracotta);
+  }
+  .facility-card.top-pick::before { background: var(--deep-green); height: 6px; }
+  .facility-card.top-pick {
+    box-shadow: var(--shadow-md);
+    border-color: var(--deep-green-soft);
+  }
+  .facility-badge {
+    display: inline-block;
+    background: var(--deep-green);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+    align-self: flex-start;
+  }
+  .facility-card h3 {
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+  .facility-location {
+    color: var(--warm-gray);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+  .facility-summary {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--charcoal);
+    margin-bottom: 24px;
+    line-height: 1.5;
+    padding: 16px;
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--terracotta);
+  }
+  .facility-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .stat {
+    padding: 12px;
+    background: var(--cream);
+    border-radius: var(--radius-sm);
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--warm-gray);
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+  .stat-value .small { font-size: 0.85rem; font-weight: 400; color: var(--warm-gray); }
+
+  .facility-features {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+  .facility-features li {
+    padding: 8px 0;
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .facility-features li::before {
+    content: '✓';
+    color: var(--deep-green);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .facility-features li.caution::before { content: '!'; color: var(--terracotta); }
+  .facility-features li.missing::before { content: '×'; color: var(--warm-gray); }
+  .facility-features li.missing { color: var(--warm-gray); }
+
+  .facility-voices {
+    margin-top: 16px;
+    padding-top: 20px;
+    border-top: 1px solid var(--cream-dark);
+  }
+  .voice-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--charcoal);
+    padding: 12px 0;
+    line-height: 1.5;
+  }
+  .voice-attribution {
+    font-size: 0.8rem;
+    color: var(--warm-gray);
+    margin-top: 4px;
+  }
+
+  /* What matters accordion */
+  .accordion-item {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid var(--cream-dark);
+  }
+  .accordion-header {
+    padding: 20px 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--white);
+    transition: background 0.15s ease;
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+  .accordion-header:hover { background: var(--cream); }
+  .accordion-icon {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--terracotta);
+    transition: transform 0.2s ease;
+  }
+  .accordion-item.open .accordion-icon { transform: rotate(45deg); }
+  .accordion-body {
+    padding: 0 28px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .accordion-item.open .accordion-body {
+    padding: 0 28px 24px;
+    max-height: 2000px;
+  }
+
+  /* Comparison table */
+  .compare-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--cream-dark);
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+  }
+  .compare-table th, .compare-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--cream-dark);
+    font-size: 0.95rem;
+  }
+  .compare-table th {
+    background: var(--deep-green);
+    color: var(--white);
+    font-weight: 500;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+  }
+  .compare-table th:first-child { width: 180px; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--cream); }
+  .compare-table td.best { background: rgba(93, 122, 106, 0.08); font-weight: 600; color: var(--deep-green); }
+  .compare-table td.worst { color: var(--warm-gray); }
+
+  /* Tour questions */
+  .tour-checklist {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .tour-item {
+    display: flex;
+    gap: 16px;
+    padding: 18px 20px;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    border: 1px solid var(--cream-dark);
+    transition: all 0.15s ease;
+  }
+  .tour-item:hover { background: var(--cream); }
+  .tour-item.checked {
+    background: rgba(93, 122, 106, 0.08);
+    border-color: var(--deep-green-soft);
+  }
+  .tour-item input[type="checkbox"] {
+    margin-top: 4px;
+    width: 20px; height: 20px;
+    accent-color: var(--terracotta);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .tour-item label {
+    cursor: pointer;
+    flex: 1;
+    font-size: 0.97rem;
+    line-height: 1.5;
+  }
+  .tour-item.checked label { color: var(--warm-gray); text-decoration: line-through; }
+  .tour-item-hint {
+    display: block;
+    color: var(--warm-gray);
+    font-size: 0.85rem;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* Notes */
+  .notes-area {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius-md);
+    color: var(--charcoal);
+    resize: vertical;
+    box-shadow: var(--shadow-sm);
+  }
+  textarea:focus {
+    outline: none;
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 3px rgba(196, 105, 74, 0.15);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--terracotta);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: #A8583E;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--deep-green);
+    border: 1px solid var(--deep-green-soft);
+  }
+  .btn-secondary:hover { background: var(--cream); }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  /* Honest-gap callout */
+  .callout {
+    background: rgba(196, 105, 74, 0.08);
+    border-left: 4px solid var(--terracotta);
+    padding: 24px 28px;
+    border-radius: var(--radius-sm);
+    margin: 32px 0;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .callout-title {
+    font-weight: 600;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  footer p { opacity: 0.7; font-size: 0.9rem; }
+  footer .heart { color: var(--terracotta-soft); }
+
+  /* Decision summary */
+  .decision-box {
+    background: var(--white);
+    border: 2px solid var(--deep-green);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .decision-box h3 {
+    color: var(--deep-green);
+    margin-bottom: 16px;
+    font-size: 2rem;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .hero { padding: 60px 20px 80px; }
+    section { padding: 56px 20px; }
+    .facilities-grid { grid-template-columns: 1fr; }
+    .facility-stats { grid-template-columns: 1fr; }
+    .radio-option { min-width: 100%; }
+    .quiz-card { padding: 28px 20px; }
+    .facility-card, .card { padding: 24px; }
+    .recommendation { padding: 36px 24px; }
+  }
+
+  /* Print */
+  @media print {
+    .hero, footer, .btn-row, .accordion-header { break-inside: avoid; }
+    .accordion-body { max-height: none !important; padding: 0 28px 24px !important; }
+    .accordion-item { break-inside: avoid; }
+    body { background: white; }
+  }
+
+  /* Nav */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 242, 234, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--cream-dark);
+    padding: 12px 0;
+  }
+  .nav-inner {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 0 24px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1120px;
+    margin: 0 auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-inner a {
+    color: var(--charcoal);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .nav-inner a:hover { background: var(--terracotta-bg); color: var(--terracotta); }
+
+  /* Utility */
+  .mt-2 { margin-top: 2rem; }
+  .text-center { text-align: center; }
+  .text-warm { color: var(--warm-gray); }
+  .small { font-size: 0.875rem; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-kicker">For us. For baby.</div>
+    <h1>Where should we welcome our baby?</h1>
+    <p class="hero-sub">A decision tool built with love — your preferences, your values, your call.</p>
+
+    <div class="hero-note">
+      <p><strong>Hey love.</strong> I spent a lot of time researching where in NWA would be the best place for you to give birth. I pulled every hospital rating, every recent review, every bit of data I could find — but none of that matters more than what <em>you</em> care about.</p>
+      <p class="mt-2">This tool walks you through the three real options for us (Mercy, Willow Creek, and Washington Regional). You tell it what matters to you. It tells you which one fits best — then shows you everything so you can second-guess it however you like. No pressure. We can talk through it together afterward.</p>
+      <p class="sig">— Hakeem</p>
+    </div>
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#quiz">Your Preferences</a>
+    <a href="#recommendation">Recommendation</a>
+    <a href="#facilities">The Three Options</a>
+    <a href="#what-matters">What Women Care About</a>
+    <a href="#numbers">The Numbers</a>
+    <a href="#tour">Tour Questions</a>
+    <a href="#notes">Your Notes</a>
+  </div>
+</nav>
+
+<!-- QUIZ -->
+<section id="quiz" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Step 1</div>
+      <h2>What matters most to you?</h2>
+      <p>Eight quick questions. Your answers stay on this device — nothing gets sent anywhere. Move through them at your own pace; come back whenever.</p>
+    </div>
+
+    <div class="quiz-card card">
+      <div class="quiz-item" data-q="risk">
+        <div class="quiz-q">Has your pregnancy been flagged as low-risk so far?</div>
+        <div class="quiz-hint">If there's any concern about gestational diabetes, high blood pressure, twins, advanced maternal age, or anything else — say "not sure" or "no."</div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="risk" value="low" id="risk-low"><label for="risk-low">Yes, low-risk</label></div>
+          <div class="radio-option"><input type="radio" name="risk" value="unsure" id="risk-unsure"><label for="risk-unsure">Not sure yet</label></div>
+          <div class="radio-option"><input type="radio" name="risk" value="high" id="risk-high"><label for="risk-high">Some concerns</label></div>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="care_model">
+        <div class="quiz-q">Who do you picture catching the baby?</div>
+        <div class="quiz-hint">Physician-led care is the default — a doctor you'll meet and whoever is on call when you go into labor. Midwife-led care (CNMs) tends to mean fewer interventions, more unmedicated options, longer one-on-one time, and is Cochrane-evidence-backed for safer outcomes in low-risk births.</div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="care_model" value="physician" id="care-phys"><label for="care-phys">OB / Physician</label></div>
+          <div class="radio-option"><input type="radio" name="care_model" value="midwife" id="care-mw"><label for="care-mw">Midwife (CNM)</label></div>
+          <div class="radio-option"><input type="radio" name="care_model" value="open" id="care-open"><label for="care-open">Open to either</label></div>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="pain">
+        <div class="quiz-q">How do you feel about an epidural?</div>
+        <div class="quiz-hint">No wrong answer. Just where your head is right now — it can change the day of.</div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="pain" value="yes" id="pain-yes"><label for="pain-yes">Yes, planning one</label></div>
+          <div class="radio-option"><input type="radio" name="pain" value="maybe" id="pain-maybe"><label for="pain-maybe">Maybe, see how I feel</label></div>
+          <div class="radio-option"><input type="radio" name="pain" value="avoid" id="pain-avoid"><label for="pain-avoid">Want to avoid it</label></div>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="drive">
+        <div class="quiz-q">How important is driving distance from Rogers during labor?</div>
+        <div class="quiz-hint">Mercy = 5 min. Willow Creek (Johnson) = 20–25 min. Washington Regional (Fayetteville) = 35–45 min.</div>
+        <div class="slider-wrap">
+          <span class="slider-label">Don't care</span>
+          <input type="range" name="drive" min="1" max="5" value="3">
+          <span class="slider-label right">Really important</span>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="experience">
+        <div class="quiz-q">How much does nurse and staff kindness matter vs. clinical numbers?</div>
+        <div class="quiz-hint">Some facilities rank higher on quality metrics; others get better word-of-mouth for how women are treated.</div>
+        <div class="slider-wrap">
+          <span class="slider-label">Just the numbers</span>
+          <input type="range" name="experience" min="1" max="5" value="4">
+          <span class="slider-label right">Feeling cared for</span>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="mental_health">
+        <div class="quiz-q">Is postpartum mental health support a priority for you?</div>
+        <div class="quiz-hint">Only Washington Regional has a named perinatal psychiatrist in NWA (Dr. Erin Jefferson, UAMS). Mercy has a dedicated perinatal navigator. Postpartum depression is real — nothing to hide from.</div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="mental_health" value="high" id="mh-high"><label for="mh-high">Very important</label></div>
+          <div class="radio-option"><input type="radio" name="mental_health" value="some" id="mh-some"><label for="mh-some">Somewhat</label></div>
+          <div class="radio-option"><input type="radio" name="mental_health" value="low" id="mh-low"><label for="mh-low">Not a big factor</label></div>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="doula">
+        <div class="quiz-q">Are you thinking about hiring a doula?</div>
+        <div class="quiz-hint">Walmart covers doula services at $0 copay for associates. All three hospitals allow doulas; Willow Creek explicitly cites ACOG and is the most doula-forward.</div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="doula" value="yes" id="doula-yes"><label for="doula-yes">Yes</label></div>
+          <div class="radio-option"><input type="radio" name="doula" value="maybe" id="doula-maybe"><label for="doula-maybe">Considering</label></div>
+          <div class="radio-option"><input type="radio" name="doula" value="no" id="doula-no"><label for="doula-no">No</label></div>
+        </div>
+      </div>
+
+      <div class="quiz-item" data-q="csection">
+        <div class="quiz-q">How important is a low C-section rate to you?</div>
+        <div class="quiz-hint">Willow Creek: 17.8% (lowest NWA). Washington Regional: 21.7%. Mercy: 22.2%. All below Arkansas average (27.6%). NMC Bentonville: 44.1% — we're ruling that one out.</div>
+        <div class="slider-wrap">
+          <span class="slider-label">Not a concern</span>
+          <input type="range" name="csection" min="1" max="5" value="3">
+          <span class="slider-label right">Top priority</span>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="btn-get-rec">See my recommendation</button>
+        <button class="btn btn-secondary" id="btn-reset">Reset answers</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMENDATION -->
+<section id="recommendation">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Step 2</div>
+      <h2>Your match</h2>
+      <p>Based on what you said matters to you. This isn't the final word — scroll down to see all three options in detail before you decide.</p>
+    </div>
+
+    <div id="rec-output" class="recommendation" style="display:none;">
+      <div class="rec-kicker">Your best fit</div>
+      <h3 id="rec-facility">—</h3>
+      <p class="rec-why" id="rec-why">Answer the questions above to see your personalized match.</p>
+      <div class="rec-runnerup" id="rec-runnerup"></div>
+    </div>
+
+    <div id="rec-placeholder" class="decision-box">
+      <h3>Answer the questions above</h3>
+      <p class="text-warm">Your personalized recommendation will appear here once you've told it what matters to you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE THREE OPTIONS -->
+<section id="facilities" class="alt">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-kicker">Step 3</div>
+      <h2>The three options, in plain English</h2>
+      <p>What it actually feels like to give birth at each place, not marketing copy.</p>
+    </div>
+
+    <div class="facilities-grid">
+
+      <!-- MERCY ROGERS -->
+      <div class="facility-card" id="card-mercy">
+        <h3>Mercy Rogers</h3>
+        <div class="facility-location">Rogers, AR · 5 minutes from home</div>
+        <div class="facility-summary">"The safest default. 5 minutes away, someone's always there, they won't sue us over a bill, and they've been aggressively working to bring their C-section rate down."</div>
+
+        <div class="facility-stats">
+          <div class="stat">
+            <div class="stat-label">First-time mom C-section</div>
+            <div class="stat-value">22.2%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">CMS Overall</div>
+            <div class="stat-value">5★ <span class="small">(4★ patient)</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Leapfrog Safety</div>
+            <div class="stat-value">A <span class="small">(Fall 2025)</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">NICU level</div>
+            <div class="stat-value">III <span class="small">(on-site)</span></div>
+          </div>
+        </div>
+
+        <h4 style="margin: 16px 0 8px;">What works</h4>
+        <ul class="facility-features">
+          <li>24/7 in-house OB + anesthesia (only NWA facility with both publicly confirmed)</li>
+          <li>Brand-new OB Emergency Department (opened October 2025)</li>
+          <li>Outpatient lactation clinic, "Weigh-In Wednesdays," milk bank depot</li>
+          <li>ARPQC Platinum Partner for Safe Reduction of Primary Cesarean Birth</li>
+          <li>Does not sue patients over unpaid bills (Leapfrog-verified)</li>
+          <li>Private room, labor-delivery-recovery in one space</li>
+          <li>Gold-level Safe Sleep certification (only in region)</li>
+          <li>Named "America's Best Maternity Hospital" (Newsweek 2025)</li>
+        </ul>
+
+        <h4 style="margin: 16px 0 8px;">What to watch for</h4>
+        <ul class="facility-features">
+          <li class="caution">Volume is up 10.8% YoY (2,498 births in 2025) — unit running hot</li>
+          <li class="caution">Colon-surgery infection rate 2x expected (ask about C-section SSI on tour)</li>
+          <li class="missing">No certified nurse midwives with delivery privileges</li>
+          <li class="missing">No on-site maternal-fetal medicine specialist</li>
+        </ul>
+
+        <div class="facility-voices">
+          <div class="voice-quote">"I would rank them: Washington Regional, then Mercy, then Northwest Bentonville, then Springdale."</div>
+          <div class="voice-attribution">— Nursing instructor, r/northwestarkansas</div>
+        </div>
+      </div>
+
+      <!-- WILLOW CREEK -->
+      <div class="facility-card" id="card-willow">
+        <h3>Willow Creek Women's Hospital</h3>
+        <div class="facility-location">Johnson, AR · 20–25 minutes from home</div>
+        <div class="facility-summary">"The bet. Lowest C-section rate in NWA, only place with real midwife-led delivery, first-in-nation VBAC Center of Excellence — if you want a low-intervention birth, this is where."</div>
+
+        <div class="facility-stats">
+          <div class="stat">
+            <div class="stat-label">First-time mom C-section</div>
+            <div class="stat-value">17.8%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">CMS Overall</div>
+            <div class="stat-value">2★ <span class="small">(shared)</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Leapfrog Safety</div>
+            <div class="stat-value">A <span class="small">(Fall 2025)</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">NICU level</div>
+            <div class="stat-value">IIIa <span class="small">(on-site)</span></div>
+          </div>
+        </div>
+
+        <h4 style="margin: 16px 0 8px;">What works</h4>
+        <ul class="facility-features">
+          <li>Lowest first-time-mom C-section rate in NWA (17.8%)</li>
+          <li>Certified nurse midwives with delivery privileges (Candice Killeen, Brennan Straka via Community Clinic)</li>
+          <li>Low-intervention birthing suites with labor tubs and nitrous oxide</li>
+          <li>First-in-nation VBAC Center of Excellence</li>
+          <li>Women-only specialty hospital (no ER noise, no other patient types)</li>
+          <li>Strongest pro-doula stance of any NWA hospital (cites ACOG directly)</li>
+          <li>Level IIIa NICU dedicated to newborns</li>
+        </ul>
+
+        <h4 style="margin: 16px 0 8px;">What to watch for</h4>
+        <ul class="facility-features">
+          <li class="caution">The 2-star CMS rating is a reporting artifact (shared provider ID with NMC Springdale) — data is bundled, so Willow Creek's actual patient satisfaction is unknowable from public sources</li>
+          <li class="caution">Must actively request CNM care via Community Clinic — default pathway is still OB</li>
+          <li class="caution">Owned by CHS (Community Health Systems, for-profit) — same system as NMC Bentonville</li>
+          <li class="caution">Uses MDSave pre-pay model instead of traditional billing</li>
+          <li class="missing">No documented maternal-fetal medicine on site</li>
+        </ul>
+
+        <div class="facility-voices">
+          <div class="voice-quote">"Willow Creek has the specialized suites to support it [unmedicated birth] — it's a dedicated obstetrics facility, not a general hospital."</div>
+          <div class="voice-attribution">— Synthesized from Reddit r/northwestarkansas discussion</div>
+        </div>
+      </div>
+
+      <!-- WASHINGTON REGIONAL -->
+      <div class="facility-card" id="card-wrmc">
+        <h3>Washington Regional</h3>
+        <div class="facility-location">Fayetteville, AR · 35–45 minutes from home</div>
+        <div class="facility-summary">"The hedge. Only NWA hospital with on-site high-risk specialists and a perinatal psychiatrist — the right answer if anything gets complicated."</div>
+
+        <div class="facility-stats">
+          <div class="stat">
+            <div class="stat-label">First-time mom C-section</div>
+            <div class="stat-value">21.7%</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">CMS Overall</div>
+            <div class="stat-value">4★ <span class="small">(3★ patient)</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Leapfrog Safety</div>
+            <div class="stat-value">A <span class="small">(7th straight)</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">NICU level</div>
+            <div class="stat-value">III-A <span class="small">(6 neonatologists)</span></div>
+          </div>
+        </div>
+
+        <h4 style="margin: 16px 0 8px;">What works</h4>
+        <ul class="facility-features">
+          <li>Only hospital in Arkansas named "High Performing for Maternity Care" by US News</li>
+          <li>Only on-site maternal-fetal medicine (high-risk) specialist in NWA</li>
+          <li>Only named perinatal psychiatrist in NWA (Dr. Erin Jefferson, UAMS)</li>
+          <li>Largest NICU in NWA — 6 neonatologists, dedicated twins rooms</li>
+          <li>Best nurse-to-patient ratio (7.63 RN hours/patient day)</li>
+          <li>Infant Nutrition Lab, certified lactation consultants</li>
+          <li>Low-intervention birth options, patient-initiated rapid response</li>
+        </ul>
+
+        <h4 style="margin: 16px 0 8px;">What to watch for</h4>
+        <ul class="facility-features">
+          <li class="caution">35–45 minute drive — real cost during active labor or bad weather</li>
+          <li class="caution">Does sue patients over unpaid bills (Leapfrog "Limited Achievement" on billing ethics)</li>
+          <li class="caution">Consent forms at 9th-grade reading level; no documented interpreter services</li>
+          <li class="missing">No certified nurse midwives with delivery privileges</li>
+          <li class="missing">24/7 anesthesia status not publicly confirmed</li>
+        </ul>
+
+        <div class="facility-voices">
+          <div class="voice-quote">"I would rank them: Washington Regional, then Mercy, then Northwest Bentonville, then Springdale."</div>
+          <div class="voice-attribution">— Nursing instructor, r/northwestarkansas</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">An honest note about reviews</div>
+      <p>The research found a lot of official quality data (CMS, Leapfrog, ARPQC) but very few recent first-person birth stories. The patient voices we have mostly come from a Reddit thread that's ~2 years old. When you tour, ask the charge nurse (not the marketing person) for recent examples — their willingness to give specifics tells you more than any rating.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WOMEN CARE ABOUT -->
+<section id="what-matters">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Step 4</div>
+      <h2>What women actually care about</h2>
+      <p>Tap any topic to see how each facility handles it.</p>
+    </div>
+
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Will they respect my birth plan?</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> Physician-led; birth plans are generally honored within clinical judgment. Strong culture around reducing unnecessary interventions (ARPQC Platinum).</p>
+          <p><strong>Willow Creek:</strong> Strongest culture around low-intervention, plan-honoring birth. The whole hospital is designed for this. Your plan is the point.</p>
+          <p><strong>Washington Regional:</strong> Physician-led; honors plans but US News ranking comes from outcomes, not flexibility — some patients report a more clinical feel.</p>
+          <p class="text-warm small mt-2">What to ask on tour: "Can I see a sample birth plan your team honored for a first-time mom last month?"</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Pain management options (beyond epidural)</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> Full epidural service, 24/7 CRNA anesthesia, IV pain meds. Less emphasis on alternatives.</p>
+          <p><strong>Willow Creek:</strong> Full epidural + nitrous oxide + labor tubs + hydrotherapy + TENS units + movement-friendly rooms. The most options for non-medicated pain management.</p>
+          <p><strong>Washington Regional:</strong> Full epidural + some low-intervention options. Anesthesia staffing model not publicly confirmed.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Room setup, tubs, partner accommodation</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> LDRP private rooms (labor, delivery, recovery, postpartum all in one room). Partner sleep sofa. No tubs.</p>
+          <p><strong>Willow Creek:</strong> Low-intervention birthing suites with tubs, wireless fetal monitoring so you can walk, birthing balls. Private rooms.</p>
+          <p><strong>Washington Regional:</strong> Private rooms, dedicated twins rooms in NICU, partner accommodation. Ask about tubs.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Lactation support and breastfeeding</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> Best-documented lactation infrastructure in NWA. Outpatient lactation clinic that continues after you go home, "Weigh-In Wednesdays" drop-in, milk bank depot. Dedicated Perinatal Navigator for the weeks after.</p>
+          <p><strong>Willow Creek:</strong> Inpatient IBCLC lactation consultants, postpartum support group, dedicated women's pelvic floor PT clinic.</p>
+          <p><strong>Washington Regional:</strong> Certified lactation consultants + Infant Nutrition Lab (unique to them).</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>What happens if there's an emergency</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> 24/7 in-house OB + CRNA (fastest emergency response of the three). New OB Emergency Department. Level III NICU on-site. 5 minutes from home — the drive-time advantage matters most in precipitous labor or weather emergencies.</p>
+          <p><strong>Willow Creek:</strong> Level IIIa NICU with specialized neonatal transport, high-frequency ventilation, therapeutic cooling. Anesthesia staffing model not publicly confirmed.</p>
+          <p><strong>Washington Regional:</strong> Largest NICU in NWA, 6 neonatologists, only on-site MFM specialist. Best option for high-risk or complicated deliveries. Patient-initiated rapid response.</p>
+          <p class="text-warm small mt-2"><strong>For any NWA hospital:</strong> The only Level IV NICU in the state is at Arkansas Children's in Little Rock. Mercy and Washington Regional have transfer relationships established. Arkansas Children's Northwest in Springdale doesn't have L&D but can serve as pediatric backup.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Postpartum mental health</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> Screening at discharge + Perinatal Navigator follow-up. No on-site psychiatry.</p>
+          <p><strong>Willow Creek:</strong> Postpartum support groups. No documented specialist pathway.</p>
+          <p><strong>Washington Regional:</strong> Only NWA facility with a named perinatal psychiatrist (Dr. Erin Jefferson, UAMS Women's Mental Health Program). Real specialist-level referral path if postpartum depression or anxiety emerges.</p>
+          <p class="text-warm small mt-2">Postpartum depression affects about 1 in 7 new moms in the US, and the rate in Arkansas is higher. Worth planning for the option, even if you don't need it.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Insurance, billing, out-of-pocket</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Mercy:</strong> Native online cost estimator. Does NOT sue patients over unpaid bills. Most patient-friendly billing culture of the three.</p>
+          <p><strong>Willow Creek:</strong> Uses MDSave pre-pay marketplace. May hold BCBS Blue Distinction+ for maternity — if Walmart routes through that, could be lowest out-of-pocket. Verify in benefits portal.</p>
+          <p><strong>Washington Regional:</strong> Does sue patients over unpaid bills (Leapfrog-flagged). Otherwise standard billing.</p>
+          <p class="text-warm small mt-2"><strong>For Walmart associates:</strong> Doula services are covered at $0 copay. Check the Walmart benefits portal for each facility's network tier before you decide.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Doula-friendliness</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Willow Creek:</strong> Strongest pro-doula stance. Cites ACOG directly. Makes doulas feel welcome as part of the team.</p>
+          <p><strong>Mercy:</strong> Marketed as "doula-friendly birthplace." Welcoming in practice.</p>
+          <p><strong>Washington Regional:</strong> Allows doulas; not prominently featured in marketing. No reports of friction.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>VBAC (if we have another baby later)</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-body">
+          <p><strong>Willow Creek:</strong> First-in-nation VBAC Center of Excellence (self-designated, but backed by real infrastructure: CNMs + 24/7 OB + L3A NICU + lowest primary C-section rate).</p>
+          <p><strong>Mercy & Washington Regional:</strong> Physician-led TOLAC (trial of labor after C-section) is possible but neither has a published VBAC-focused program.</p>
+          <p class="text-warm small mt-2">Arkansas as a state has a very low VBAC rate — most women with a prior C-section default to repeat. Willow Creek is actively fighting that trend.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- THE NUMBERS -->
+<section id="numbers" class="alt">
+  <div class="container-wide">
+    <div class="section-header">
+      <div class="section-kicker">Step 5</div>
+      <h2>The numbers, side by side</h2>
+      <p>For when you want the receipts. Best value in each row highlighted.</p>
+    </div>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Mercy Rogers</th>
+            <th>Willow Creek</th>
+            <th>Washington Regional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Drive time from 72758</strong></td>
+            <td class="best">5–10 min</td>
+            <td>20–25 min</td>
+            <td class="worst">35–45 min</td>
+          </tr>
+          <tr>
+            <td><strong>First-time mom C-section rate</strong></td>
+            <td>22.2%</td>
+            <td class="best">17.8%</td>
+            <td>21.7%</td>
+          </tr>
+          <tr>
+            <td><strong>NICU level</strong></td>
+            <td>III</td>
+            <td>III-a</td>
+            <td class="best">III-A (largest, 6 neonatologists)</td>
+          </tr>
+          <tr>
+            <td><strong>24/7 in-house OB + anesthesia</strong></td>
+            <td class="best">Both confirmed</td>
+            <td class="worst">Not publicly confirmed</td>
+            <td class="worst">Not publicly confirmed</td>
+          </tr>
+          <tr>
+            <td><strong>Midwife (CNM) delivery privileges</strong></td>
+            <td class="worst">No</td>
+            <td class="best">Yes (Community Clinic pathway)</td>
+            <td class="worst">No</td>
+          </tr>
+          <tr>
+            <td><strong>High-risk (MFM) specialist on site</strong></td>
+            <td class="worst">No</td>
+            <td class="worst">No</td>
+            <td class="best">Yes (only in NWA)</td>
+          </tr>
+          <tr>
+            <td><strong>Perinatal psychiatrist</strong></td>
+            <td class="worst">No</td>
+            <td class="worst">No</td>
+            <td class="best">Yes (Dr. Jefferson, UAMS)</td>
+          </tr>
+          <tr>
+            <td><strong>Leapfrog Safety Grade</strong></td>
+            <td class="best">A</td>
+            <td class="best">A (shared)</td>
+            <td class="best">A (7th straight)</td>
+          </tr>
+          <tr>
+            <td><strong>CMS overall rating</strong></td>
+            <td class="best">5 stars</td>
+            <td>2 stars (reporting artifact)</td>
+            <td>4 stars</td>
+          </tr>
+          <tr>
+            <td><strong>CMS patient experience</strong></td>
+            <td class="best">4 stars</td>
+            <td>1 star (reporting artifact)</td>
+            <td>3 stars</td>
+          </tr>
+          <tr>
+            <td><strong>Billing ethics</strong></td>
+            <td class="best">Does not sue patients</td>
+            <td>MDSave pre-pay</td>
+            <td class="worst">Sues over unpaid bills</td>
+          </tr>
+          <tr>
+            <td><strong>Doula-friendliness</strong></td>
+            <td>Marketed as friendly</td>
+            <td class="best">Most pro-doula (cites ACOG)</td>
+            <td>Allowed, not highlighted</td>
+          </tr>
+          <tr>
+            <td><strong>Labor tubs / hydrotherapy</strong></td>
+            <td class="worst">No</td>
+            <td class="best">Yes</td>
+            <td>Ask on tour</td>
+          </tr>
+          <tr>
+            <td><strong>Nitrous oxide for labor</strong></td>
+            <td>Ask on tour</td>
+            <td class="best">Yes</td>
+            <td>Ask on tour</td>
+          </tr>
+          <tr>
+            <td><strong>Outpatient lactation clinic</strong></td>
+            <td class="best">Yes (best-documented)</td>
+            <td>Postpartum group</td>
+            <td>Certified LCs + Infant Nutrition Lab</td>
+          </tr>
+          <tr>
+            <td><strong>Annual birth volume (2025)</strong></td>
+            <td>2,498 (up 10.8%)</td>
+            <td>Not publicly reported</td>
+            <td>Not publicly reported</td>
+          </tr>
+          <tr>
+            <td><strong>ARPQC partnership tier</strong></td>
+            <td class="best">Platinum</td>
+            <td>Participant</td>
+            <td>Participant</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-warm small text-center" style="margin-top: 16px;">
+      Arkansas context: state first-time-mom C-section rate is 27.6%. All three of our options are below state average. NMC Bentonville (44.1%) is why it's not on this list.
+    </p>
+  </div>
+</section>
+
+<!-- TOUR QUESTIONS -->
+<section id="tour">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Step 6</div>
+      <h2>Questions to ask on every tour</h2>
+      <p>Tap to check off as you ask each one. The charge nurse is the right person — not the tour guide from marketing.</p>
+    </div>
+
+    <div class="tour-checklist">
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-1">
+        <label for="tour-1">
+          <strong>The big one:</strong> "In the last 30 days, how many first-time moms got a C-section, and what was the most common clinical reason?"
+          <span class="tour-item-hint">If they can't give a real answer, that's a data point.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-2">
+        <label for="tour-2">
+          "Walk me through what happens if my labor starts to stall at 5cm — what's the typical sequence of interventions?"
+          <span class="tour-item-hint">Tests how quickly they reach for Pitocin, artificial rupture, or a section.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-3">
+        <label for="tour-3">
+          "What's your average decision-to-incision time for emergency C-sections, and what percentage happen in under 30 minutes?"
+          <span class="tour-item-hint">Target is &lt;30 min. No hospital publishes this, so you have to ask.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-4">
+        <label for="tour-4">
+          "Is anesthesia in-house 24/7, or on-call from home at night and on weekends?"
+          <span class="tour-item-hint">Only Mercy has this publicly confirmed. The others should tell you directly.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-5">
+        <label for="tour-5">
+          "What's the L&D nurse-to-patient ratio on day, night, and weekend shifts?"
+          <span class="tour-item-hint">1:1 or 1:2 is ideal. 1:3+ means rushed care.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-6">
+        <label for="tour-6">
+          "How do you support immediate skin-to-skin, delayed cord clamping, and rooming-in with baby?"
+          <span class="tour-item-hint">All three matter for bonding and breastfeeding outcomes.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-7">
+        <label for="tour-7">
+          "If I write a birth plan, how does your team typically respond? Can I see an example plan that was honored last month?"
+          <span class="tour-item-hint">Specifics reveal culture.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-8">
+        <label for="tour-8">
+          "What postpartum depression screening do you do before discharge, and what does the referral pathway look like?"
+          <span class="tour-item-hint">Some facilities just hand you a pamphlet. The good ones have a warm handoff.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-9">
+        <label for="tour-9">
+          "Can I have a doula present for my whole labor? Any restrictions on number of support people?"
+          <span class="tour-item-hint">Test — especially if post-COVID policies are still in effect.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-10">
+        <label for="tour-10">
+          "What pain management options beyond epidural do you offer — nitrous, tubs, TENS?"
+          <span class="tour-item-hint">Facilities that only offer epidural vs. nothing tend to intervene more.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-11">
+        <label for="tour-11">
+          "Can my partner stay the whole time? Actual bed or couch?"
+          <span class="tour-item-hint">Some places have real pull-out beds. Some have one reclining chair.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-12">
+        <label for="tour-12">
+          "Who actually delivers my baby — my OB, whoever's on call, a midwife?"
+          <span class="tour-item-hint">Only Willow Creek (Community Clinic pathway) has CNM delivery in NWA.</span>
+        </label>
+      </div>
+
+      <div class="tour-item" id="tour-mercy-specific">
+        <input type="checkbox" id="tour-13">
+        <label for="tour-13">
+          <strong>For Mercy specifically:</strong> "What's your C-section surgical-site infection rate, and how has it trended in the last 12 months?"
+          <span class="tour-item-hint">Their colon-surgery infection rate is 2x expected. Need to verify it doesn't bleed into OB surgery.</span>
+        </label>
+      </div>
+
+      <div class="tour-item" id="tour-willow-specific">
+        <input type="checkbox" id="tour-14">
+        <label for="tour-14">
+          <strong>For Willow Creek specifically:</strong> "How do I request Candice Killeen or Brennan Straka as my CNM? Do I go through Community Clinic directly?"
+          <span class="tour-item-hint">The midwife pathway isn't the default — you have to opt in.</span>
+        </label>
+      </div>
+
+      <div class="tour-item" id="tour-wrmc-specific">
+        <input type="checkbox" id="tour-15">
+        <label for="tour-15">
+          <strong>For Washington Regional specifically:</strong> "Is Dr. Jefferson's perinatal psychiatry service available pre-birth if I want to establish care proactively?"
+          <span class="tour-item-hint">Early connection is better than a crisis referral.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-16">
+        <label for="tour-16">
+          "Does Walmart insurance cover everything here in-network? Any surprise billing risks?"
+          <span class="tour-item-hint">Verify with Walmart benefits portal before the tour; confirm during.</span>
+        </label>
+      </div>
+
+      <div class="tour-item">
+        <input type="checkbox" id="tour-17">
+        <label for="tour-17">
+          "Can I see a labor-and-delivery room?" <em>(Not just the postpartum suite.)</em>
+          <span class="tour-item-hint">Tours tend to skip the L&D room because they're often in use. Ask.</span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="window.print()">Print the checklist</button>
+      <button class="btn btn-secondary" id="btn-reset-tour">Uncheck all</button>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR NOTES -->
+<section id="notes" class="alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Step 7</div>
+      <h2>Your notes</h2>
+      <p>Your thoughts, questions, things you want to ask the doctor, anything. Saved on this device only.</p>
+    </div>
+
+    <div class="notes-area">
+      <textarea id="notes-field" placeholder="What I'm thinking right now...
+
+Things I want to ask the OB:
+
+After touring Mercy I felt...
+After touring Willow Creek I felt...
+After touring Washington Regional I felt...
+
+My gut says..."></textarea>
+      <p class="small text-warm text-center" style="margin-top: 12px;">
+        <span id="save-status">Your notes save automatically</span>
+      </p>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="btn-export-notes">Export notes as text</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL DECISION -->
+<section id="decision">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">Step 8</div>
+      <h2>Make the call</h2>
+      <p>When you're ready. No rush.</p>
+    </div>
+
+    <div class="decision-box">
+      <h3>When you decide, tell me</h3>
+      <p>Text me which one you're leaning toward, and we'll schedule the tour. If we need more info, we'll go find it together.</p>
+      <p class="text-warm mt-2">
+        Reminder: This is a values call, not a quality ranking.<br>
+        All three are safe. The question is which fits <em>you</em>.
+      </p>
+      <div class="btn-row">
+        <a href="sms:?&body=I'm leaning toward..." class="btn">Text Hakeem</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Built with <span class="heart">♥</span> by Hakeem · April 2026</p>
+    <p class="small" style="margin-top: 8px;">Based on 41 research sources and 5 expert analyses. Your answers stay on this device.</p>
+  </div>
+</footer>
+
+<script>
+const STORAGE_KEY = 'nwa-birth-v1';
+
+// Accordion
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('open');
+  });
+});
+
+// Load state
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return {};
+    return JSON.parse(raw);
+  } catch { return {}; }
+}
+
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+const state = loadState();
+
+// Restore quiz answers
+document.querySelectorAll('input[type="radio"]').forEach(el => {
+  if (state[el.name] === el.value) el.checked = true;
+  el.addEventListener('change', () => {
+    state[el.name] = el.value;
+    saveState(state);
+  });
+});
+
+document.querySelectorAll('input[type="range"]').forEach(el => {
+  if (state[el.name] !== undefined) el.value = state[el.name];
+  el.addEventListener('input', () => {
+    state[el.name] = el.value;
+    saveState(state);
+  });
+});
+
+// Tour checklist
+document.querySelectorAll('.tour-item input[type="checkbox"]').forEach(cb => {
+  const id = cb.id;
+  if (state['tour_' + id]) {
+    cb.checked = true;
+    cb.closest('.tour-item').classList.add('checked');
+  }
+  cb.addEventListener('change', () => {
+    cb.closest('.tour-item').classList.toggle('checked', cb.checked);
+    state['tour_' + id] = cb.checked;
+    saveState(state);
+  });
+});
+
+// Notes
+const notesField = document.getElementById('notes-field');
+if (state.notes) notesField.value = state.notes;
+let saveTimer;
+notesField.addEventListener('input', () => {
+  clearTimeout(saveTimer);
+  document.getElementById('save-status').textContent = 'Saving...';
+  saveTimer = setTimeout(() => {
+    state.notes = notesField.value;
+    saveState(state);
+    document.getElementById('save-status').textContent = 'Saved ✓';
+    setTimeout(() => {
+      document.getElementById('save-status').textContent = 'Your notes save automatically';
+    }, 1500);
+  }, 400);
+});
+
+// Reset buttons
+document.getElementById('btn-reset').addEventListener('click', () => {
+  if (confirm('Clear your quiz answers?')) {
+    ['risk','care_model','pain','doula','mental_health'].forEach(k => delete state[k]);
+    state.drive = 3; state.experience = 4; state.csection = 3;
+    saveState(state);
+    location.reload();
+  }
+});
+
+document.getElementById('btn-reset-tour').addEventListener('click', () => {
+  document.querySelectorAll('.tour-item input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+    cb.closest('.tour-item').classList.remove('checked');
+    delete state['tour_' + cb.id];
+  });
+  saveState(state);
+});
+
+// Recommendation engine
+function computeRecommendation() {
+  const s = loadState();
+  const risk = s.risk;
+  const care = s.care_model;
+  const pain = s.pain;
+  const drive = parseInt(s.drive || 3);
+  const exp = parseInt(s.experience || 4);
+  const mh = s.mental_health;
+  const doula = s.doula;
+  const csec = parseInt(s.csection || 3);
+
+  // Hard rule: high-risk always routes to WRMC
+  if (risk === 'high' || risk === 'unsure') {
+    return {
+      pick: 'Washington Regional',
+      why: "Any complication flag (or uncertainty about risk level) makes this a clear call — Washington Regional is the only NWA hospital with an on-site maternal-fetal medicine specialist, the largest NICU, and a named perinatal psychiatrist. The 35–45 minute drive is a real cost, but if anything gets complicated, this is where you want to be. Start here; if everything stays routine and you'd rather be closer to home, you and your OB can discuss switching.",
+      runnerup: "Mercy Rogers",
+      runnerupWhy: "As a proximity backup if labor moves faster than a Fayetteville drive."
+    };
+  }
+
+  // Score each facility
+  const scores = { mercy: 0, willow: 0, wrmc: 0 };
+
+  // Drive time
+  scores.mercy += drive * 3;
+  scores.willow += drive * 1;
+  scores.wrmc += drive * -1;
+
+  // Care model
+  if (care === 'midwife') {
+    scores.willow += 10;
+    scores.mercy -= 4;
+    scores.wrmc -= 4;
+  } else if (care === 'physician') {
+    scores.mercy += 4;
+    scores.wrmc += 4;
+    scores.willow += 1;
+  } else {
+    scores.mercy += 2; scores.willow += 2; scores.wrmc += 2;
+  }
+
+  // Pain / epidural preference
+  if (pain === 'avoid') {
+    scores.willow += 6;
+    scores.mercy += 0;
+    scores.wrmc += 2;
+  } else if (pain === 'yes') {
+    scores.mercy += 3;
+    scores.wrmc += 2;
+    scores.willow += 2;
+  } else {
+    scores.mercy += 2; scores.willow += 3; scores.wrmc += 2;
+  }
+
+  // Patient experience weight
+  scores.mercy += exp * 2;
+  scores.wrmc += exp * 1;
+  scores.willow += exp * -0.5;  // unknowable
+
+  // Mental health
+  if (mh === 'high') scores.wrmc += 6;
+  else if (mh === 'some') scores.wrmc += 2;
+
+  // Doula
+  if (doula === 'yes') { scores.willow += 3; scores.mercy += 2; }
+  else if (doula === 'maybe') { scores.willow += 1; scores.mercy += 1; }
+
+  // C-section priority
+  scores.willow += csec * 2.5;
+  scores.wrmc += csec * 1;
+  scores.mercy += csec * 0.8;
+
+  // Baseline bias: Mercy for default (5-min drive + safety data)
+  scores.mercy += 3;
+
+  // Rank
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const top = sorted[0][0];
+  const runner = sorted[1][0];
+
+  const names = {
+    mercy: 'Mercy Rogers',
+    willow: 'Willow Creek Women\'s Hospital',
+    wrmc: 'Washington Regional'
+  };
+
+  const whyMap = {
+    mercy: (function() {
+      const reasons = [];
+      if (drive >= 4) reasons.push("you value being close to home");
+      if (pain === 'yes') reasons.push("you're planning an epidural — Mercy has 24/7 in-house anesthesia");
+      if (exp >= 4) reasons.push("you prioritized feeling cared for — Mercy has the strongest patient experience scores and the best lactation follow-up in NWA");
+      if (care === 'physician') reasons.push("you prefer OB-led care");
+      if (reasons.length === 0) reasons.push("it's the safest default: 5 minutes away, 24/7 in-house staff, best postpartum support, and their first-time-mom C-section rate (22.2%) is earned, not accidental — they hold ARPQC Platinum for actively reducing it");
+      return "Mercy Rogers fits because " + reasons.join(", and ") + ". It's the default for a reason — you get proximity, safety infrastructure, and strong lactation support in one package. The trade-off is no midwife option and physician-led birth plans.";
+    })(),
+    willow: (function() {
+      const reasons = [];
+      if (care === 'midwife') reasons.push("you want midwife-led care, and this is the only hospital in NWA where that's actually available via Community Clinic");
+      if (pain === 'avoid') reasons.push("you're hoping to avoid an epidural — Willow Creek has labor tubs, nitrous oxide, wireless monitoring, and the infrastructure to actually support unmedicated birth");
+      if (csec >= 4) reasons.push("you want the lowest C-section odds — 17.8% for first-time moms, lowest in NWA");
+      if (doula === 'yes') reasons.push("you're planning a doula — Willow Creek is the most pro-doula facility in the region");
+      if (reasons.length === 0) reasons.push("the combination of your preferences points toward a low-intervention, plan-honoring environment");
+      return "Willow Creek fits because " + reasons.join(", and ") + ". Important: the midwife pathway isn't the default — you have to actively request a CNM (Candice Killeen or Brennan Straka) via Community Clinic. Also worth knowing: the 1-star CMS patient rating is a reporting artifact, not a real signal, but it does mean patient experience data is genuinely opaque. The tour and first-hand stories will matter more here than elsewhere.";
+    })(),
+    wrmc: (function() {
+      const reasons = [];
+      if (mh === 'high') reasons.push("postpartum mental health matters to you — WRMC has Dr. Jefferson, the only named perinatal psychiatrist in NWA");
+      if (exp >= 4) reasons.push("you prioritized feeling cared for, and WRMC's 3-star patient survey plus dedicated staff rank it above Willow Creek on bedside experience");
+      if (care === 'physician') reasons.push("you prefer OB-led care — WRMC is physician-led with the deepest specialist bench");
+      if (reasons.length === 0) reasons.push("your answers point toward a traditional medical environment with specialist backup");
+      return "Washington Regional fits because " + reasons.join(", and ") + ". The cost is the drive — 35–45 minutes from home, which matters more in active labor than it looks on a map. Counter to Mercy: WRMC is the only hospital in Arkansas named High Performing for Maternity Care by US News, it has the largest NICU in NWA, and it has the only on-site maternal-fetal medicine specialist — so if anything complicates during labor, this is the best landing spot.";
+    })()
+  };
+
+  const runnerupWhyMap = {
+    mercy: "Mercy is the proximity hedge — 5 minutes from home. If labor moves fast or you change your mind about drive time in the moment, it's right there.",
+    willow: "Willow Creek is the low-intervention option — if you decide you want the midwife pathway or the labor tub, it's 20–25 minutes away.",
+    wrmc: "Washington Regional is the specialist hedge — if any high-risk flag emerges between now and delivery, this is where you'd want to be, and you can still switch."
+  };
+
+  return {
+    pick: names[top],
+    why: whyMap[top],
+    runnerup: names[runner],
+    runnerupWhy: runnerupWhyMap[runner]
+  };
+}
+
+document.getElementById('btn-get-rec').addEventListener('click', () => {
+  const rec = computeRecommendation();
+  document.getElementById('rec-placeholder').style.display = 'none';
+  document.getElementById('rec-output').style.display = 'block';
+  document.getElementById('rec-facility').textContent = rec.pick;
+  document.getElementById('rec-why').textContent = rec.why;
+  document.getElementById('rec-runnerup').innerHTML =
+    '<strong>Runner-up: ' + rec.runnerup + '</strong><br>' + rec.runnerupWhy;
+  document.getElementById('recommendation').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// Export notes
+document.getElementById('btn-export-notes').addEventListener('click', () => {
+  const s = loadState();
+  const prefs = [
+    'Low-risk: ' + (s.risk || '(not answered)'),
+    'Care model: ' + (s.care_model || '(not answered)'),
+    'Epidural: ' + (s.pain || '(not answered)'),
+    'Drive importance (1-5): ' + (s.drive || '3'),
+    'Experience vs numbers (1-5): ' + (s.experience || '4'),
+    'Mental health priority: ' + (s.mental_health || '(not answered)'),
+    'Doula: ' + (s.doula || '(not answered)'),
+    'C-section priority (1-5): ' + (s.csection || '3'),
+  ].join('\n');
+  const notes = s.notes || '';
+  const text = 'My NWA Birthing Preferences\n' +
+    'Generated: ' + new Date().toLocaleString() + '\n\n' +
+    '=== PREFERENCES ===\n' + prefs + '\n\n' +
+    '=== NOTES ===\n' + notes;
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'my-birth-decision-notes.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Auto-show recommendation if already answered
+(function autoShowRec() {
+  const s = loadState();
+  if (s.risk || s.care_model || s.pain) {
+    document.getElementById('btn-get-rec').click();
+  }
+})();
+</script>
+</body>
+</html>

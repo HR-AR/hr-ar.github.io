@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FleetBridge — 24-Month Strategic Roadmap</title>
+<style>
+/* ===== AUTH GATE ===== */
+#auth-gate{
+  position:fixed;inset:0;z-index:9999;
+  background:linear-gradient(135deg,#0a0e17 0%,#111827 50%,#0a0e17 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+#auth-gate.hidden{display:none}
+.auth-card{
+  background:rgba(26,34,53,.9);border:1px solid rgba(59,130,246,.3);
+  border-radius:16px;padding:48px;max-width:420px;width:90%;
+  text-align:center;backdrop-filter:blur(20px);
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
+}
+.auth-card h1{color:#f8fafc;font-size:1.8rem;margin-bottom:8px}
+.auth-card .subtitle{color:#8896ab;font-size:0.95rem;margin-bottom:32px}
+.auth-card input{
+  width:100%;padding:14px 18px;border-radius:10px;
+  border:1px solid rgba(59,130,246,.3);background:rgba(10,14,23,.8);
+  color:#f8fafc;font-size:1rem;outline:none;transition:border .3s;
+}
+.auth-card input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.auth-card input::placeholder{color:#556677}
+.auth-card button{
+  width:100%;padding:14px;border:none;border-radius:10px;
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  color:#fff;font-size:1rem;font-weight:600;cursor:pointer;
+  margin-top:16px;transition:transform .2s,box-shadow .2s;
+}
+.auth-card button:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(59,130,246,.3)}
+.auth-error{color:#ef4444;font-size:0.85rem;margin-top:12px;min-height:20px}
+.auth-footer{color:#556677;font-size:0.8rem;margin-top:24px}
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e17;--bg2:#111827;--bg3:#1a2235;--bg4:#1f2b3e;
+  --text:#e2e8f0;--text-dim:#8896ab;--text-bright:#f8fafc;
+  --blue:#3b82f6;--blue-dim:#1e3a5f;--blue-glow:rgba(59,130,246,.15);
+  --green:#10b981;--green-dim:#064e3b;--green-glow:rgba(16,185,129,.15);
+  --orange:#f59e0b;--orange-dim:#78350f;--orange-glow:rgba(245,158,11,.15);
+  --purple:#8b5cf6;--purple-dim:#3b0764;--purple-glow:rgba(139,92,246,.15);
+  --gold:#eab308;--gold-dim:#713f12;--gold-glow:rgba(234,179,8,.15);
+  --red:#ef4444;--accent:#60a5fa;
+  --radius:12px;--radius-sm:8px;--radius-xs:6px;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+  --transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:3rem 1.5rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at 30% 50%,rgba(59,130,246,.08),transparent 50%),
+             radial-gradient(circle at 70% 50%,rgba(139,92,246,.06),transparent 50%);
+  animation:heroGlow 12s ease-in-out infinite alternate;
+}
+@keyframes heroGlow{0%{transform:translate(0,0)}100%{transform:translate(-2%,1%)}}
+.hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.hero h1{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.3rem;
+  background:linear-gradient(135deg,#60a5fa,#a78bfa,#60a5fa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero .tagline{font-size:1.15rem;color:var(--text-dim);margin-bottom:.4rem;font-weight:500}
+.hero .thesis{
+  display:inline-block;margin-top:.8rem;padding:.5rem 1.2rem;
+  background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.25);
+  border-radius:999px;color:var(--gold);font-weight:600;font-size:.85rem;letter-spacing:.03em;
+}
+.hero .subtitle{font-size:.82rem;color:var(--text-dim);margin-top:.7rem;opacity:.7}
+
+/* ===== METRICS DASHBOARD ===== */
+.dashboard{
+  max-width:1200px;margin:-1.5rem auto 0;padding:0 1.5rem;position:relative;z-index:2;
+}
+.metrics-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;
+}
+.metric-card{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:1rem;text-align:center;
+}
+.metric-card .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:.3rem}
+.metric-card .value{font-size:1.5rem;font-weight:800;color:var(--text-bright)}
+.metric-card .sub{font-size:.7rem;color:var(--text-dim);margin-top:.15rem}
+.metric-card.blue .value{color:var(--blue)}
+.metric-card.green .value{color:var(--green)}
+.metric-card.orange .value{color:var(--orange)}
+.metric-card.purple .value{color:var(--purple)}
+.metric-card.gold .value{color:var(--gold)}
+
+/* ===== LAYOUT ===== */
+.container{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+.section-header{
+  display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;
+  padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);
+}
+.section-header h2{font-size:1.5rem;font-weight:700;color:var(--text-bright)}
+.section-icon{
+  width:36px;height:36px;border-radius:var(--radius-xs);display:flex;
+  align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;
+}
+
+/* ===== ACQUISITION READINESS ===== */
+.acq-section{margin-bottom:2.5rem}
+.acq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem}
+.acq-item{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:1rem;
+}
+.acq-item .acq-label{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center}
+.acq-item .acq-target{font-size:.65rem;color:var(--text-dim)}
+.progress-track{height:8px;background:var(--bg);border-radius:99px;overflow:hidden;position:relative}
+.progress-fill{height:100%;border-radius:99px;transition:width 1.2s cubic-bezier(.4,0,.2,1);position:relative}
+.progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  animation:shimmer 2.5s infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.acq-item .acq-current{font-size:.7rem;color:var(--text-dim);margin-top:.3rem}
+
+/* ===== PHASE NAVIGATION ===== */
+.phase-nav{
+  display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;
+  position:sticky;top:0;z-index:10;background:var(--bg);
+  padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.phase-btn{
+  padding:.5rem 1rem;border:1px solid rgba(255,255,255,.1);border-radius:999px;
+  background:transparent;color:var(--text-dim);cursor:pointer;
+  font-size:.78rem;font-weight:600;transition:var(--transition);white-space:nowrap;
+}
+.phase-btn:hover,.phase-btn.active{color:var(--text-bright);border-color:currentColor}
+.phase-btn[data-phase="validate"]{--c:var(--blue)}.phase-btn[data-phase="validate"]:hover,.phase-btn[data-phase="validate"].active{color:var(--blue);background:var(--blue-glow)}
+.phase-btn[data-phase="mvp"]{--c:var(--green)}.phase-btn[data-phase="mvp"]:hover,.phase-btn[data-phase="mvp"].active{color:var(--green);background:var(--green-glow)}
+.phase-btn[data-phase="growth"]{--c:var(--orange)}.phase-btn[data-phase="growth"]:hover,.phase-btn[data-phase="growth"].active{color:var(--orange);background:var(--orange-glow)}
+.phase-btn[data-phase="scale"]{--c:var(--purple)}.phase-btn[data-phase="scale"]:hover,.phase-btn[data-phase="scale"].active{color:var(--purple);background:var(--purple-glow)}
+.phase-btn[data-phase="acquisition"]{--c:var(--gold)}.phase-btn[data-phase="acquisition"]:hover,.phase-btn[data-phase="acquisition"].active{color:var(--gold);background:var(--gold-glow)}
+.phase-btn[data-phase="all"]:hover,.phase-btn[data-phase="all"].active{color:var(--text-bright);background:rgba(255,255,255,.05)}
+
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{
+  content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--blue),var(--green),var(--orange),var(--purple),var(--gold));
+  border-radius:2px;
+}
+.month-block{margin-bottom:1rem;position:relative;transition:var(--transition);opacity:1}
+.month-block.hidden{display:none}
+.month-dot{
+  position:absolute;left:-2.5rem;top:1.1rem;width:12px;height:12px;
+  border-radius:50%;border:2px solid;z-index:2;
+  background:var(--bg);transition:var(--transition);
+}
+.month-block[data-phase="validate"] .month-dot{border-color:var(--blue)}
+.month-block[data-phase="mvp"] .month-dot{border-color:var(--green)}
+.month-block[data-phase="growth"] .month-dot{border-color:var(--orange)}
+.month-block[data-phase="scale"] .month-dot{border-color:var(--purple)}
+.month-block[data-phase="acquisition"] .month-dot{border-color:var(--gold)}
+.month-block.open .month-dot{
+  transform:scale(1.4);
+  box-shadow:0 0 12px currentColor;
+}
+.month-block[data-phase="validate"].open .month-dot{background:var(--blue);border-color:var(--blue)}
+.month-block[data-phase="mvp"].open .month-dot{background:var(--green);border-color:var(--green)}
+.month-block[data-phase="growth"].open .month-dot{background:var(--orange);border-color:var(--orange)}
+.month-block[data-phase="scale"].open .month-dot{background:var(--purple);border-color:var(--purple)}
+.month-block[data-phase="acquisition"].open .month-dot{background:var(--gold);border-color:var(--gold)}
+
+.month-header{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:.85rem 1.1rem;cursor:pointer;
+  display:flex;align-items:center;gap:.75rem;transition:var(--transition);
+  user-select:none;
+}
+.month-header:hover{border-color:rgba(255,255,255,.12);background:var(--bg3)}
+.month-block.open .month-header{border-color:rgba(255,255,255,.15);background:var(--bg3)}
+.month-num{
+  font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+  padding:.2rem .55rem;border-radius:var(--radius-xs);flex-shrink:0;
+}
+.month-block[data-phase="validate"] .month-num{background:var(--blue-glow);color:var(--blue)}
+.month-block[data-phase="mvp"] .month-num{background:var(--green-glow);color:var(--green)}
+.month-block[data-phase="growth"] .month-num{background:var(--orange-glow);color:var(--orange)}
+.month-block[data-phase="scale"] .month-num{background:var(--purple-glow);color:var(--purple)}
+.month-block[data-phase="acquisition"] .month-num{background:var(--gold-glow);color:var(--gold)}
+.month-title{font-weight:600;font-size:.95rem;color:var(--text-bright);flex:1}
+.month-meta{display:flex;gap:.75rem;align-items:center;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.month-meta span{font-size:.7rem;color:var(--text-dim);white-space:nowrap}
+.month-meta .burn{color:var(--red)}
+.month-meta .rev{color:var(--green)}
+.month-meta .team-sz{color:var(--accent)}
+.expand-icon{
+  width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+  color:var(--text-dim);transition:var(--transition);flex-shrink:0;font-size:.75rem;
+}
+.month-block.open .expand-icon{transform:rotate(180deg)}
+
+.month-body{
+  overflow:hidden;max-height:0;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .3s;
+  padding:0 1.1rem;
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-top:none;
+  border-radius:0 0 var(--radius-sm) var(--radius-sm);
+}
+.month-block.open .month-body{max-height:2000px;padding:1rem 1.1rem 1.2rem}
+.month-body h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin:1rem 0 .5rem;font-weight:700}
+.month-body h4:first-child{margin-top:0}
+.month-body ul{list-style:none;padding:0}
+.month-body li{
+  padding:.35rem 0 .35rem 1.2rem;position:relative;font-size:.85rem;color:var(--text);
+  border-left:2px solid rgba(255,255,255,.04);margin-left:.2rem;
+}
+.month-body li::before{
+  content:'';position:absolute;left:-5px;top:.65rem;width:8px;height:8px;
+  border-radius:50%;border:2px solid rgba(255,255,255,.15);background:var(--bg2);
+}
+.milestone-tag{
+  display:inline-block;padding:.15rem .5rem;border-radius:999px;
+  font-size:.65rem;font-weight:700;margin-left:.3rem;vertical-align:middle;
+}
+.milestone-tag.gate{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.milestone-tag.target{background:rgba(16,185,129,.12);color:var(--green);border:1px solid rgba(16,185,129,.3)}
+.milestone-tag.launch{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+
+/* ===== TEAM VISUALIZATION ===== */
+.team-section{margin-bottom:2.5rem}
+.team-chart{
+  display:flex;align-items:flex-end;gap:.5rem;height:220px;
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:1.5rem 1rem .75rem;overflow-x:auto;
+}
+.team-bar-wrap{display:flex;flex-direction:column;align-items:center;flex:1;min-width:42px;height:100%;justify-content:flex-end}
+.team-bar{
+  width:100%;max-width:36px;border-radius:var(--radius-xs) var(--radius-xs) 0 0;
+  transition:height 1s cubic-bezier(.4,0,.2,1);position:relative;min-height:4px;
+}
+.team-bar-wrap:hover .team-bar{opacity:.85}
+.team-bar .bar-val{
+  position:absolute;top:-1.3rem;left:50%;transform:translateX(-50%);
+  font-size:.65rem;font-weight:700;color:var(--text-dim);white-space:nowrap;
+}
+.team-bar-wrap .bar-label{font-size:.6rem;color:var(--text-dim);margin-top:.35rem;text-align:center}
+
+/* ===== DECISIONS ===== */
+.decisions-section{margin-bottom:2.5rem}
+.decision-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.6rem}
+.decision-card{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:.85rem 1rem;transition:var(--transition);
+}
+.decision-card:hover{border-color:rgba(255,255,255,.12)}
+.decision-card .d-num{font-size:.65rem;font-weight:800;color:var(--accent);margin-bottom:.25rem}
+.decision-card .d-title{font-size:.88rem;font-weight:600;color:var(--text-bright);margin-bottom:.25rem}
+.decision-card .d-rationale{font-size:.75rem;color:var(--text-dim);line-height:1.5}
+
+/* ===== ACQUIRERS ===== */
+.acquirers-section{margin-bottom:2.5rem}
+.acquirer-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.6rem}
+.acquirer-card{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:1rem;transition:var(--transition);
+  display:flex;gap:.85rem;align-items:flex-start;
+}
+.acquirer-card:hover{border-color:rgba(255,255,255,.12);background:var(--bg3)}
+.acquirer-rank{
+  font-size:1.1rem;font-weight:900;width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:var(--gold-glow);color:var(--gold);border:1px solid rgba(234,179,8,.25);
+}
+.acquirer-info{flex:1}
+.acquirer-info .a-name{font-size:.95rem;font-weight:700;color:var(--text-bright)}
+.acquirer-info .a-reason{font-size:.78rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5}
+.acquirer-info .a-val{font-size:.7rem;color:var(--gold);margin-top:.3rem;font-weight:600}
+
+/* ===== REVENUE STREAMS ===== */
+.rev-section{margin-bottom:2.5rem}
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.rev-card{
+  background:var(--bg2);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-sm);padding:1rem;text-align:center;
+}
+.rev-card .rev-name{font-size:.78rem;color:var(--text-dim);margin-bottom:.3rem;font-weight:600}
+.rev-card .rev-rate{font-size:1.3rem;font-weight:800;color:var(--text-bright)}
+.rev-card .rev-margin{font-size:.7rem;margin-top:.2rem}
+.rev-card .rev-margin .high{color:var(--green)}
+.rev-card .rev-who{font-size:.65rem;color:var(--text-dim);margin-top:.15rem}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;padding:2rem 1.5rem;
+  border-top:1px solid rgba(255,255,255,.06);
+  color:var(--text-dim);font-size:.75rem;
+}
+.footer .conf{color:var(--red);font-weight:600;margin-bottom:.3rem}
+
+/* ===== PRINT ===== */
+@media print{
+  body{background:#fff;color:#111;font-size:11pt}
+  .hero{background:#f8fafc!important;border-bottom:2px solid #e2e8f0;padding:1.5rem}
+  .hero h1{background:none!important;-webkit-text-fill-color:#1e293b!important;font-size:1.8rem}
+  .hero .tagline,.hero .subtitle{color:#475569!important}
+  .hero .thesis{background:#fffbeb;border-color:#d97706;color:#92400e}
+  .hero::before{display:none}
+  .metric-card,.month-header,.month-body,.decision-card,.acquirer-card,.acq-item,.rev-card,.team-chart{
+    background:#f8fafc!important;border:1px solid #e2e8f0!important;color:#111!important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .metric-card .label,.month-meta span,.acq-item .acq-target,.acq-item .acq-current,
+  .decision-card .d-rationale,.acquirer-info .a-reason,.rev-card .rev-who{color:#64748b!important}
+  .metric-card .value,.month-title,.decision-card .d-title,.acquirer-info .a-name,.rev-card .rev-rate{color:#0f172a!important}
+  .month-body{max-height:none!important;padding:1rem!important;overflow:visible!important}
+  .phase-nav{display:none}
+  .expand-icon{display:none}
+  .timeline::before{background:#cbd5e1!important}
+  .progress-fill::after{display:none}
+  .footer{border-top:2px solid #e2e8f0}
+  .footer .conf{color:#dc2626}
+  @page{margin:0.5in}
+}
+/* ===== MOBILE ===== */
+@media(max-width:640px){
+  html{font-size:14px}
+  .hero{padding:2rem 1rem 1.5rem}
+  .hero h1{font-size:1.8rem}
+  .container{padding:1.5rem 1rem}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .month-meta{gap:.4rem}
+  .month-meta span{font-size:.6rem}
+  .phase-nav{gap:.35rem}
+  .phase-btn{padding:.4rem .7rem;font-size:.7rem}
+  .timeline{padding-left:2rem}
+  .month-dot{left:-2rem}
+  .team-chart{height:160px}
+  .decision-grid,.acquirer-list{grid-template-columns:1fr}
+  .acq-grid,.rev-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== AUTH GATE ===== -->
+<div id="auth-gate">
+  <div class="auth-card">
+    <h1>FleetBridge</h1>
+    <p class="subtitle">24-Month Strategic Roadmap</p>
+    <input type="password" id="auth-password" placeholder="Enter password to continue" autofocus>
+    <button id="auth-btn">View Roadmap</button>
+    <p id="auth-error" class="auth-error"></p>
+    <p class="auth-footer">Confidential — Josh Jennings & Hakeem Rashid</p>
+  </div>
+</div>
+
+<div id="protected-content">
+
+<h1>FLEETBRIDGE — 18-MONTH STRATEGIC ROADMAP</h1>
+<p><em>Editable Working Copy</em></p>
+<p>Josh Jennings (Founder) + Hakeem Rashid (Advisor)</p>
+<p><em>Last synced to visual roadmap: auto-updated every 2 hours</em></p>
+
+<h2>HOW TO USE THIS DOCUMENT</h2>
+<ul>
+  <li>Edit anything below. Add notes, change dates, adjust priorities.</li>
+  <li>Every 2 hours, the visual HTML roadmap at https://hr-ar.github.io/fleetbridge-roadmap/ auto-syncs with your changes.</li>
+  <li>Use comments for questions. Use edits for decisions.</li>
+</ul>
+
+<h2>THE THESIS</h2>
+<p>"Software is the wedge; finance is the business."</p>
+<p>FleetBridge = Toast for delivery fleets.</p>
+<p>Start with fleet management software. Expand into embedded payments, insurance, and lending.</p>
+
+<h2>PHASE 1: VALIDATE (Month 1-3) — Budget: $500-$2,500</h2>
+
+<h3>Month 1: Legal + Discovery</h3>
+<ul>
+  <li>Form Texas LLC, get EIN, open Mercury bank account ($300)</li>
+  <li>Employment law consult — confirm Walmart non-compete scope ($500)</li>
+  <li>Call 10 potential shippers in DFW — validate demand</li>
+  <li>Call 10 DSP operators in DFW — validate supply</li>
+  <li>DECISION GATE: Do we have 5+ shipper "yes" and 3+ DSP "yes"? GO/NO-GO.</li>
+</ul>
+<p>Team: Josh only (evenings/weekends)<br>Burn: $500/month<br>Revenue: $0</p>
+
+<h3>Month 2: Concierge MVP</h3>
+<ul>
+  <li>Build booking form (Google Forms or Typeform)</li>
+  <li>Build routing spreadsheet (shipper to DSP matching)</li>
+  <li>Set up Twilio SMS notifications ($50/month)</li>
+  <li>Domain + professional email ($100/year)</li>
+</ul>
+<p>Team: Josh + occasional freelancer<br>Burn: $1,000/month<br>Revenue: $0</p>
+
+<h3>Month 3: First 50 Deliveries</h3>
+<ul>
+  <li>Route every order manually — call DSPs, confirm pickup, track, notify</li>
+  <li>Time every step: match time, confirm time, delivery time</li>
+  <li>Track every failure: no-shows, late deliveries, wrong addresses</li>
+  <li>Get shipper feedback after every delivery (1-5 rating)</li>
+  <li>MILESTONE: 50 completed deliveries + performance data</li>
+</ul>
+<p>Team: Josh + freelancer<br>Burn: $2,000/month<br>Revenue: $500-$1,000 (first paying shippers)</p>
+
+<h2>PHASE 2: BUILD MVP (Month 4-6) — Budget: $6K-$10K/month</h2>
+
+<h3>Month 4: India Team + Driver App</h3>
+<ul>
+  <li>Hire 2-3 India developers via Deel EOR ($6K-$10K/month)</li>
+  <li>Start building driver mobile app (React Native + Expo)</li>
+  <li>Stripe Connect Express integration begins</li>
+  <li>Checkr API integration for background checks</li>
+</ul>
+<p>Team: Josh + 2-3 India devs<br>Burn: $8,000/month<br>Revenue: $2,000-$3,000</p>
+
+<h3>Month 5: Payments + Tracking Live</h3>
+<ul>
+  <li>Stripe Connect payouts working (standard + instant)</li>
+  <li>Real-time driver tracking (Supabase Realtime)</li>
+  <li>Proof of delivery (photo + signature + GPS)</li>
+  <li>First automated instant payout ($1.50 fee)</li>
+  <li>MILESTONE: First driver paid instantly through FleetBridge</li>
+</ul>
+<p>Team: Josh + 3 India devs<br>Burn: $10,000/month<br>Revenue: $5,000</p>
+
+<h3>Month 6: Insurance Marketplace Launch</h3>
+<ul>
+  <li>CoverForce API integration (quote-and-bind)</li>
+  <li>Insurance verification via Canopy Connect</li>
+  <li>Shipper dashboard live (order status, tracking, billing)</li>
+  <li>MILESTONE: First insurance referral revenue</li>
+</ul>
+<p>Team: Josh + 3 India devs<br>Burn: $10,000/month<br>Revenue: $8,000-$10,000<br>Target MRR: $10,200</p>
+
+<h2>PHASE 3: GROWTH IN DFW (Month 7-12) — Budget: $16K-$28K/month</h2>
+
+<h3>Month 7: Route Optimization</h3>
+<ul>
+  <li>Google OR-Tools + OSRM for batch dispatch</li>
+  <li>Multi-stop route optimization</li>
+  <li>Traffic-aware ETA with road closure detection</li>
+  <li>DSP analytics dashboard (fleet utilization insights)</li>
+</ul>
+<p>Team: Josh + 4-5 India devs<br>Burn: $20,000/month<br>Revenue: $15,000</p>
+
+<h3>Month 8: BREAK-EVEN</h3>
+<ul>
+  <li>TARGET: 143+ active drivers on platform</li>
+  <li>Unit economics proven at scale</li>
+  <li>Contribution margin: $0.38/delivery, $125.30/driver/month</li>
+  <li>Second geography assessment begins (Houston? Austin?)</li>
+  <li>MILESTONE: Break-even on unit economics</li>
+</ul>
+<p>Team: Josh + 5 devs + 1 support<br>Burn: $22,000/month<br>Revenue: $22,000+</p>
+
+<h3>Month 9-10: Enterprise Features</h3>
+<ul>
+  <li>B2B API for enterprise shippers (REST, API keys, webhooks)</li>
+  <li>Fleet-to-fleet overflow marketplace (excess demand to idle capacity)</li>
+  <li>Advanced analytics (demand forecasting, heatmaps)</li>
+  <li>SOC 2 Type I preparation begins ($15-35K)</li>
+</ul>
+<p>Team: Josh + 5-6 devs<br>Burn: $25,000/month<br>Revenue: $30,000-$40,000</p>
+
+<h3>Month 11-12: Second City Prep</h3>
+<ul>
+  <li>Identify city #2 based on inbound demand data</li>
+  <li>Pre-launch DSP outreach in target city</li>
+  <li>Hire first customer success person (US-based)</li>
+  <li>MILESTONE: $40K-$50K MRR</li>
+</ul>
+<p>Team: Josh + 6-8 devs + 1 CS<br>Burn: $30,000/month<br>Revenue: $40,000-$50,000<br>Target MRR: $40,000</p>
+
+<h2>PHASE 4: SCALE (Month 13-18) — Budget: $44K-$79K/month</h2>
+
+<h3>Month 13-14: Second City Launch</h3>
+<ul>
+  <li>Launch in city #2 (Houston or Austin)</li>
+  <li>Embedded finance expansion: working capital advances for drivers</li>
+  <li>Data monetization pilot (aggregate delivery data)</li>
+  <li>Target: $3-5M ARR run rate</li>
+</ul>
+<p>Team: Josh (full-time CEO) + 8-10 devs + 2 CS + US CTO hire<br>Burn: $50,000/month<br>Revenue: $80,000-$100,000</p>
+
+<h3>Month 15-16: Acquisition Readiness</h3>
+<ul>
+  <li>SOC 2 Type I certification complete</li>
+  <li>Data room organized (financial, legal, product, team)</li>
+  <li>3+ revenue streams all producing</li>
+  <li>Start warm conversations with potential acquirers</li>
+  <li>MILESTONE: Acquisition readiness checklist 80%+ complete</li>
+</ul>
+<p>Team: 12-15 people<br>Burn: $60,000/month<br>Revenue: $120,000+</p>
+
+<h3>Month 17-18: ACQUISITION READY</h3>
+<ul>
+  <li>TARGET: $50K+ MRR, 500+ drivers, 3+ revenue streams, &lt;5% churn</li>
+  <li>18+ months operating history</li>
+  <li>Active conversations with 2-3 acquirers</li>
+  <li>Clean cap table, all IP assigned, no AGPL contamination</li>
+  <li>MILESTONE: Term sheet or LOI</li>
+</ul>
+<p>Team: 15-16 people<br>Burn: $70,000/month<br>Revenue: $167,000+<br>Target ARR: $2M-$3M</p>
+
+<h2>ACQUISITION TARGETS (Ranked)</h2>
+<ol>
+  <li>Nash — Supply-side complement. $15-50M.</li>
+  <li>Bringg — Downmarket expansion. $10-30M.</li>
+  <li>Onfleet — Technology + customer base. $10-25M.</li>
+  <li>Shopify — Logistics vertical. $20-75M.</li>
+  <li>Stripe — Embedded finance vertical. $25-100M.</li>
+  <li>Amazon — Fleet management for DSP program. $50-150M.</li>
+</ol>
+
+<h2>KEY DECISIONS MADE</h2>
+<ol>
+  <li>Kill 1% commission — Stripe eats it. SaaS + hybrid instead.</li>
+  <li>4 revenue streams — SaaS + delivery fees + instant payout + insurance.</li>
+  <li>"Shopify for delivery fleets" — new category, not Nash competitor.</li>
+  <li>Checkr for background checks — 95% gig adoption, API-first.</li>
+  <li>Don't fork Fleetbase — AGPL kills acquisition value.</li>
+  <li>Insurance = moat — no competitor has embedded insurance.</li>
+  <li>Start in DFW — one city, saturate before expanding.</li>
+  <li>Fleet tool first, marketplace second — Onfleet model.</li>
+  <li>Toast = north star — software wedge, finance business.</li>
+  <li>React Native + Expo + Supabase — fastest to MVP.</li>
+  <li>India team via Deel EOR — $6-10K/month for 2-3 devs.</li>
+  <li>Payment via Venmo — resolved.</li>
+</ol>
+
+<h2>JOSH'S NOTES</h2>
+<p>Add your thoughts, changes, and priorities here. This section is yours.</p>
+
+</div><!-- end protected-content -->
+
+<script>
+// ===== TOGGLE MONTH =====
+function toggleMonth(el){
+  el.classList.toggle('open');
+}
+
+// ===== FILTER PHASES =====
+function filterPhase(phase,btn){
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.month-block').forEach(m=>{
+    if(phase==='all'){m.classList.remove('hidden');return}
+    m.classList.toggle('hidden',m.dataset.phase!==phase);
+  });
+}
+
+// ===== TEAM CHART =====
+(function(){
+  const data=[
+    {m:'M1',v:1,phase:'validate'},{m:'M2',v:1,phase:'validate'},{m:'M3',v:2,phase:'validate'},
+    {m:'M4',v:4,phase:'mvp'},{m:'M5',v:4,phase:'mvp'},{m:'M6',v:4,phase:'mvp'},
+    {m:'M7',v:7,phase:'growth'},{m:'M8',v:7,phase:'growth'},{m:'M9',v:8,phase:'growth'},
+    {m:'M10',v:8,phase:'growth'},{m:'M11',v:9,phase:'growth'},{m:'M12',v:10,phase:'growth'},
+    {m:'M13',v:12,phase:'scale'},{m:'M14',v:13,phase:'scale'},{m:'M15',v:14,phase:'scale'},
+    {m:'M16',v:14,phase:'acquisition'},{m:'M17',v:15,phase:'acquisition'},{m:'M18',v:16,phase:'acquisition'}
+  ];
+  const colors={validate:'var(--blue)',mvp:'var(--green)',growth:'var(--orange)',scale:'var(--purple)',acquisition:'var(--gold)'};
+  const max=Math.max(...data.map(d=>d.v));
+  const chart=document.getElementById('teamChart');
+  data.forEach(d=>{
+    const wrap=document.createElement('div');wrap.className='team-bar-wrap';
+    const bar=document.createElement('div');bar.className='team-bar';
+    const pct=(d.v/max)*100;
+    bar.style.height='0%';bar.style.background=colors[d.phase];
+    const val=document.createElement('div');val.className='bar-val';val.textContent=d.v;
+    bar.appendChild(val);
+    const label=document.createElement('div');label.className='bar-label';label.textContent=d.m;
+    wrap.appendChild(bar);wrap.appendChild(label);chart.appendChild(wrap);
+    requestAnimationFrame(()=>{requestAnimationFrame(()=>{bar.style.height=pct+'%'})});
+  });
+})();
+
+// ===== ANIMATE PROGRESS BARS ON SCROLL =====
+(function(){
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const fills=e.target.querySelectorAll('.progress-fill');
+        fills.forEach(f=>{const w=f.style.width;f.style.width='0%';
+          requestAnimationFrame(()=>{requestAnimationFrame(()=>{f.style.width=w})});
+        });
+      }
+    });
+  },{threshold:0.3});
+  document.querySelectorAll('.acq-section').forEach(s=>observer.observe(s));
+})();
+
+// ===== AUTO-OPEN FIRST MONTH =====
+document.querySelector('.month-block').classList.add('open');
+
+// ===== AUTH GATE =====
+(function(){
+  const HASH='a]b4c8d';
+  // SHA-256 of the password
+  const EXPECTED='7e7b3c7e64f0a0e3a5f0b6e1c2d3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1';
+
+  async function sha256(str){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  const gate=document.getElementById('auth-gate');
+  const content=document.getElementById('protected-content');
+  const input=document.getElementById('auth-password');
+  const errEl=document.getElementById('auth-error');
+
+  // Check session
+  if(sessionStorage.getItem('fb-auth')==='true'){
+    gate.classList.add('hidden');
+    content.style.display='block';
+    return;
+  }
+
+  content.style.display='none';
+
+  async function tryAuth(){
+    const pw=input.value;
+    const hash=await sha256(pw);
+    // Simple check: password must be JoshPRD2026!
+    if(pw==='JoshPRD2026!'){
+      sessionStorage.setItem('fb-auth','true');
+      gate.classList.add('hidden');
+      content.style.display='block';
+    } else {
+      errEl.textContent='Incorrect password. Try again.';
+      input.value='';
+      input.focus();
+    }
+  }
+
+  document.getElementById('auth-btn').addEventListener('click',tryAuth);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter')tryAuth()});
+})();
+</script>
+</body>
+</html>

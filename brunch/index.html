@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakeem's Sunday Brunch - Walk-On's Style Cheese Grits</title>
+<style>
+  :root {
+    --butter: #F5E6A3;
+    --cheddar: #E8A317;
+    --bacon: #C0392B;
+    --cream: #FFF8EE;
+    --cast-iron: #2C2C2C;
+    --warm-brown: #5D4037;
+    --sage: #6B8E6B;
+    --light-sage: #E8F0E8;
+    --gold: #D4A017;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--cast-iron);
+    line-height: 1.6;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--cheddar) 0%, var(--gold) 40%, var(--butter) 100%);
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%);
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+    color: var(--cast-iron);
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+    position: relative;
+  }
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--warm-brown);
+    margin-top: 0.5rem;
+    position: relative;
+  }
+  .pills {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    position: relative;
+  }
+  .pill {
+    background: rgba(255,255,255,0.85);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--warm-brown);
+    font-weight: 500;
+  }
+
+  /* Sticky Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    background: var(--cast-iron);
+    display: flex;
+    overflow-x: auto;
+    z-index: 100;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav a {
+    color: var(--butter);
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .nav a:hover, .nav a:active { background: rgba(255,255,255,0.1); }
+
+  /* Sections */
+  section { padding: 2rem 1.5rem; max-width: 800px; margin: 0 auto; }
+  h2 {
+    font-size: 1.8rem;
+    color: var(--cast-iron);
+    border-bottom: 3px solid var(--cheddar);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+    color: var(--warm-brown);
+    margin: 1.5rem 0 0.8rem;
+  }
+
+  /* Secret Callout */
+  .secret {
+    background: linear-gradient(135deg, #FFF3CD 0%, #FFE9A0 100%);
+    border-left: 4px solid var(--cheddar);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+  }
+  .secret-title {
+    font-weight: bold;
+    color: var(--bacon);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Ingredient List */
+  .ingredients {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 1rem 0;
+  }
+  .ingredient-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem;
+  }
+  .ingredient-item:last-child { border-bottom: none; }
+  .ingredient-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    accent-color: var(--cheddar);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .ingredient-item label {
+    cursor: pointer;
+    flex: 1;
+  }
+  .ingredient-item.checked label {
+    text-decoration: line-through;
+    color: #999;
+  }
+  .ingredient-qty {
+    font-weight: bold;
+    color: var(--warm-brown);
+  }
+
+  /* Steps */
+  .step {
+    display: flex;
+    gap: 1rem;
+    margin: 1.2rem 0;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--cheddar);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: -apple-system, sans-serif;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+  .step-text { flex: 1; }
+
+  /* Pro Tips */
+  .pro-tip {
+    background: var(--light-sage);
+    border-left: 4px solid var(--sage);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  .pro-tip strong { color: var(--sage); }
+
+  /* Pairing Cards */
+  .pairing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .pairing-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--cheddar);
+  }
+  .pairing-card h4 {
+    color: var(--warm-brown);
+    margin-bottom: 0.4rem;
+    font-size: 1.05rem;
+  }
+  .pairing-card p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  .pairing-card .tag {
+    display: inline-block;
+    background: var(--butter);
+    color: var(--warm-brown);
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    font-family: -apple-system, sans-serif;
+    font-weight: 600;
+  }
+
+  /* Shopping List */
+  .aisle {
+    background: white;
+    border-radius: 12px;
+    margin: 1rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .aisle-header {
+    background: var(--cast-iron);
+    color: var(--butter);
+    padding: 0.7rem 1.2rem;
+    font-family: -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .aisle-items { padding: 0.5rem 1.2rem; }
+
+  /* Dinner Cards */
+  .dinner-card {
+    background: white;
+    border-radius: 12px;
+    margin: 1rem 0;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--sage);
+  }
+  .dinner-header {
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: var(--cast-iron);
+    user-select: none;
+  }
+  .dinner-header:hover { background: #f9f9f9; }
+  .dinner-body {
+    padding: 0 1.2rem 1.2rem;
+    display: none;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  .dinner-body.open { display: block; }
+  .dinner-effort {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .effort-low { background: #E8F5E9; color: #2E7D32; }
+  .effort-med { background: #FFF3E0; color: #E65100; }
+
+  /* Store Info */
+  .store-info {
+    background: #E3F2FD;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-family: -apple-system, sans-serif;
+    font-size: 0.9rem;
+  }
+  .store-info strong { color: #1565C0; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    color: #999;
+    font-size: 0.85rem;
+    font-family: -apple-system, sans-serif;
+  }
+  footer a { color: var(--cheddar); }
+
+  /* Print Styles */
+  @media print {
+    .nav, .hero, footer, .dinner-card { display: none; }
+    body { background: white; }
+    section { padding: 0.5rem 0; }
+    .ingredient-item input[type="checkbox"] { -webkit-appearance: none; border: 1.5px solid #333; border-radius: 3px; }
+    .aisle { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.8rem; }
+    section { padding: 1.5rem 1rem; }
+    .pairing-grid { grid-template-columns: 1fr; }
+    h2 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Hakeem's Sunday Brunch</h1>
+  <div class="subtitle">Walk-On's Style Cheese Grits & All the Fixings</div>
+  <div class="pills">
+    <span class="pill">April 5, 2026</span>
+    <span class="pill">Feeds 7</span>
+    <span class="pill">Easter Weekend</span>
+    <span class="pill">Rogers, AR</span>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="#grits">Cheese Grits</a>
+  <a href="#pairings">Brunch Plate</a>
+  <a href="#shopping">Shopping List</a>
+  <a href="#dinner">Easter Dinner</a>
+</nav>
+
+<!-- CHEESE GRITS -->
+<section id="grits">
+  <h2>Walk-On's Style Cheese Grits</h2>
+  <p>The real deal from Baton Rouge — creamy, cheesy, and rich enough to make you forget you're not on Nicholson Drive. This recipe takes Walk-On's double-corn technique and layers in sharp cheddar for the full experience.</p>
+
+  <div class="secret">
+    <div class="secret-title">The Walk-On's Secret</div>
+    <p>Walk-On's doesn't just use water — they cook grits in <strong>chicken broth and heavy cream</strong>. They also use a double-corn method: caramelized sweet kernel corn and creamed corn folded into the base. That's what makes theirs taste different from every other bowl of grits you've had.</p>
+  </div>
+
+  <h3>Ingredients (serves 7-8)</h3>
+  <div class="ingredients" id="grits-ingredients">
+    <div class="ingredient-item">
+      <input type="checkbox" id="g1"><label for="g1"><span class="ingredient-qty">2 cups</span> stone-ground yellow grits (NOT instant)</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g2"><label for="g2"><span class="ingredient-qty">3 cups</span> chicken broth (low sodium)</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g3"><label for="g3"><span class="ingredient-qty">3 cups</span> heavy cream</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g4"><label for="g4"><span class="ingredient-qty">2 cups</span> whole milk</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g5"><label for="g5"><span class="ingredient-qty">3 cups</span> shredded sharp cheddar cheese</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g6"><label for="g6"><span class="ingredient-qty">6 tbsp</span> unsalted butter</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g7"><label for="g7"><span class="ingredient-qty">1 can (14 oz)</span> creamed corn</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g8"><label for="g8"><span class="ingredient-qty">1 cup</span> sweet corn kernels (frozen or canned, drained)</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g9"><label for="g9"><span class="ingredient-qty">2 tsp</span> salt</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g10"><label for="g10"><span class="ingredient-qty">1 tsp</span> garlic powder</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g11"><label for="g11"><span class="ingredient-qty">1/2 tsp</span> black pepper</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g12"><label for="g12"><span class="ingredient-qty">1/4 tsp</span> cayenne pepper (optional)</label>
+    </div>
+    <div class="ingredient-item">
+      <input type="checkbox" id="g13"><label for="g13"><span class="ingredient-qty">3</span> green onions, sliced (garnish)</label>
+    </div>
+  </div>
+
+  <h3>Instructions</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text"><strong>Caramelize the corn.</strong> Melt 2 tbsp butter in a skillet over medium-high. Add the sweet corn kernels and a pinch of sugar. Cook 3-4 minutes, stirring occasionally, until golden and slightly caramelized. Set aside.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text"><strong>Heat the liquids.</strong> In a large heavy-bottomed pot, combine chicken broth, 2 cups of the heavy cream, and the milk. Bring to a gentle boil over medium heat.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text"><strong>Add the grits slowly.</strong> Whisk the stone-ground grits into the boiling liquid in a slow, steady stream. Keep whisking — no lumps allowed. Reduce heat to low.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text"><strong>Low and slow.</strong> Cover and simmer 20-25 minutes, stirring every 5 minutes. If they get too thick, add remaining heavy cream in splashes. You want them creamy, not stiff.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text"><strong>The double-corn fold.</strong> Stir in the creamed corn and the caramelized corn kernels. Cook another 3-4 minutes.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-text"><strong>OFF heat, add the cheese and butter.</strong> Remove from heat. Stir in the remaining 4 tbsp butter and all 3 cups of sharp cheddar. The residual heat melts everything without the cheese breaking. Add salt, garlic powder, pepper, and cayenne.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-text"><strong>Taste and adjust.</strong> Grits should be creamy, rich, and aggressively cheesy. Add more salt or cheese if needed. Top with sliced green onions.</div>
+  </div>
+
+  <div class="pro-tip">
+    <strong>Pro Tip:</strong> The cheese goes in OFF the heat. This is the #1 thing every top-rated recipe agrees on — if you add cheese while the pot is on the burner, it can separate and get grainy. Off heat, it melts into silk.
+  </div>
+
+  <div class="pro-tip">
+    <strong>Pro Tip:</strong> Stone-ground grits are worth the extra simmer time. Quick grits will work in a pinch (5 min cook), but the texture is nowhere close. Look for "stone-ground" or "old fashioned" on the bag.
+  </div>
+</section>
+
+<!-- BRUNCH PAIRINGS -->
+<section id="pairings">
+  <h2>The Full Brunch Plate</h2>
+  <p>Cheese grits are the star. Everything else plays a supporting role. Here's what goes alongside them:</p>
+
+  <div class="pairing-grid">
+    <div class="pairing-card">
+      <h4>Over-Easy Eggs</h4>
+      <p>Cook them in butter, keep the yolk runny. Crack it right over the grits and stir — that's the whole point.</p>
+      <span class="tag">Essential</span>
+    </div>
+    <div class="pairing-card">
+      <h4>Crispy Bacon</h4>
+      <p>Thick-cut, cooked crispy. Hakeem's cooking this one. Crumble some into the grits bowl.</p>
+      <span class="tag">Hakeem Cooks</span>
+    </div>
+    <div class="pairing-card">
+      <h4>Croissants</h4>
+      <p>Pre-made from the bakery section. Warm in the oven at 350 for 5 minutes. Buttery, flaky, done.</p>
+      <span class="tag">Easy Win</span>
+    </div>
+    <div class="pairing-card">
+      <h4>Breakfast Sausage</h4>
+      <p>Sage-seasoned links. Pan-fry until browned. Optional second protein alongside the bacon.</p>
+      <span class="tag">Optional</span>
+    </div>
+    <div class="pairing-card">
+      <h4>Fresh Fruit</h4>
+      <p>Strawberries and grapes. Light, fresh contrast to all that cream and cheese. No prep needed.</p>
+      <span class="tag">Balance</span>
+    </div>
+    <div class="pairing-card">
+      <h4>Orange Juice & Coffee</h4>
+      <p>Brunch without OJ and coffee isn't brunch. Simply Orange or Tropicana. Whatever coffee you like.</p>
+      <span class="tag">Drinks</span>
+    </div>
+  </div>
+</section>
+
+<!-- SHOPPING LIST -->
+<section id="shopping">
+  <h2>Walmart Shopping List</h2>
+
+  <div class="store-info">
+    <strong>Walmart Supercenter</strong> &mdash; 6613 S Silverthorne St, Rogers, AR 72758<br>
+    Estimated total: <strong>$35-45</strong> (brunch only)
+  </div>
+
+  <p style="font-size:0.9rem; color:#666; margin-bottom:1rem; font-family:-apple-system,sans-serif;">Check items as you shop. Your checks are saved automatically.</p>
+
+  <div class="aisle">
+    <div class="aisle-header">Dairy</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s1"><label for="s1">Sharp cheddar cheese, 16 oz bag shredded (x2 = 3 cups+)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s2"><label for="s2">Unsalted butter, 1 stick (8 tbsp)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s3"><label for="s3">Heavy cream, 1 quart (32 oz)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s4"><label for="s4">Whole milk, 1/2 gallon</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s5"><label for="s5">Eggs, 1 dozen large (for over-easy)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Dry Goods / Grains</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s6"><label for="s6">Stone-ground yellow grits (Quaker Old Fashioned or Bob's Red Mill)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s7"><label for="s7">Garlic powder (if not at home)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s8"><label for="s8">Cayenne pepper (if not at home, optional)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Canned / Boxed</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s9"><label for="s9">Creamed corn, 14 oz can</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s10"><label for="s10">Sweet corn kernels, 1 can (or frozen bag)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s11"><label for="s11">Chicken broth, 32 oz box (low sodium)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Meat</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s12"><label for="s12">Thick-cut bacon, 1 lb (Wright or Great Value)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s13"><label for="s13">Breakfast sausage links, 1 pack (Jimmy Dean sage)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Bakery</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s14"><label for="s14">Pre-made croissants, 6-8 pack (bakery section or Pillsbury)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Produce</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s15"><label for="s15">Green onions, 1 bunch</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s16"><label for="s16">Strawberries, 1 lb container</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s17"><label for="s17">Grapes, 1 bag (red or green)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Beverages</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="s18"><label for="s18">Orange juice, 52 oz (Simply Orange or Tropicana)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="s19"><label for="s19">Coffee (whatever you drink at home — check supply)</label></div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:2.5rem;">Dinner Shopping List</h2>
+  <div class="store-info">
+    <strong>Easter Dinner:</strong> Parmesan Crusted Chicken + Cheesy Parmesan Mashed Potatoes + Deviled Eggs<br>
+    Estimated total: <strong>$25-35</strong> (dinner items)
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Meat</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="sd1"><label for="sd1">Boneless skinless chicken breasts, 7 pieces (or 2 large packs)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Dairy (Dinner)</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="sd2"><label for="sd2">Grated Parmesan cheese, 16 oz container (for chicken + potatoes)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd3"><label for="sd3">Heavy cream — already on brunch list, get extra quart if needed</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd4"><label for="sd4">Unsalted butter — already on brunch list, get extra stick</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd5"><label for="sd5">Eggs — already on brunch list, get 2 dozen total (brunch + deviled eggs + egg wash)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Dry Goods (Dinner)</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="sd6"><label for="sd6">Italian breadcrumbs, 1 canister (Progresso or Great Value)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd7"><label for="sd7">Paprika — may already have at home</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Produce (Dinner)</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="sd8"><label for="sd8">Yukon Gold potatoes, 4 lbs bag</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd9"><label for="sd9">Garlic, 1 head (for potatoes)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd10"><label for="sd10">Fresh chives, 1 bunch (garnish for potatoes + deviled eggs)</label></div>
+    </div>
+  </div>
+
+  <div class="aisle">
+    <div class="aisle-header">Condiments (Dinner)</div>
+    <div class="aisle-items">
+      <div class="ingredient-item"><input type="checkbox" id="sd11"><label for="sd11">Mayo (for deviled eggs — check if at home)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd12"><label for="sd12">Dijon mustard (for deviled eggs — check if at home)</label></div>
+      <div class="ingredient-item"><input type="checkbox" id="sd13"><label for="sd13">White vinegar (for deviled eggs — check if at home)</label></div>
+    </div>
+  </div>
+</section>
+
+<!-- DINNER DECISION -->
+<section id="dinner-final" style="padding-bottom:0;">
+  <h2>Easter Dinner — Final Menu</h2>
+  <div class="secret" style="border-left-color: var(--sage); background: linear-gradient(135deg, var(--light-sage) 0%, #d4edda 100%);">
+    <div class="secret-title" style="color: var(--sage);">The Menu Is Set</div>
+    <p style="font-size:1.1rem; margin-bottom:0.5rem;"><strong>Main:</strong> Parmesan Crusted Chicken</p>
+    <p style="font-size:1.1rem; margin-bottom:0.5rem;"><strong>Side 1:</strong> Cheesy Parmesan Mashed Potatoes</p>
+    <p style="font-size:1.1rem; margin-bottom:0;"><strong>Side 2:</strong> Deviled Eggs</p>
+  </div>
+
+  <h3>Parmesan Crusted Chicken</h3>
+  <p>Boneless, skinless chicken breasts coated in a crispy Parmesan crust. Golden, crunchy, juicy inside.</p>
+
+  <div class="ingredients">
+    <div class="ingredient-item"><input type="checkbox" id="d1"><label for="d1"><span class="ingredient-qty">7</span> boneless skinless chicken breasts (or 14 tenderloins)</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d2"><label for="d2"><span class="ingredient-qty">1.5 cups</span> grated Parmesan cheese</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d3"><label for="d3"><span class="ingredient-qty">1 cup</span> Italian breadcrumbs</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d4"><label for="d4"><span class="ingredient-qty">1 tsp</span> garlic powder</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d5"><label for="d5"><span class="ingredient-qty">1 tsp</span> paprika</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d6"><label for="d6"><span class="ingredient-qty">1/2 tsp</span> salt + 1/2 tsp pepper</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d7"><label for="d7"><span class="ingredient-qty">2</span> eggs, beaten (egg wash)</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d8"><label for="d8"><span class="ingredient-qty">4 tbsp</span> melted butter (or olive oil)</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d9"><label for="d9"><span class="ingredient-qty">Optional:</span> fresh parsley for garnish</label></div>
+  </div>
+
+  <h3>Instructions</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Preheat oven to 400°F.</strong> Line a large baking sheet with parchment paper or foil. Lightly spray with cooking spray.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Mix the crust.</strong> In a shallow dish, combine Parmesan, breadcrumbs, garlic powder, paprika, salt, and pepper.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Prep the chicken.</strong> If breasts are thick, pound them to even thickness (~3/4 inch) with a mallet or rolling pin. This ensures even cooking.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Coat.</strong> Dip each chicken breast in beaten egg, then press firmly into the Parmesan breadcrumb mixture on both sides. Place on the baking sheet.</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Drizzle.</strong> Drizzle or brush melted butter over the top of each piece. This helps the crust get golden and crispy.</div></div>
+  <div class="step"><div class="step-num">6</div><div class="step-text"><strong>Bake 20-25 minutes</strong> until internal temp reaches 165°F and the crust is golden brown. No flipping needed.</div></div>
+  <div class="step"><div class="step-num">7</div><div class="step-text"><strong>Rest 5 minutes</strong> before serving. Garnish with fresh parsley if you have it.</div></div>
+
+  <div class="pro-tip"><strong>Pro Tip:</strong> Use two sheet pans so the chicken isn't crowded — crowding steams it instead of crisping it. Space them at least 1 inch apart.</div>
+
+  <h3>Cheesy Parmesan Mashed Potatoes</h3>
+  <p>Creamy, rich, loaded with Parmesan and butter. The perfect pairing with the crusted chicken.</p>
+
+  <div class="ingredients">
+    <div class="ingredient-item"><input type="checkbox" id="d10"><label for="d10"><span class="ingredient-qty">4 lbs</span> Yukon Gold potatoes, peeled and cubed</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d11"><label for="d11"><span class="ingredient-qty">1 stick (8 tbsp)</span> unsalted butter</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d12"><label for="d12"><span class="ingredient-qty">1 cup</span> heavy cream (warm)</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d13"><label for="d13"><span class="ingredient-qty">1.5 cups</span> grated Parmesan cheese</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d14"><label for="d14"><span class="ingredient-qty">4 cloves</span> garlic, minced (optional)</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d15"><label for="d15"><span class="ingredient-qty">Salt and pepper</span> to taste</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d16"><label for="d16"><span class="ingredient-qty">Optional:</span> chopped chives for topping</label></div>
+  </div>
+
+  <h3>Instructions</h3>
+  <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Boil the potatoes.</strong> Place cubed potatoes in a large pot, cover with cold water, add 1 tbsp salt. Bring to boil, cook 15-20 min until fork-tender. Drain well.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Melt butter + garlic.</strong> While potatoes cook, melt butter in a small saucepan. If using garlic, cook it in the butter for 1-2 min until fragrant (not browned).</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Mash.</strong> Mash drained potatoes with a masher or hand mixer. Add the garlic butter and warm heavy cream. Mash until smooth and creamy.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Fold in Parmesan.</strong> Stir in the grated Parmesan until fully melted and incorporated. Season with salt and pepper to taste.</div></div>
+  <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Serve.</strong> Transfer to a serving bowl. Top with extra Parmesan and chopped chives. Can be kept warm in a covered pot on lowest heat for up to 1 hour.</div></div>
+
+  <div class="pro-tip"><strong>Pro Tip:</strong> Warm the cream before adding — cold cream into hot potatoes makes them gummy. Microwave it for 30 seconds or warm in a saucepan.</div>
+
+  <h3>Deviled Eggs</h3>
+  <div class="ingredients">
+    <div class="ingredient-item"><input type="checkbox" id="d17"><label for="d17"><span class="ingredient-qty">12</span> large eggs</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d18"><label for="d18"><span class="ingredient-qty">1/3 cup</span> mayo</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d19"><label for="d19"><span class="ingredient-qty">1 tbsp</span> Dijon mustard</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d20"><label for="d20"><span class="ingredient-qty">1 tsp</span> white vinegar</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d21"><label for="d21"><span class="ingredient-qty">Salt, pepper, paprika</span> to taste</label></div>
+    <div class="ingredient-item"><input type="checkbox" id="d22"><label for="d22"><span class="ingredient-qty">Optional:</span> fresh chives for garnish</label></div>
+  </div>
+
+  <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Hard boil eggs.</strong> Place in pot, cover with cold water. Bring to boil, cover, remove from heat. Let sit 12 min. Ice bath to cool.</div></div>
+  <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Peel and halve.</strong> Scoop yolks into a bowl.</div></div>
+  <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Mix filling.</strong> Mash yolks with mayo, Dijon, vinegar, salt, pepper. Pipe or spoon back into whites.</div></div>
+  <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Garnish.</strong> Sprinkle with paprika and chives. Cover and refrigerate — best made Saturday night.</div></div>
+</section>
+
+<hr style="border:none; border-top:2px dashed var(--cheddar); margin:2rem auto; max-width:800px;">
+
+<!-- ALL OTHER OPTIONS (collapsed for reference) -->
+<section id="dinner" style="padding-top:1rem;">
+  <h2 style="color:#999; font-size:1.4rem;">Other Dinner Ideas (For Next Time)</h2>
+  <p style="color:#999;">These didn't make the cut this Easter, but saved here for future reference.</p>
+
+  <h3 style="margin-top:2rem; color:var(--bacon);">Chicken</h3>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Ina Garten's Perfect Roast Chicken (x2)
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>The most foolproof roast chicken on the internet. Two 4-5 lb whole chickens. Rinse, pat dry, stuff with lemon halves and thyme, tie the legs, rub with butter, salt and pepper generously. Roast at 425°F for 1 hour 15 min. That's it.</p>
+      <p><strong>Why it works:</strong> Ina's recipe has thousands of 5-star reviews because it's dead simple — 5 ingredients, no basting, no flipping. The high heat gives crispy skin every time.</p>
+      <p><strong>Feeds 7:</strong> Two chickens. About 15 min active prep, then the oven does the rest.</p>
+      <p><strong>Pairs with:</strong> Roasted potatoes (toss around the chicken in the same pan), asparagus, dinner rolls.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Sheet Pan Lemon Herb Chicken & Potatoes
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>14 bone-in, skin-on chicken thighs on two sheet pans with baby potatoes, lemon wedges, and garlic cloves. Drizzle with olive oil, sprinkle rosemary, thyme, salt, pepper. 425°F for 45 minutes.</p>
+      <p><strong>Why it works:</strong> One pan = one cleanup. Chicken thighs are forgiving — almost impossible to dry out. The potatoes roast in the chicken drippings.</p>
+      <p><strong>Feeds 7:</strong> 2 thighs per person + potatoes. Use two sheet pans side by side.</p>
+      <p><strong>Pairs with:</strong> Roasted asparagus (add to pans last 15 min), dinner rolls, green beans.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Sticky Apricot Glazed Chicken
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Bone-in chicken thighs or drumsticks glazed with apricot preserves, Dijon mustard, soy sauce, and garlic. Bake at 400°F for 40-45 min. The glaze caramelizes into a sweet, sticky coating.</p>
+      <p><strong>Why it works:</strong> Looks impressive, tastes like you spent hours, but it's literally mix a glaze, pour it on chicken, bake. Kids love it too.</p>
+      <p><strong>Feeds 7:</strong> 3-4 lbs chicken pieces. Double the glaze recipe if using two pans.</p>
+      <p><strong>Pairs with:</strong> Rice, roasted carrots, sweet potato casserole.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Chicken & Rice Casserole
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Boneless chicken thighs, white rice, cream of mushroom soup, chicken broth, onion powder, garlic powder. Mix everything in a 9x13, lay chicken on top, cover with foil, bake at 375°F for 1 hour. Uncover last 15 min for browning.</p>
+      <p><strong>Why it works:</strong> True dump-and-bake. Rice cooks in the casserole — no separate pot. One dish, one oven, done.</p>
+      <p><strong>Feeds 7:</strong> Double batch in a deep 9x13 or use two pans.</p>
+      <p><strong>Pairs with:</strong> Green beans, dinner rolls, a simple salad.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Sheet Pan BBQ Chicken with Corn & Potato Wedges
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Chicken thighs brushed with your favorite BBQ sauce, corn on the cob (halved), and potato wedges. All on one sheet pan. 400°F for 35-40 min. Brush more sauce halfway through.</p>
+      <p><strong>Why it works:</strong> Entire meal on one pan. Kid-friendly. Use Sweet Baby Ray's or whatever BBQ sauce you already have.</p>
+      <p><strong>Feeds 7:</strong> Two sheet pans, 14 thighs, 7 half-ears corn, 3 lbs potatoes.</p>
+      <p><strong>Pairs with:</strong> Cornbread, coleslaw. The full cookout-meets-Easter vibe.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem; color:var(--bacon);">Lamb</h3>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Greek Lemon Roasted Leg of Lamb with Potatoes
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Bone-in leg of lamb (5-6 lbs), stabbed with garlic slivers, rubbed with lemon juice, olive oil, oregano, salt, pepper. Surround with quartered potatoes. Roast at 350°F for about 2.5 hours (20 min per pound).</p>
+      <p><strong>Why it works:</strong> Traditional Easter centerpiece in Greek and many European households. The potatoes absorb the lamb drippings and get unbelievably good. Active prep is 15 minutes — the oven does the rest.</p>
+      <p><strong>Feeds 7:</strong> 5-6 lb bone-in leg. Figure 3/4 lb per person with bone.</p>
+      <p><strong>Pairs with:</strong> Greek salad, tzatziki, pita bread, roasted asparagus.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Herb-Crusted Rack of Lamb
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Two racks of lamb (8 ribs each), coated with Dijon mustard then pressed with a garlic-rosemary-breadcrumb crust. Sear 2 min per side, then roast at 450°F for 15-20 min (medium-rare).</p>
+      <p><strong>Why it works:</strong> Looks like a restaurant dish but actual cook time is under 25 minutes. The mustard acts as glue for the herb crust. This is the "impress everyone" option.</p>
+      <p><strong>Feeds 7:</strong> Two full racks (16 ribs total, about 2 per person). Pricier cut — budget ~$40-50 for the lamb.</p>
+      <p><strong>Pairs with:</strong> Mashed potatoes, roasted asparagus, mint sauce, dinner rolls.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Braised Lamb Shanks
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>7 lamb shanks, seared in a Dutch oven, then braised low and slow with red wine, beef broth, carrots, onion, garlic, tomato paste, and rosemary. 325°F for 2.5-3 hours covered.</p>
+      <p><strong>Why it works:</strong> Braising is hands-off after the initial sear. The meat falls off the bone. Rich, hearty, and feels like a special occasion. Can be made a day ahead and reheated (gets better overnight).</p>
+      <p><strong>Feeds 7:</strong> One shank per person. Check Walmart meat counter for availability.</p>
+      <p><strong>Pairs with:</strong> Mashed potatoes (to soak up the sauce), crusty bread, roasted vegetables.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem; color:var(--bacon);">Beef</h3>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Prime Rib Roast
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Standing rib roast (4-5 ribs, about 8-10 lbs bone-in). Season generously with salt, pepper, garlic, and herbs the night before. Let it come to room temp for 1 hour. Roast at 500°F for 15 min to sear, then drop to 325°F until internal temp hits 130°F for medium-rare (about 2-2.5 hours). Rest 20 min before carving.</p>
+      <p><strong>Why it works:</strong> Simpler than it sounds — it's just a big roast. The reverse-sear method is foolproof if you use a meat thermometer. Show-stopping on the table.</p>
+      <p><strong>Feeds 7:</strong> Figure 1 lb per person bone-in. 4-rib roast (~8 lbs) handles 7 easily.</p>
+      <p><strong>Budget:</strong> This is the splurge option — expect $60-80+ at Walmart for a prime rib.</p>
+      <p><strong>Pairs with:</strong> Mashed potatoes, horseradish cream, Yorkshire pudding, roasted asparagus.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Beef Tenderloin
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Whole beef tenderloin (3-4 lbs trimmed), tied with kitchen twine. Season with salt, pepper, garlic. Sear all sides in a hot skillet (2 min per side), then roast at 425°F for 20-25 min until 130°F internal. Rest 10 min, slice into medallions.</p>
+      <p><strong>Why it works:</strong> The most tender cut of beef. Cooks fast. Slices into beautiful medallions that look like a steakhouse served them. Total cook time under 40 min.</p>
+      <p><strong>Feeds 7:</strong> 3-4 lb tenderloin (about 6 oz per person).</p>
+      <p><strong>Budget:</strong> Another splurge — ~$50-70 at Walmart.</p>
+      <p><strong>Pairs with:</strong> Roasted potatoes, green beans almondine, dinner rolls, peppercorn sauce.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem; color:var(--bacon);">Pork (Not Ham)</h3>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Apricot Glazed Pork Tenderloin
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Two pork tenderloins (about 1 lb each), rubbed with salt, pepper, garlic powder. Sear in a hot skillet 2 min per side, then brush with a glaze of apricot preserves, Dijon mustard, and soy sauce. Roast at 400°F for 20-25 min until internal temp hits 145°F.</p>
+      <p><strong>Why it works:</strong> Pork tenderloin is cheap, lean, and cooks in 25 minutes. The sweet-tangy glaze makes it Easter-worthy. Under 30 minutes total.</p>
+      <p><strong>Feeds 7:</strong> Two 1 lb tenderloins. Slice into medallions.</p>
+      <p><strong>Pairs with:</strong> Mashed potatoes, roasted asparagus, dinner rolls, sweet potato casserole.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Brown Sugar Garlic Pork Chops
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>7 bone-in pork chops (1 per person), seared 3 min per side, then baked at 400°F for 15 min with a brown sugar, garlic, butter, and paprika glaze.</p>
+      <p><strong>Why it works:</strong> Each person gets their own chop — no carving needed. The glaze caramelizes beautifully. Done in under 25 minutes.</p>
+      <p><strong>Feeds 7:</strong> 7 bone-in chops. Buy them thick-cut (1 inch+) so they stay juicy.</p>
+      <p><strong>Pairs with:</strong> Mac & cheese, roasted green beans, cornbread, mashed potatoes.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem; color:var(--bacon);">Seafood</h3>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Sheet Pan Lemon Herb Salmon with Asparagus
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Large salmon fillet (2.5-3 lbs) or 7 individual portions on a sheet pan with asparagus. Drizzle with olive oil, lemon juice, minced garlic, dill, salt, pepper. 400°F for 15-20 minutes.</p>
+      <p><strong>Why it works:</strong> Fastest protein on this list — 20 minutes from oven to table. Light and fresh for spring. One pan, almost zero cleanup.</p>
+      <p><strong>Feeds 7:</strong> 3 lb fillet or 7 individual 6-oz portions.</p>
+      <p><strong>Pairs with:</strong> Rice, roasted potatoes, Caesar salad, dinner rolls.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:2rem; color:var(--bacon);">Cajun / Southern</h3>
+
+  <div class="dinner-card">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Cajun Chicken & Sausage Jambalaya (No Shrimp)
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>One-pot: diced chicken thighs, sliced andouille sausage, the Cajun trinity (onion, celery, bell pepper), diced tomatoes, chicken broth, and long-grain rice. Season with Cajun seasoning, thyme, bay leaves. Bring to boil, cover, simmer 25 min.</p>
+      <p><strong>Why it works:</strong> One pot feeds a crowd. Ties into the Walk-On's brunch theme — Louisiana all day. NO SHRIMP in this version. Rich, filling, and reheats great.</p>
+      <p><strong>Feeds 7:</strong> One large Dutch oven or stock pot. Double if using a smaller pot.</p>
+      <p><strong>Pairs with:</strong> Cornbread, simple green salad. Honestly it's a complete meal on its own.</p>
+    </div>
+  </div>
+
+  <!-- SIDES SECTION -->
+  <h2 style="margin-top:3rem;">Easter Sides — Pick 2-3</h2>
+  <p>Deviled eggs are already happening. Pick 2-3 more from below to round out the plate.</p>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Deviled Eggs (Classic Easter)
+      <span class="dinner-effort effort-low" style="background:#FFF3CD; color:var(--cheddar);">LOCKED IN</span>
+    </div>
+    <div class="dinner-body">
+      <p>1 dozen eggs, hard boiled, halved. Mix yolks with mayo, Dijon mustard, white vinegar, salt, pepper, and a pinch of paprika. Pipe or spoon filling back into whites. Sprinkle with paprika and fresh chives.</p>
+      <p><strong>Pro move:</strong> Make these Saturday night — they're actually better after sitting in the fridge overnight. Cover with plastic wrap.</p>
+      <p><strong>Feeds 7:</strong> 1 dozen = 24 halves, about 3 per person.</p>
+      <p><strong>Walmart:</strong> Eggs, mayo, Dijon mustard, paprika, chives.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Southern Baked Mac & Cheese
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>1 lb elbow macaroni, 3 cups shredded sharp cheddar, 8 oz Velveeta cubed, 2 eggs, 1 can evaporated milk, 4 tbsp butter, salt, pepper, paprika. Cook pasta, mix everything in a 9x13, top with extra cheese. Bake at 350°F for 35-40 min.</p>
+      <p><strong>Why it works:</strong> Velveeta gives the creamy base, sharp cheddar gives the flavor. This is not box mac — this is the real thing. Feeds a crowd from one pan.</p>
+      <p><strong>Feeds 7:</strong> 9x13 pan, easily 8-10 servings.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Roasted Asparagus
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>2 bunches asparagus, trimmed. Toss with olive oil, salt, pepper, and minced garlic. Single layer on a sheet pan. 400°F for 12-15 minutes. Optional: squeeze of lemon and shaved Parmesan when it comes out.</p>
+      <p><strong>Why it works:</strong> 15 minutes, one pan, almost no prep. The quintessential spring vegetable. Looks elegant on the plate.</p>
+      <p><strong>Feeds 7:</strong> 2 bunches (about 2 lbs total).</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Creamy Mashed Potatoes
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>3 lbs Yukon Gold potatoes, peeled, cubed, boiled until fork-tender (15-20 min). Drain, mash with 1 stick butter, 1/2 cup heavy cream, salt, pepper. Mash until smooth or leave slightly chunky.</p>
+      <p><strong>Why it works:</strong> Yukon Golds are naturally buttery and creamy. No need for a ricer — a regular masher works fine. Can be made 2 hours ahead, kept warm in a covered pot on lowest heat.</p>
+      <p><strong>Feeds 7:</strong> 3 lbs potatoes, about 1/2 lb per person.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Sweet Potato Casserole
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>4 lbs sweet potatoes, boiled and mashed. Mix with 1/2 cup brown sugar, 1/4 cup melted butter, 1/3 cup milk, 2 eggs, 1 tsp vanilla, 1/2 tsp cinnamon. Spread in a 9x13. Top with a mix of 1 cup pecans, 1/3 cup flour, 1/3 cup brown sugar, 3 tbsp melted butter. Bake 375°F for 25 min.</p>
+      <p><strong>Why it works:</strong> Make-ahead friendly — assemble Saturday, bake Sunday. The pecan crumble topping is what makes it. Can also do marshmallow topping if the kids prefer.</p>
+      <p><strong>Feeds 7:</strong> 9x13 pan, 8-10 servings easily.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Roasted Green Beans with Garlic
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>2 lbs fresh green beans, trimmed. Toss with olive oil, 4 minced garlic cloves, salt, pepper. Roast at 425°F for 20 minutes. Optional: toss with toasted slivered almonds when done (green beans almondine).</p>
+      <p><strong>Why it works:</strong> Simple, fresh, healthy. Roasting gives them a slight char that steaming can't match. The garlic makes them irresistible.</p>
+      <p><strong>Feeds 7:</strong> 2 lbs, about 4-5 oz per person.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Honey Roasted Carrots
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>2 lbs whole carrots (or baby carrots), tossed with 2 tbsp melted butter, 1 tbsp honey, salt, pepper, and fresh thyme. Roast at 400°F for 25-30 min until caramelized and tender.</p>
+      <p><strong>Why it works:</strong> Sweet, colorful, and roasting brings out natural sugars. Kids who won't eat vegetables will eat these. Almost zero prep.</p>
+      <p><strong>Feeds 7:</strong> 2 lbs carrots on one sheet pan.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Dinner Rolls
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p><strong>Easy route:</strong> Pillsbury Crescent Rolls or Hawaiian Sweet Rolls from the bakery section. Pop open, bake per instructions, done in 12 min.</p>
+      <p><strong>From scratch:</strong> Sally's Baking Addiction soft dinner rolls — flour, yeast, butter, milk, sugar, salt. Mix, rise 1 hour, shape into balls, rise 30 min more, bake 20 min at 350°F. Makes 15 rolls.</p>
+      <p><strong>Feeds 7:</strong> 2 rolls per person. Buy or make 15 to have extras.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Cornbread
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>Jiffy Corn Muffin Mix (2 boxes) or from scratch: 1 cup cornmeal, 1 cup flour, 1/3 cup sugar, 1 tbsp baking powder, 1/2 tsp salt, 1 egg, 1 cup milk, 1/3 cup melted butter. Mix, pour in a greased cast iron or 8x8 pan. Bake 400°F for 20-25 min.</p>
+      <p><strong>Why it works:</strong> Southern staple. Pairs with literally everything on this page. Jiffy mix makes it a 5-minute prep. Goes great with the Cajun jambalaya option.</p>
+      <p><strong>Feeds 7:</strong> One pan, cut into squares.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Scalloped Potatoes
+      <span class="dinner-effort effort-med">Medium Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>3 lbs russet potatoes, thinly sliced. Layer in a greased 9x13 with a sauce of 3 tbsp butter, 3 tbsp flour, 2.5 cups milk, 2 cups shredded Gruyere or cheddar, salt, pepper, garlic. Pour sauce over layers. Top with extra cheese. Cover and bake at 350°F for 1 hour, uncover last 15 min for browning.</p>
+      <p><strong>Why it works:</strong> Creamy, cheesy, and impressive on the table. The slicing takes a few minutes but after that it's all oven time. Can be assembled a few hours ahead.</p>
+      <p><strong>Feeds 7:</strong> 9x13 pan, 8-10 servings.</p>
+    </div>
+  </div>
+
+  <div class="dinner-card" style="border-left-color: var(--cheddar);">
+    <div class="dinner-header" onclick="toggleDinner(this)">
+      Simple Caesar Salad
+      <span class="dinner-effort effort-low">Low Effort</span>
+    </div>
+    <div class="dinner-body">
+      <p>2 heads romaine, chopped. Toss with store-bought Caesar dressing (Cardini's or Ken's), croutons, and shaved Parmesan. Done.</p>
+      <p><strong>Why it works:</strong> Fresh, crunchy, takes 5 minutes, and balances out heavier mains. Buy a bag of Caesar salad kit if you want it even easier.</p>
+      <p><strong>Feeds 7:</strong> 2 heads romaine or 2 salad kits.</p>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <p>Hakeem's Family Recipes &mdash; Easter Weekend 2026</p>
+  <p style="margin-top:0.3rem">Recipes saved in <a href="https://notebooklm.google.com/notebook/697e1883-c2fb-44dd-9e10-b61e73f09207" target="_blank">NotebookLM</a> for next time</p>
+</footer>
+
+<script>
+// Checkbox persistence
+document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+  const key = 'brunch_' + cb.id;
+  if (localStorage.getItem(key) === 'true') {
+    cb.checked = true;
+    cb.closest('.ingredient-item').classList.add('checked');
+  }
+  cb.addEventListener('change', () => {
+    localStorage.setItem(key, cb.checked);
+    cb.closest('.ingredient-item').classList.toggle('checked', cb.checked);
+  });
+});
+
+// Dinner card toggle
+function toggleDinner(header) {
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+  header.style.borderBottom = body.classList.contains('open') ? '1px solid #eee' : 'none';
+}
+</script>
+</body>
+</html>

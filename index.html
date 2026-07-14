@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hakeem Rashid</title>
+<meta name="description" content="Small things I built.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2B2622;
+    --cream:#F7F2EA;
+    --cream-dark:#EDE4D3;
+    --soft-gray:#D9D3C9;
+    --terracotta:#C86D49;
+    --terracotta-soft:#E89A7D;
+    --terracotta-bg:#F5E5DD;
+    --deep-green:#2F4F3F;
+    --deep-green-soft:#5D7A6A;
+    --radius-md:16px;
+    --radius-lg:24px;
+    --shadow-sm:0 1px 3px rgba(43,38,34,.06);
+    --shadow-md:0 4px 12px rgba(43,38,34,.08);
+    --shadow-lg:0 12px 32px rgba(43,38,34,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--charcoal);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(24px,6vw,80px) 20px;
+  }
+  .wrap{width:100%;max-width:680px}
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--terracotta-soft);font-weight:600;text-align:center;
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:clamp(2.6rem,7vw,4rem);
+    font-weight:600;line-height:1.05;text-align:center;
+    letter-spacing:-.01em;
+  }
+  .sub{
+    text-align:center;color:#8A8079;font-size:1.02rem;
+    font-style:italic;font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:1.25rem;margin-top:14px;margin-bottom:44px;
+  }
+  .grid{display:flex;flex-direction:column;gap:14px}
+  a.card{
+    display:block;text-decoration:none;color:inherit;
+    background:#FFFDF9;
+    border:1px solid var(--soft-gray);
+    border-radius:var(--radius-md);
+    padding:22px 24px;
+    box-shadow:var(--shadow-sm);
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+  }
+  a.card:hover{
+    transform:translateY(-2px);
+    box-shadow:var(--shadow-lg);
+    border-color:var(--terracotta-soft);
+  }
+  a.card:focus-visible{outline:2px solid var(--terracotta-soft);outline-offset:3px}
+  .card h2{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:1.5rem;font-weight:600;line-height:1.25;
+    margin-bottom:5px;
+  }
+  .card p{font-size:.93rem;color:#7C736C;line-height:1.5}
+  footer{
+    margin-top:52px;text-align:center;
+    font-size:.8rem;color:#A79E96;
+  }
+  @media (max-width:520px){
+    .card h2{font-size:1.3rem}
+    body{align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Hakeem Rashid</p>
+  <h1>Small things I built</h1>
+  <p class="sub">Mostly for my family. One for a venture.</p>
+
+  <div class="grid">
+    <a class="card" href="birth/">
+      <h2>Where should we welcome our baby?</h2>
+      <p>A decision tool for choosing where to give birth in Northwest Arkansas — your preferences, weighted against the numbers.</p>
+    </a>
+
+    <a class="card" href="birthday/">
+      <h2>Parker's 7th Birthday</h2>
+      <p>Planning a princess-worthy Saturday in Rogers. Venues, packages, and what it costs.</p>
+    </a>
+
+    <a class="card" href="brunch/">
+      <h2>Sunday Brunch</h2>
+      <p>Walk-On's style cheese grits, reverse-engineered until they were right.</p>
+    </a>
+
+    <a class="card" href="fleetbridge/FLEETBRIDGE_ROADMAP.html">
+      <h2>FleetBridge Roadmap</h2>
+      <p>Where the venture is going, and what shipped along the way.</p>
+    </a>
+  </div>
+
+  <footer>hr-ar.github.io</footer>
+</div>
+</body>
+</html>
