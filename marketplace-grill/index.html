@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The full MarketPlace Grill Springdale menu, ranked by what reviewers actually name as the best thing. Tap any dish for the evidence.">
+<meta property="og:title" content="MarketPlace Grill Springdale - Ranked Menu">
+<meta property="og:description" content="Every dish on the menu, ranked by review consensus. Unranked stays unranked.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#14100D">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%94%A5</text></svg>">
+<style>*{margin:0;padding:0}</style>
+<title>MarketPlace Grill Springdale — Ranked Menu</title>
+</head>
+<body>
+
+<style>
+  :root {
+    --bg:        #14100D;
+    --surface:   #1E1915;
+    --surface-2: #272019;
+    --line:      #383027;
+    --line-soft: #2C251E;
+    --text:      #EDE6DC;
+    --dim:       #A2968A;
+    --faint:     #6E6357;
+    --ember:     #E4551D;
+    --amber:     #E8A33C;
+    --sage:      #7E8B6E;
+    --glow:      rgba(228, 85, 29, 0.28);
+
+    --display: "Superclarendon", "Rockwell", "Roboto Slab", Georgia, serif;
+    --body:    "Charter", "Iowan Old Style", Georgia, serif;
+    --data:    ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --step-0: 1rem;
+    --step-1: 1.125rem;
+    --step-2: 1.5rem;
+    --step-3: 2rem;
+    --step-4: clamp(2.4rem, 6vw, 3.6rem);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg:        #E4DFD6;
+      --surface:   #EFEBE3;
+      --surface-2: #E9E4DA;
+      --line:      #C9C1B4;
+      --line-soft: #D6CFC3;
+      --text:      #241D17;
+      --dim:       #6B6055;
+      --faint:     #8C8175;
+      --ember:     #C33E0C;
+      --amber:     #A8710E;
+      --sage:      #5F6C50;
+      --glow:      rgba(195, 62, 12, 0.18);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --bg:        #E4DFD6;
+    --surface:   #EFEBE3;
+    --surface-2: #E9E4DA;
+    --line:      #C9C1B4;
+    --line-soft: #D6CFC3;
+    --text:      #241D17;
+    --dim:       #6B6055;
+    --faint:     #8C8175;
+    --ember:     #C33E0C;
+    --amber:     #A8710E;
+    --sage:      #5F6C50;
+    --glow:      rgba(195, 62, 12, 0.18);
+  }
+
+  :root[data-theme="dark"] {
+    --bg:        #14100D;
+    --surface:   #1E1915;
+    --surface-2: #272019;
+    --line:      #383027;
+    --line-soft: #2C251E;
+    --text:      #EDE6DC;
+    --dim:       #A2968A;
+    --faint:     #6E6357;
+    --ember:     #E4551D;
+    --amber:     #E8A33C;
+    --sage:      #7E8B6E;
+    --glow:      rgba(228, 85, 29, 0.28);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.25rem 5rem;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .mast {
+    padding: 4rem 0 2.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    font-family: var(--data);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin: 0 0 1.1rem;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: var(--step-4);
+    line-height: 1.02;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 0 0 1rem;
+  }
+
+  h1 .flame {
+    color: var(--ember);
+    text-shadow: 0 0 28px var(--glow);
+  }
+
+  .standfirst {
+    font-size: var(--step-1);
+    color: var(--dim);
+    max-width: 60ch;
+    margin: 0 0 2rem;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2.5rem;
+    font-family: var(--data);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat { padding: 0.5rem 0; }
+
+  .stat b {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--amber);
+  }
+
+  .stat span {
+    color: var(--faint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+  }
+
+  /* ---------- verdict ---------- */
+
+  .verdict {
+    margin: 2.25rem 0 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--ember);
+    padding: 1.5rem 1.6rem;
+  }
+
+  .verdict h2 {
+    font-family: var(--data);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin: 0 0 0.9rem;
+    font-weight: 600;
+  }
+
+  .verdict ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .verdict li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: baseline;
+  }
+
+  .verdict li i {
+    font-family: var(--data);
+    font-style: normal;
+    font-size: 0.68rem;
+    color: var(--faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 4.5rem;
+  }
+
+  .verdict p {
+    margin: 1.1rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
+    color: var(--dim);
+    font-size: 0.92rem;
+  }
+
+  /* ---------- controls ---------- */
+
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    padding: 1.5rem 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .controls button {
+    font-family: var(--data);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    transition: color 0.18s, border-color 0.18s, background 0.18s;
+  }
+
+  .controls button:hover { color: var(--text); border-color: var(--faint); }
+
+  .controls button[aria-pressed="true"] {
+    color: var(--bg);
+    background: var(--ember);
+    border-color: var(--ember);
+  }
+
+  .controls .spacer { flex: 1; }
+
+  .controls .hint {
+    font-family: var(--data);
+    font-size: 0.66rem;
+    color: var(--faint);
+    letter-spacing: 0.06em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
+
+  /* ---------- sections ---------- */
+
+  .course { margin-top: 3rem; }
+  .course[hidden] { display: none; }
+
+  .course-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .course-head h3 {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .course-head em {
+    font-family: var(--data);
+    font-style: normal;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .course-rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--ember), var(--line) 55%, transparent);
+    margin-bottom: 0.4rem;
+  }
+
+  .course-note {
+    font-size: 0.86rem;
+    color: var(--faint);
+    margin: 0.7rem 0 0;
+  }
+
+  /* ---------- items ---------- */
+
+  .item { border-bottom: 1px solid var(--line-soft); }
+  .item[hidden] { display: none; }
+
+  .row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2.6rem 1fr auto;
+    gap: 0 0.9rem;
+    align-items: baseline;
+    background: transparent;
+    border: 0;
+    padding: 0.95rem 0.5rem 0.95rem 0;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    transition: background 0.16s;
+  }
+
+  .row:hover { background: var(--surface); }
+
+  .badge {
+    font-family: var(--data);
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    padding: 0.1rem 0;
+    border: 1px solid transparent;
+    align-self: center;
+  }
+
+  .badge.rank {
+    color: var(--bg);
+    background: var(--amber);
+  }
+
+  .badge.rank.top {
+    background: var(--ember);
+    color: #FFF3EA;
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .badge.mark {
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    color: var(--sage);
+    border-color: var(--line);
+  }
+
+  .badge.none {
+    color: var(--faint);
+    opacity: 0.35;
+  }
+
+  .name {
+    font-family: var(--display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .item.is-ranked .name { color: var(--text); }
+  .item:not(.is-ranked) .name { color: var(--dim); font-weight: 400; }
+
+  .lane {
+    display: block;
+    font-family: var(--data);
+    font-size: 0.62rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-top: 0.2rem;
+  }
+
+  .price {
+    font-family: var(--data);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  /* ---------- drawer ---------- */
+
+  .drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease;
+  }
+
+  .item.open .drawer { grid-template-rows: 1fr; }
+
+  .drawer > div { overflow: hidden; }
+
+  .drawer-inner {
+    padding: 0.25rem 0 1.5rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .desc {
+    color: var(--dim);
+    font-size: 0.94rem;
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .say {
+    background: var(--surface);
+    border-left: 2px solid var(--ember);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.95rem;
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .say b {
+    display: block;
+    font-family: var(--data);
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ember);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .flag {
+    background: var(--surface-2);
+    border-left: 2px solid var(--sage);
+    padding: 0.75rem 1.1rem;
+    font-size: 0.88rem;
+    color: var(--dim);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  .flag b {
+    color: var(--sage);
+    font-family: var(--data);
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+
+  .src {
+    font-family: var(--data);
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+    margin: 0;
+  }
+
+  .quiet {
+    font-family: var(--data);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0;
+  }
+
+  /* ---------- footer ---------- */
+
+  .foot {
+    margin-top: 4rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--faint);
+  }
+
+  .foot h4 {
+    font-family: var(--data);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin: 0 0 0.7rem;
+    font-weight: 600;
+  }
+
+  .foot p { margin: 0 0 1rem; max-width: 64ch; }
+
+  .foot a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
+  .foot a:hover { color: var(--ember); }
+
+  .srcs { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-family: var(--data); font-size: 0.7rem; }
+
+  @media (max-width: 560px) {
+    .mast { padding-top: 2.5rem; }
+    .row { grid-template-columns: 2.2rem 1fr; }
+    .price { grid-column: 2; padding-top: 0.25rem; }
+    .drawer-inner { padding-left: 0; }
+    .stats { gap: 0 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">1636 S 48th St · Springdale, AR · since 1995</p>
+    <h1>MarketPlace Grill, ranked by <span class="flame">what people actually order twice</span></h1>
+    <p class="standfirst">The full Springdale menu. Ranked items carry a number and open to the review evidence behind it. Everything with no clear signal stays unranked — an empty gutter is an honest answer.</p>
+    <div class="stats">
+      <div class="stat"><b>4.9</b><span>Google · ~11,500 reviews</span></div>
+      <div class="stat"><b>#1</b><span>of 120 in Springdale</span></div>
+      <div class="stat"><b>0</b><span>Reddit threads found</span></div>
+    </div>
+  </header>
+
+  <section class="verdict">
+    <h2>The order for two</h2>
+    <ol>
+      <li><i>Start</i> <span>Boom Boom Shrimp + Sweet Tater Fries with the honey sauce</span></li>
+      <li><i>Main</i> <span>Ultimate Jambalaya Pasta</span></li>
+      <li><i>Main</i> <span>Cajun Chicken, loaded baked potato + parmesan spinach</span></li>
+      <li><i>Finish</i> <span>Mini Chocolate Mess, peanut butter sauce</span></li>
+    </ol>
+    <p>Swap the Cajun Chicken for Prime Rib if it's a steak night. Warm bread and butter arrives before you order anything — reviewers bring it up constantly.</p>
+  </section>
+
+  <nav class="controls">
+    <button type="button" data-filter="all" aria-pressed="true">Full menu</button>
+    <button type="button" data-filter="ranked" aria-pressed="false">Ranked only</button>
+    <span class="spacer"></span>
+    <span class="hint">Tap any dish</span>
+  </nav>
+
+  <main id="menu"></main>
+
+  <footer class="foot">
+    <h4>How this was ranked</h4>
+    <p>Two independent lanes — starters and mains — ordered by how often reviewers name a dish as the best thing, weighted toward repeat-order language ("what we always get") over one-off praise. Google carries the most weight here at roughly 11,500 reviews; Yelp, Tripadvisor and Restaurantji fill in the detail.</p>
+    <p>Reddit turned up nothing. Five query shapes across r/NWArkansas and site-wide search returned no discussion of this restaurant. It's a 1995 local institution whose audience reviews on Google, not Reddit — so the absence is a finding, not a gap.</p>
+    <p>Two dishes people rave about are missing from the official site menu: the pork ribeye and the Magnolia Shrimp Cakes. Both appear in Google review text and on AllMenus' Springdale listing. Ask before you plan around them.</p>
+    <h4>Sources</h4>
+    <div class="srcs">
+      <a href="https://wanderlog.com/place/details/2266236/marketplace-grill">Google aggregation</a>
+      <a href="https://www.yelp.com/biz/marketplace-grill-springdale-3">Yelp</a>
+      <a href="https://www.tripadvisor.com/Restaurant_Review-g31931-d508934-Reviews-MarketPlace_Grill-Springdale_Arkansas.html">Tripadvisor</a>
+      <a href="https://www.restaurantji.com/ar/springdale/marketplace-grill-/">Restaurantji</a>
+      <a href="https://www.allmenus.com/ar/springdale/219209-marketplace-grill/menu/">AllMenus</a>
+      <a href="https://marketplacegrill.com/menu.html">Official menu</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const MENU = [
+    {
+      course: "Starters", note: "Ranked lane of its own — five of these carry a number.",
+      items: [
+        { n: "Boom Boom Shrimp", p: "$14.49", rank: 1, lane: "Best starter",
+          d: "Pacific shrimp fried crispy, tossed in a spicy Thai chili garlic sauce.",
+          say: "The only starter praised on every platform with no dissent. Google reviewers call it the signature opener and \"top quality\"; the restaurant names it their own favorite in review replies. Same dish as the $19.99 entrée — order it here and split it.",
+          src: "Google · Yelp · Tripadvisor · owner replies" },
+        { n: "Magnolia Shrimp Cakes", p: "$16.99", rank: 2, lane: "2nd starter", mark: null,
+          d: "Southern-style shrimp cakes fried crisp, creamy cilantro sauce.",
+          say: "Named specifically in Google reviews as a standout. Priced like an entrée because it nearly is.",
+          flag: "Listed on AllMenus' Springdale menu but not on the official site. Confirm before you count on it.",
+          src: "Google · AllMenus" },
+        { n: "Spinach Dip", p: "$11.49", rank: 3, lane: "3rd starter",
+          d: "Chicago-style, served with chips, salsa and sour cream.",
+          say: "The quiet workhorse. Google aggregation describes a loyal following — this is what regulars order, even though it generates almost no written review prose.",
+          src: "Google aggregation" },
+        { n: "Grilled Queso", p: "$10.49", rank: 4, lane: "4th starter", mark: "SPLIT",
+          d: "Skillet cheese dip, fresh salsa, Yucatan seasoning, yellow corn tortilla chips. Flamed at your table.",
+          say: "\"Flaming Queso Dip not to be missed\" — the tableside flame brings it to temperature so their extra-thin chips don't break. But this is the single most volatile item on the menu.",
+          flag: "The dissent is blunt: one reviewer described a shallow layer of dip with chip crumbles, \"far below the quality of Rotel at any tailgate party.\" Order it for the show.",
+          src: "Tripadvisor (both directions)" },
+        { n: "Jalapeño Cheese Fritters", p: "$8.49", rank: 5, lane: "5th starter",
+          d: "Diced jalapeños with cheddar and Monterey Jack, fried crisp, topped with parmesan, creamy herb dressing.",
+          say: "The safe pick. No negative reviews surfaced against it on any platform — the one thing the queso can't claim.",
+          src: "Yelp · Restaurantji" },
+        { n: "Fresh Salsa and Chips", p: "$5.49",
+          d: "House-made salsa with yellow corn tortilla chips.",
+          say: "The chips themselves get praised — thin, house-made — but nobody advocates for this as an order.",
+          src: "Tripadvisor" }
+      ]
+    },
+    {
+      course: "Steakhouse", note: "All cuts USDA, served with house salad, baked potato and hot bread.",
+      items: [
+        { n: "Prime Rib", p: "8oz $25.99 · 12oz $29.99 · 16oz $33.99", rank: 2, lane: "2nd main",
+          d: "Slow-roasted prime rib of beef with au jus. Horseradish cream on request.",
+          say: "The steakhouse answer, and the dish people drive in for. It has its own Tripadvisor review headlined \"Best Prime Rib,\" and \"you have to try the prime rib, it's amazing\" recurs across platforms. The 8oz is plenty once you count the sides.",
+          src: "Tripadvisor · Google · Restaurantji" },
+        { n: "Pork Ribeye", p: "market", rank: 4, lane: "4th main", mark: null,
+          d: "8oz mesquite-grilled pork ribeye topped with sweet sautéed apples.",
+          say: "Named as a popular dish in Google review aggregation despite being invisible on the official menu. If they still make it, it's the most interesting thing in the building.",
+          flag: "Not on marketplacegrill.com. Surfaced only through Google review text and third-party menu listings.",
+          src: "Google aggregation · Restaurantji" },
+        { n: "Ribeye", p: "market", d: "12oz USDA beef grilled over mesquite." },
+        { n: "Cajun Ribeye", p: "market", d: "12oz hand-cut USDA beef coated in Cajun seasoning, Cajun butter." },
+        { n: "Hawaiian Ribeye", p: "market", d: "Marinated in pineapple, ginger and soy. Limited availability." },
+        { n: "Sirloin", p: "$23.99", d: "8oz sirloin grilled with housemade garlic herb butter." },
+        { n: "New York Strip", p: "market", d: "10oz USDA beef grilled over mesquite." }
+      ]
+    },
+    {
+      course: "Pastas", note: "Cooked to order, served with house salad and hot bread.",
+      items: [
+        { n: "Ultimate Jambalaya Pasta", p: "$19.99", rank: 1, lane: "Best main",
+          d: "Rotini spirals with grilled chicken, shrimp and vegetables in a spicy Cajun sauce, parmesan.",
+          say: "The most-endorsed dish in the building, confirmed across all four review corpora. \"Jambalaya is the best thing on the menu.\" Google reviewers call it \"so delightful\" and list it as their standing order across visits — repeat-order behaviour is the strongest signal in this entire dataset.",
+          flag: "Cheaper routes to the same dish: chicken-only Jambalaya Pasta at $15.49, or the lunch portion at $10.99.",
+          src: "Google · Yelp · Tripadvisor · Restaurantji" },
+        { n: "Jambalaya Pasta", p: "$15.49", d: "Rotini with grilled chicken, fresh vegetables, spicy Cajun sauce, parmesan. The chicken-only version of the #1 main." },
+        { n: "Prima Chicken Pasta", p: "$15.99", d: "Bow ties with roasted chicken, vegetables, Asiago cheese sauce, parmesan.",
+          say: "Carries an 88% rating across 34 delivery reviews — the highest-volume hard number on any single entrée. Good non-spicy alternative to the jambalaya, but nobody calls it the best thing here.",
+          src: "DoorDash" },
+        { n: "Chicken Pesto Pasta", p: "$15.99", d: "Rotini with grilled chicken, diced tomatoes, pesto sauce, parmesan." }
+      ]
+    },
+    {
+      course: "Beef, Pork and Chicken", note: "Served with two sides and hot bread.",
+      items: [
+        { n: "Cajun Chicken", p: "$16.99", rank: 3, lane: "3rd main",
+          d: "Grilled chicken breast coated in spicy Cajun spices, topped with Cajun butter.",
+          say: "The big riser on the deeper read. Google reviewers pair it specifically with the loaded baked potato and parmesan broccoli, and call out the portion size as unreasonable in the good way. Best value on the entrée list.",
+          src: "Google aggregation" },
+        { n: "Grilled Raspberry Chicken", p: "$16.99", rank: 5, lane: "5th main",
+          d: "Marinated chicken breast grilled over mesquite, glazed with a light and spicy raspberry sauce, chives, aged parmesan.",
+          say: "The sleeper. Sounds odd on paper and reviews consistently disagree — it holds its spot across every platform.",
+          src: "Restaurantji · Google" },
+        { n: "Chicken Fried Steak", p: "$16.99", rank: 6, lane: "6th main",
+          d: "NY strip cut in-house, hand breaded, fried golden brown, cream gravy.",
+          say: "The most-reviewed comfort entrée on the Springdale listing — 13 reviews and 4 photos attached to it on Yelp alone, and simply called \"delicious.\" Order it with the garlic mashed potatoes.",
+          src: "Yelp · Google · Restaurantji" },
+        { n: "Baby Back Ribs", p: "half $16.99 · full $22.99", rank: 7, lane: "7th main",
+          d: "Imported Danish baby back ribs brushed with signature BBQ sauce and grilled.",
+          say: "Moves up on the deeper read — Google reviewers name the smoked ribs directly rather than burying them in a list of things the table ordered.",
+          src: "Google aggregation" },
+        { n: "Turkey Filet Mignon", p: "$16.49", rank: 8, lane: "8th main",
+          d: "Turkey medallions wrapped in smoked bacon, grilled over mesquite.",
+          say: "\"Really good\" — and nobody expects it to be. Worth knowing about.",
+          src: "Google aggregation" },
+        { n: "Chicken Tenders", p: "$16.99", d: "Fried chicken tenderloins with honey mustard or cream gravy." },
+        { n: "Glazed Pork Chop", p: "$15.49", d: "Two bone-in chops, house spices, brown sugar glaze." },
+        { n: "Hawaiian Chicken", p: "$16.99", d: "Mesquite grilled chicken breast in island teriyaki with pineapple salsa." },
+        { n: "Santa Fe Chicken", p: "$16.99", d: "Chicken breast topped with jack and cheddar, diced tomatoes, chives, signature BBQ sauce." },
+        { n: "Texas Grilled Chicken", p: "$17.49", d: "Mesquite seared and slow roasted seasoned half chicken." },
+        { n: "2 Half-Portion Entrées", p: "$23.99", d: "Choose two half portions with two sides. Limit one pasta." }
+      ]
+    },
+    {
+      course: "Seafood and Fish", note: "Served with house salad, baked potato and hot bread.",
+      items: [
+        { n: "Boom Boom Shrimp", p: "$19.99",
+          d: "Pacific shrimp fried crispy, tossed in spicy Thai chili garlic sauce.",
+          say: "Ranked #1 in the starters lane at $14.49 — same dish, better price, and it shares well. Order it there unless you want it as your whole meal.",
+          src: "Google · owner replies" },
+        { n: "Lime Soy Glazed Salmon", p: "$22.99", d: "Atlantic salmon grilled over mesquite, lime-soy-ginger glaze." },
+        { n: "Tilapia Parmesan", p: "$19.99", d: "Mesquite grilled tilapia filet, aged parmesan sauce." },
+        { n: "Krunchy Shrimp", p: "$19.99", d: "Golden fried Pacific shrimp, cocktail or spicy raspberry sauce." },
+        { n: "Louisiana Hot Shrimp", p: "$19.99", d: "New Orleans style BBQ shrimp in a rich spicy Cajun sauce, toast points." },
+        { n: "Grilled Cajun Catfish", p: "$17.99", d: "US farm-raised catfish coated in Cajun spices, mesquite grilled, drawn butter." }
+      ]
+    },
+    {
+      course: "Sides", note: "All $3.99. One of these outperforms most of the appetizer list.",
+      items: [
+        { n: "Sweet Tater Fries", p: "$3.99", mark: "SLEEP",
+          d: "Sweet potato fries. À la carte add $1.00.",
+          say: "Comes up repeatedly and unprompted in Google reviews as its own thing — specifically dipped in the honey sauce. Four dollars. Order it as a starter.",
+          src: "Google aggregation · Restaurantji" },
+        { n: "Garlic Mashed Potatoes", p: "$3.99", d: "Loaded add $1.00. The pairing reviewers name with the chicken fried steak." },
+        { n: "Fresh Cut Fries", p: "$3.99", d: "Served with fry sauce." },
+        { n: "Parmesan Spinach", p: "$3.99", d: "" },
+        { n: "Corn and Garlic Butter Cheese Grits", p: "$3.99", d: "" },
+        { n: "Sweet Green Beans", p: "$3.99", d: "" },
+        { n: "Steamed Veggies", p: "$3.99", d: "" },
+        { n: "Fresh Fruit", p: "$3.99", d: "" }
+      ]
+    },
+    {
+      course: "Desserts", note: "Its own one-item lane.",
+      items: [
+        { n: "Chocolate Mess", p: "regular $8.99 · mini $6.99", rank: 1, lane: "Best dessert",
+          d: "\"The biggest and messiest chocolate sundae you've ever eaten.\" Peanut butter or caramel sauce add $0.79.",
+          say: "The signature and the most-photographed item here. Get the mini with peanut butter — that specific combination is what people name. Google reviewers flag it as a reliable kid-pleaser.",
+          flag: "One dissent, and it's instructive: a to-go order arrived as half a scoop in a 12oz cup with chocolate hardened to the side. Eat it in-house.",
+          src: "Google · Tripadvisor · Restaurantji" },
+        { n: "Seasonal Cobbler", p: "regular $8.99 · mini $4.99", d: "Fresh baked cobbler with vanilla ice cream and walnut-praline sauce." },
+        { n: "New York Style Cheesecake", p: "regular $7.99 · mini $3.99", d: "Scratch-made, topped with chocolate fudge or raspberry sauce. Reviewers who order it ask for caramel." },
+        { n: "Strawberry Stack", p: "regular $7.99 · mini $3.99", d: "Strawberries, homemade pound cake, vanilla ice cream, real whipped cream." },
+        { n: "Chocolate Chunk Cake", p: "regular $6.99 · mini $4.99", d: "Served with vanilla ice cream and hot fudge. Named as a favorite in owner review replies." }
+      ]
+    },
+    {
+      course: "Salads", note: "No review signal separates these.",
+      items: [
+        { n: "Marketplace Cobb", p: "$15.99", d: "Roasted chicken, avocado, diced tomatoes, bacon, carrots, blue cheese crumbles, hard boiled eggs, green onions." },
+        { n: "Chicken Berry", p: "$14.99", d: "Roasted chicken, bacon, cashews, jicama, strawberries, blueberry poppy seed dressing." },
+        { n: "Apple Walnut", p: "$14.99", d: "Roasted chicken, Granny Smith apples, red grapes, caramelized walnuts, cheddar and jack." },
+        { n: "Grilled Chicken", p: "$13.99", d: "Mesquite grilled chicken, cheeses, grape tomatoes, cabbage blend, red onions, cucumbers, croutons." },
+        { n: "Crispy Chicken", p: "$13.99", d: "Crispy chicken tenders over the same build." },
+        { n: "Caesar's Chicken", p: "$13.49", d: "Romaine, parmesan, croutons, creamy Caesar, grilled or crispy chicken." }
+      ]
+    },
+    {
+      course: "Sandwiches and Burgers",
+      items: [
+        { n: "Prime Dip", p: "$16.49", d: "Shaved prime rib on a toasted hoagie, sautéed onions, jack cheese, au jus." },
+        { n: "California Chicken Club", p: "$14.99", d: "Mesquite grilled chicken, jack cheese, bacon, avocado, tomato, red onions, spicy red pepper mayo." },
+        { n: "Cajun Chicken Sandwich", p: "$14.49", d: "Cajun-seasoned grilled chicken, Cajun butter, jack cheese, remoulade." },
+        { n: "Santa Fe Chicken Sandwich", p: "$14.49", d: "BBQ sauce, jack and cheddar, tomato, red onions, brioche." },
+        { n: "Pesto Chicken Sandwich", p: "$14.49", d: "House-made pesto, mozzarella, tomatoes, red onions." },
+        { n: "Cajun Jack Burger", p: "$14.49", d: "Mesquite grilled burger, Cajun seasoning, jack cheese, remoulade, brioche." },
+        { n: "Marketplace Club", p: "$13.99", d: "Smoked ham, roasted turkey, bacon, cheeses, honey mustard, toasted roll." },
+        { n: "Cheddar Chicken Sandwich", p: "$13.99", d: "Mesquite grilled chicken, cheddar, lettuce, tomato, red onions, pickles." },
+        { n: "American Burger", p: "$13.99", d: "Cheddar, lettuce, tomato, onion, pickle, mayo, brioche." },
+        { n: "Turkey Burger", p: "$13.99", d: "Jack cheese, avocado, tomato, red onions, red pepper mayo, brioche." },
+        { n: "Chicken Herb Wrap", p: "$13.49", d: "Grilled chicken, mixed greens, bacon, tomatoes, cheeses, creamy herb dressing." }
+      ]
+    },
+    {
+      course: "Street Tacos",
+      items: [
+        { n: "Cilantro Lime Shrimp", p: "2 for $12.49 · 3 for $14.99", d: "Pacific shrimp in garlic butter lime sauce, Asian slaw, tomatoes, cilantro cream. Named in Restaurantji reviews, but without a best-thing claim." },
+        { n: "Baja", p: "2 for $12.49 · 3 for $14.99", d: "Grilled tilapia, Asian slaw, diced tomatoes, cilantro cream." },
+        { n: "Vegetable", p: "2 for $10.49 · 3 for $12.99", d: "Steamed seasoned vegetables, lettuce, tomatoes, cilantro cream." }
+      ]
+    },
+    {
+      course: "Pizza",
+      items: [
+        { n: "Ultimate Meat", p: "$13.99", d: "Pepperoni, grilled chicken, ham, four cheeses." },
+        { n: "Chicken Florentine", p: "$12.99", d: "Parmesan spinach, grilled chicken, diced tomatoes, mozzarella, fontina." },
+        { n: "BBQ Chicken", p: "$12.49", d: "Grilled chicken, cilantro, red onions, cheddar, jack, hickory smoke BBQ." },
+        { n: "Pepperoni", p: "$11.99", d: "Loaded pepperoni, mozzarella, fontina." },
+        { n: "Margherita", p: "$10.49", d: "Sliced tomatoes, mozzarella, imported fontina, oregano, homemade tomato sauce." }
+      ]
+    },
+    {
+      course: "Soups and Potatoes",
+      items: [
+        { n: "Loaded Baked Potato Soup", p: "$5.49", d: "Cheddar, bacon, chives." },
+        { n: "Soup of the Day", p: "$5.49", d: "Chef-selected, seasonally inspired." },
+        { n: "Baked Potato", p: "$4.99", d: "Butter, sour cream, cheddar, bacon, chives." }
+      ]
+    }
+  ];
+
+  const menuEl = document.getElementById("menu");
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  MENU.forEach((course, ci) => {
+    const sec = document.createElement("section");
+    sec.className = "course";
+
+    const ranked = course.items.filter((i) => i.rank).length;
+    sec.innerHTML =
+      '<div class="course-head"><h3>' + esc(course.course) + "</h3>" +
+      "<em>" + (ranked ? ranked + " ranked · " : "") + course.items.length + " items</em></div>" +
+      '<div class="course-rule"></div>' +
+      (course.note ? '<p class="course-note">' + esc(course.note) + "</p>" : "");
+
+    course.items.forEach((it, ii) => {
+      const id = "d" + ci + "-" + ii;
+      const wrap = document.createElement("div");
+      wrap.className = "item" + (it.rank ? " is-ranked" : "");
+      if (it.rank) wrap.dataset.ranked = "1";
+
+      let badge;
+      if (it.rank) badge = '<span class="badge rank' + (it.rank === 1 ? " top" : "") + '">' + it.rank + "</span>";
+      else if (it.mark) badge = '<span class="badge mark">' + esc(it.mark) + "</span>";
+      else badge = '<span class="badge none">·</span>';
+
+      wrap.innerHTML =
+        '<button class="row" type="button" aria-expanded="false" aria-controls="' + id + '">' +
+          badge +
+          '<span class="name">' + esc(it.n) +
+            (it.lane ? '<span class="lane">' + esc(it.lane) + "</span>" : "") +
+          "</span>" +
+          '<span class="price">' + esc(it.p) + "</span>" +
+        "</button>" +
+        '<div class="drawer" id="' + id + '"><div><div class="drawer-inner">' +
+          (it.d ? '<p class="desc">' + esc(it.d) + "</p>" : "") +
+          (it.say ? '<p class="say"><b>What people say</b>' + esc(it.say) + "</p>" : "") +
+          (it.flag ? '<p class="flag"><b>Worth knowing</b>' + esc(it.flag) + "</p>" : "") +
+          (it.src ? '<p class="src">Signal from ' + esc(it.src) + "</p>" : "") +
+          (!it.say && !it.flag ? '<p class="quiet">No review signal — unranked</p>' : "") +
+        "</div></div></div>";
+
+      sec.appendChild(wrap);
+    });
+
+    menuEl.appendChild(sec);
+  });
+
+  menuEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".row");
+    if (!btn) return;
+    const item = btn.parentElement;
+    const open = item.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  const buttons = document.querySelectorAll(".controls button");
+  buttons.forEach((b) => {
+    b.addEventListener("click", () => {
+      buttons.forEach((x) => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+      const rankedOnly = b.dataset.filter === "ranked";
+      document.querySelectorAll(".course").forEach((sec) => {
+        let shown = 0;
+        sec.querySelectorAll(".item").forEach((it) => {
+          const keep = !rankedOnly || it.dataset.ranked === "1";
+          it.hidden = !keep;
+          if (keep) shown++;
+        });
+        sec.hidden = shown === 0;
+      });
+    });
+  });
+</script>
+</body>
+</html>
