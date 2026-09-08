@@ -1,0 +1,839 @@
+<title>Ace's Movement Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root {
+  --ground:      #eef2ee;
+  --surface:     #ffffff;
+  --surface-2:   #f6f8f5;
+  --ink:         #16241d;
+  --ink-2:       #47584f;
+  --ink-3:       #74857b;
+  --line:        #d3dcd4;
+  --line-soft:   #e3eae3;
+  --accent:      #0e6b4f;
+  --accent-ink:  #ffffff;
+  --accent-soft: #dcece4;
+  --flag:        #b23a20;
+  --flag-soft:   #f7e3dd;
+  --rule-strong: #16241d;
+
+  --chip-soccer:     #1d6b4d;
+  --chip-gymnastics: #6b4c9a;
+  --chip-swim:       #1a6b86;
+  --chip-dance:      #a2456f;
+  --chip-storytime:  #8a6212;
+  --chip-biking:     #3f6320;
+  --chip-water-play: #2560a1;
+
+  --sp: clamp(1rem, 3vw, 2rem);
+  --measure: 66ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #0d1512;
+    --surface:     #141d19;
+    --surface-2:   #19241f;
+    --ink:         #e7eee9;
+    --ink-2:       #a9b8b0;
+    --ink-3:       #7d8d84;
+    --line:        #2b3a33;
+    --line-soft:   #22302a;
+    --accent:      #57c39a;
+    --accent-ink:  #08120e;
+    --accent-soft: #16332a;
+    --flag:        #f0836a;
+    --flag-soft:   #3a1d16;
+    --rule-strong: #57c39a;
+
+    --chip-soccer:     #63c79b;
+    --chip-gymnastics: #b298e6;
+    --chip-swim:       #6cc2dd;
+    --chip-dance:      #e694b7;
+    --chip-storytime:  #d9b45c;
+    --chip-biking:     #9dc86f;
+    --chip-water-play: #86b6ee;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:      #0d1512;
+  --surface:     #141d19;
+  --surface-2:   #19241f;
+  --ink:         #e7eee9;
+  --ink-2:       #a9b8b0;
+  --ink-3:       #7d8d84;
+  --line:        #2b3a33;
+  --line-soft:   #22302a;
+  --accent:      #57c39a;
+  --accent-ink:  #08120e;
+  --accent-soft: #16332a;
+  --flag:        #f0836a;
+  --flag-soft:   #3a1d16;
+  --rule-strong: #57c39a;
+
+  --chip-soccer:     #63c79b;
+  --chip-gymnastics: #b298e6;
+  --chip-swim:       #6cc2dd;
+  --chip-dance:      #e694b7;
+  --chip-storytime:  #d9b45c;
+  --chip-biking:     #9dc86f;
+  --chip-water-play: #86b6ee;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--sp) var(--sp) 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+h1, h2, h3 { font-family: "Bricolage Grotesque", "Public Sans", sans-serif; text-wrap: balance; margin: 0; }
+
+/* ---------- masthead ---------- */
+.masthead { display: flex; flex-direction: column; gap: .9rem; padding-top: .5rem; }
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.standfirst { color: var(--ink-2); max-width: var(--measure); font-size: 1.02rem; }
+
+.facts {
+  display: flex; flex-wrap: wrap; gap: 0 2.2rem;
+  border-top: 2px solid var(--rule-strong);
+  padding-top: .7rem; margin-top: .3rem;
+}
+.fact { display: flex; align-items: baseline; gap: .45rem; padding: .25rem 0; }
+.fact b {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.fact span { font-size: .78rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; }
+
+/* ---------- picks ---------- */
+.picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.pick { background: var(--surface); padding: 1.15rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .5rem; }
+.pick .role {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+}
+.pick h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.2; }
+.pick .where { font-size: .85rem; color: var(--ink-3); }
+.pick p { margin: 0; font-size: .9rem; color: var(--ink-2); }
+.pick .figs {
+  display: flex; gap: 1.1rem; margin-top: auto; padding-top: .6rem;
+  border-top: 1px solid var(--line-soft);
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .85rem;
+  font-variant-numeric: tabular-nums;
+}
+.pick .figs i { font-style: normal; color: var(--ink-3); }
+
+/* ---------- table ---------- */
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-bottom: .8rem; }
+h2 { font-size: 1.4rem; font-weight: 600; letter-spacing: -.01em; }
+.hint { font-size: .82rem; color: var(--ink-3); }
+
+.scroller { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 780px; }
+caption { text-align: left; padding: .8rem 1rem; font-size: .82rem; color: var(--ink-3); border-bottom: 1px solid var(--line-soft); }
+th, td { padding: .62rem .8rem; text-align: left; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+thead th {
+  position: sticky; top: 0; z-index: 2;
+  background: var(--surface-2);
+  border-bottom: 2px solid var(--rule-strong);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .68rem; letter-spacing: .09em; text-transform: uppercase; font-weight: 600;
+  color: var(--ink-2); white-space: nowrap;
+}
+thead th button {
+  all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: .35rem;
+  font: inherit; color: inherit; padding: .15rem .2rem; border-radius: 2px;
+}
+thead th button:hover { color: var(--accent); }
+thead th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+thead th[aria-sort] button { color: var(--accent); }
+.arrow { font-size: .8em; opacity: 0; }
+thead th[aria-sort] .arrow { opacity: 1; }
+tbody tr:hover { background: var(--surface-2); }
+tbody tr.dim td:not(.rank) { opacity: .62; }
+
+td.rank { font-family: "IBM Plex Mono", ui-monospace, monospace; color: var(--ink-3); font-variant-numeric: tabular-nums; width: 2.4rem; }
+td.prog strong { font-weight: 600; }
+td.prog .prov { display: block; font-size: .82rem; color: var(--ink-3); }
+.pick h3 a, td.prog a { color: inherit; text-decoration: underline; text-decoration-color: var(--ink-3); text-underline-offset: 2px; }
+td.prog a:hover { text-decoration-color: currentColor; }
+td.prog .src { font-size: .78rem; color: var(--ink-3); }
+td.prog .sess.stale { color: #b5541c; }
+td.prog .sess { display: block; font-size: .76rem; color: var(--ink-3); margin-top: .1rem; }
+td.num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.num .sub { display: block; font-size: .76rem; color: var(--ink-3); }
+.unk { color: var(--ink-3); font-style: italic; }
+
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ink-2); white-space: nowrap;
+}
+.dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--chip-c); flex: none; }
+
+.pill {
+  display: inline-block; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+  padding: .12rem .42rem; border: 1px solid var(--line); color: var(--ink-3); white-space: nowrap;
+}
+.pill.notyet { color: var(--flag); border-color: var(--flag); background: var(--flag-soft); }
+.pill.now { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+.bar { display: flex; align-items: center; gap: .5rem; }
+.bar .track { width: 46px; height: 5px; background: var(--line-soft); flex: none; }
+.bar .fill { height: 100%; background: var(--accent); display: block; }
+
+.legend { margin-top: .7rem; font-size: .82rem; color: var(--ink-3); max-width: var(--measure); }
+.legend b { color: var(--ink-2); font-weight: 600; }
+
+/* ---------- appendix groups ---------- */
+.aside {
+  border-top: 2px solid var(--rule-strong);
+  padding-top: 1.2rem; display: flex; flex-direction: column; gap: .9rem;
+}
+.aside.assoc { border-top-style: dashed; border-top-color: var(--flag); }
+.aside p { margin: 0; max-width: var(--measure); color: var(--ink-2); font-size: .92rem; }
+.aside .warn { color: var(--flag); font-weight: 500; }
+.mini { width: 100%; border-collapse: collapse; min-width: 640px; }
+.mini th { background: none; border-bottom: 1px solid var(--line); position: static; }
+.mini td { border-bottom: 1px solid var(--line-soft); font-size: .9rem; }
+
+footer { border-top: 1px solid var(--line); padding-top: 1rem; font-size: .82rem; color: var(--ink-3); max-width: var(--measure); display: flex; flex-direction: column; gap: .5rem; }
+footer code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .95em; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Rogers, Arkansas &middot; compiled 7 September 2026</div>
+    <h1>Ace's Movement Map</h1>
+    <p class="standfirst">Every toddler sports and movement program found inside 20 miles of 72758, ranked three ways. Ace is 27 months, so the rubric rewards a parent on the floor and play over drills. Tap any column header to re-sort.</p>
+    <div class="facts">
+      <div class="fact"><b>18</b><span>programs</span></div>
+      <div class="fact"><b>27</b><span>months old</span></div>
+      <div class="fact"><b>20 mi</b><span>search radius</span></div>
+      <div class="fact"><b>11</b><span>with a published price</span></div>
+      <div class="fact"><b>79</b><span>sources</span></div>
+    </div>
+  </header>
+
+  <section class="picks">
+    <article class="pick">
+      <div class="role">Soccer he can start now</div>
+      <h3><a href="https://happyfeetlegends.formstack.com/forms/class_registration_form" target="_blank" rel="noopener">Weekday Preschool Classes ↗</a></h3>
+      <div class="where">NWA HappyFeet Soccer &middot; Rogers, indoor</div>
+      <p>Songs and stories with a ball at every child's feet, no lines and no drills. Age floor is 24 months. The one catch: HappyFeet publishes no price for these classes, so call first.</p>
+      <div class="figs"><span><i>dev fit</i> 9/12</span><span><i>dist</i> 3.4 mi</span><span><i>price</i> ask</span></div>
+    </article>
+    <article class="pick">
+      <div class="role">Structured, parent on the floor</div>
+      <h3><a href="https://www.thelittlegym.com/arkansas-rogers/" target="_blank" rel="noopener">Beasts, parent and child ↗</a></h3>
+      <div class="where">The Little Gym of Rogers &middot; 1.5 miles</div>
+      <p>Closest program on the list and the top of the quality table. Saturday mornings run. If $95 a month is too steep, Bentonville Community Center's parent-tot swim scores the same at $11 a session, but registration for the current block closed September 4 and the next block is not posted yet.</p>
+      <div class="figs"><span><i>dev fit</i> 8/12</span><span><i>dist</i> 1.5 mi</span><span><i>price</i> $23.75</span></div>
+    </article>
+    <article class="pick">
+      <div class="role">The free habit, twice a week</div>
+      <h3><a href="https://bentonvillelibrary.org/kids" target="_blank" rel="noopener">Toddler Storytime ↗</a></h3>
+      <div class="where">Bentonville Public Library &middot; Tue and Wed, 9:30am</div>
+      <p>Books, songs and movement for 18 to 36 months with a caregiver, 20 minutes, eight times a month, zero dollars. Pair it with the Bentonville Bike Playground once he is on a balance bike.</p>
+      <div class="figs"><span><i>dev fit</i> 7/12</span><span><i>dist</i> 5.4 mi</span><span><i>price</i> free</span></div>
+    </article>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>All 18 programs</h2>
+      <div class="hint">Sorted by quality composite. Unknown values always sort last.</div>
+    </div>
+    <div class="scroller">
+      <table id="grid">
+        <caption>Distances are straight-line miles from 36.3033527, &minus;94.1525615, the Nominatim lookup of ZIP 72758. Not drive times.</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" data-key="name"><button type="button">Program <span class="arrow">&#9650;</span></button></th>
+            <th scope="col">Sport</th>
+            <th scope="col" data-key="price"><button type="button">$ / session <span class="arrow">&#9650;</span></button></th>
+            <th scope="col" data-key="month"><button type="button">$ / month <span class="arrow">&#9650;</span></button></th>
+            <th scope="col" data-key="dist"><button type="button">Distance <span class="arrow">&#9650;</span></button></th>
+            <th scope="col" data-key="dev"><button type="button">Dev fit <span class="arrow">&#9650;</span></button></th>
+            <th scope="col" data-key="quality" aria-sort="descending"><button type="button">Quality <span class="arrow">&#9660;</span></button></th>
+            <th scope="col">Age</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="legend"><b>Checked 8 September 2026.</b> Every program page was re-fetched that day; the grey line under each program shows the session it names and whether registration is open. Orange means something to confirm by phone: registration closed, dates missing, or the page did not load.  is 40% Google rating, 40% developmental fit, 20% logistics. Every Google rating came back unverifiable, so that term is the prior (4.3 of 5) on all 18 rows and contributes an identical 34.4 points to each. What you are really sorting on is dev fit and logistics. <b>An asterisk on dev fit</b> means the provider publishes no class description, so there is not enough published detail to score. That is unmeasured, not a verdict. Greyed rows are <b>not yet</b> eligible for Ace.</p>
+  </section>
+
+  <section class="aside">
+    <h2>Not yet</h2>
+    <p>Two of the rows above are real, close, and simply too early. Kicksters U3 gates on a birthdate window rather than an age floor: Fall 2026 takes children born 1 August 2023 through 1 February 2024, and Ace was born 24 May 2024, so he misses it outright. Watch the next U3 window on the Bentonville portal; he should land inside one within a season or two. HappyFeet in the Park starts at three, so take the indoor HappyFeet weekday class instead.</p>
+    <p>Also confirmed not to exist locally at this age, so nobody needs to search again: Rogers Parks and Rec toddler soccer (Rogers youth soccer starts at Under 7), Soccer Joe's, Genesis Gymnastics, Arkansas Swim Academy, and martial arts of any kind. The nearest martial arts age floors are 4 and 6.</p>
+  </section>
+
+  <section class="aside assoc">
+    <h2>Associate-only: <a href="https://wlfc.walmart.com/" target="_blank" rel="noopener">Walton Life Fitness Center ↗</a></h2>
+    <p class="warn">Verify every figure below by hand. These are not in the table above and not in the dataset.</p>
+    <p>Hakeem is a Walmart associate, so the associate facility in Bentonville is open to him, and its prices are the cheapest structured options found anywhere in this sweep. They sit outside the ranking because <code>wlfc.walmart.com</code> returned HTTP 503 and the prices come from a PDF of the WLFC schedule inside the notebook, with no public URL to check them against.</p>
+    <div class="scroller">
+      <table class="mini">
+        <thead><tr><th scope="col">Class</th><th scope="col">Ages</th><th scope="col">Price as captured</th><th scope="col">Note</th></tr></thead>
+        <tbody>
+          <tr><td>HappyFeet Soccer, Group 1</td><td>2.5 to 3.5 yrs</td><td class="num">$80.00 / 8 wks</td><td>Thursdays 5:30pm, Studio 2. Ace turns 2.5 in November 2026.</td></tr>
+          <tr><td>S1 Swim Parent-Child 2</td><td>18 to 36 mo</td><td class="num">$40.00</td><td>Cheapest parent-child swim seen anywhere. Eligible now.</td></tr>
+          <tr><td>Mommy and Me dance</td><td>18 mo to 2.5 yrs</td><td class="num">$80.00</td><td>Taught by Williams Center dance staff.</td></tr>
+          <tr><td>Lil' Movers, Summerlin Studios</td><td>1.5 to 5 yrs</td><td class="num">$50.00</td><td>Studio 1, 30 minutes.</td></tr>
+          <tr><td>Buddy Pegs Balance Bike Playdate</td><td>2 to 5 yrs</td><td class="num">$20.00</td><td>60 min, 4 weeks, guardian required. Dates in the notebook are January to March, so this is older pricing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <div>Built from NotebookLM notebook <code>ec08ad9a-f729-4306-9064-eb21d7e98704</code> ("Kids Activities NWA"), 79 sources as of 7 September 2026, plus direct provider-page fetches. Every program row carries a verified source URL in <code>PROGRAMS.csv</code>.</div>
+    <div>Developmental rubric from WHO and Canadian 24-hour movement guidelines, the Sydney Children's Hospitals Network skill sheet for ages 2 to 3, Stanford's milestone sheet, and Cedars-Sinai on early single-sport specialization. Prices are as published by each provider and unverified prices are marked. Nothing here was estimated.</div>
+  </footer>
+
+</div>
+
+<script>
+const ROWS = [
+{
+"name": "Mini (Toddler)",
+"sport": "soccer",
+"provider": "Soccer Shots Northwest Arkansas",
+"city": "Rogers",
+"address": "5604 S 43rd Street",
+"price": null,
+"month": null,
+"dist": 1.8962456081264483,
+"quality": 57.7,
+"dev": "7",
+"unscored": false,
+"varies": true,
+"age_status": "eligible-now",
+"format": "unknown",
+"indoor": "unknown",
+"weekend_or_evening": "unknown",
+"session_length_min": "30-40",
+"registration_url": "https://www.ss-nwarkansas.soccershots.com/page/class-registration",
+"source_url": "https://www.soccershots.com/nwarkansas/",
+"session": "Checked 8 Sep 2026: Fall soccer season, no dates published · registration open",
+"stale": false
+},
+{
+"name": "Kicksters Soccer U3",
+"sport": "soccer",
+"provider": "Bentonville Parks & Recreation",
+"city": "Bentonville",
+"address": "Memorial Park Soccer Complex or Citizens Park Soccer Complex",
+"price": 27.0,
+"month": 116.87,
+"dist": 5.267914150424038,
+"quality": 71.1,
+"dev": "8",
+"unscored": false,
+"varies": true,
+"age_status": "not-yet",
+"format": "unknown",
+"indoor": "no",
+"weekend_or_evening": "yes",
+"session_length_min": "unknown",
+"registration_url": "https://anc.apm.activecommunities.com/playbentonville/activity/search?onlineSiteId=0&activity_select_param=2&activity_keyword=soccer&viewMode=list",
+"source_url": "https://www.bentonville.ar.gov/1408/Kicksters-Soccer",
+"session": "Checked 8 Sep 2026: Aug 24 - Oct 17 season (year not stated on page) · registration closed",
+"stale": true
+},
+{
+"name": "Weekday Preschool Classes",
+"sport": "soccer",
+"provider": "NWA HappyFeet Soccer",
+"city": "Rogers",
+"address": "2000 N Dixieland Road",
+"price": null,
+"month": null,
+"dist": 3.3883262357866957,
+"quality": 74.4,
+"dev": "9",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "unknown",
+"indoor": "yes",
+"weekend_or_evening": "unknown",
+"session_length_min": "30",
+"registration_url": "https://happyfeetlegends.formstack.com/forms/class_registration_form",
+"source_url": "https://sports.bluesombrero.com/nwahappyfeet",
+"session": "Checked 8 Sep 2026: session dates not published",
+"stale": true
+},
+{
+"name": "HappyFeet in the Park",
+"sport": "soccer",
+"provider": "NWA HappyFeet Soccer",
+"city": "Rogers",
+"address": "First Church of the Nazarene, 4911 W. Pleasant Grove Road",
+"price": null,
+"month": null,
+"dist": 2.127355551232055,
+"quality": 64.4,
+"dev": "9",
+"unscored": false,
+"varies": false,
+"age_status": "not-yet",
+"format": "unknown",
+"indoor": "no",
+"weekend_or_evening": "no",
+"session_length_min": "45",
+"registration_url": "https://sports.bluesombrero.com/Default.aspx?tabid=1015201",
+"source_url": "https://sports.bluesombrero.com/Default.aspx?tabid=1015201",
+"session": "Checked 8 Sep 2026: session dates not published · page did not load 8 Sep",
+"stale": true
+},
+{
+"name": "Beasts (Parent/Child)",
+"sport": "gymnastics",
+"provider": "The Little Gym of Rogers",
+"city": "Rogers",
+"address": "4319 S Pleasant Crossing Blvd, Unit 102",
+"price": 23.75,
+"month": 95.0,
+"dist": 1.4983960912722405,
+"quality": 81.1,
+"dev": "8",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "45",
+"registration_url": "https://www.thelittlegym.com/arkansas-rogers/",
+"source_url": "https://www.thelittlegym.com/arkansas-rogers/",
+"session": "Checked 8 Sep 2026: rolling weekly schedule, September 2026 calendar shown · registration open",
+"stale": false
+},
+{
+"name": "Beasts/Super Beasts (Parent/Child)",
+"sport": "gymnastics",
+"provider": "The Little Gym of Rogers",
+"city": "Rogers",
+"address": "4319 S Pleasant Crossing Blvd, Unit 102",
+"price": 23.75,
+"month": 95.0,
+"dist": 1.4983960912722405,
+"quality": 81.1,
+"dev": "8",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "45",
+"registration_url": "https://www.thelittlegym.com/arkansas-rogers/",
+"source_url": "https://www.thelittlegym.com/arkansas-rogers/",
+"session": "Checked 8 Sep 2026: rolling weekly schedule, September 2026 calendar shown · registration open",
+"stale": false
+},
+{
+"name": "Toddler & Grown-Up",
+"sport": "gymnastics",
+"provider": "Jones Center",
+"city": "Springdale",
+"address": "922 E. Emma Ave.",
+"price": 10.0,
+"month": 40.0,
+"dist": 8.312560697806113,
+"quality": 71.1,
+"dev": "8",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "no",
+"session_length_min": "45",
+"registration_url": "https://thejonescenter.org/kids-classes-fall",
+"source_url": "https://thejonescenter.org/kids-classes-fall",
+"session": "Checked 8 Sep 2026: Fall Session 1 Aug 31 - Oct 12; Session 2 Oct 13 - Nov 23; Mini-Session 3 Nov 30 - Dec 19 · registration open",
+"stale": false
+},
+{
+"name": "Wee Tots",
+"sport": "gymnastics",
+"provider": "Aspire Gymnastics Academy",
+"city": "Bentonville",
+"address": "906 Northwest 13th Street",
+"price": null,
+"month": null,
+"dist": 7.031287410974246,
+"quality": 64.4,
+"dev": "6",
+"unscored": true,
+"varies": false,
+"age_status": "eligible-now",
+"format": "unknown",
+"indoor": "yes",
+"weekend_or_evening": "unknown",
+"session_length_min": "unknown",
+"registration_url": "https://portal.iclasspro.com/aspire/booking",
+"source_url": "https://www.aspiregymnasticsacademy.com/",
+"session": "Checked 8 Sep 2026: session dates not published",
+"stale": false
+},
+{
+"name": "Mini (Baby)",
+"sport": "swim",
+"provider": "Goldfish Swim School - Rogers NWA",
+"city": "Rogers",
+"address": "4319 S. Pleasant Crossing Blvd., Ste 105",
+"price": 27.0,
+"month": 108.0,
+"dist": 1.4983960912722405,
+"quality": 77.7,
+"dev": "10",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "unknown",
+"session_length_min": "30",
+"registration_url": "https://portal.iclasspro.com/gssrogersnwa",
+"source_url": "https://goldfishswimschool.com/rogers-nwa/pricing/",
+"session": "Checked 8 Sep 2026: ongoing enrollment, no session dates named · registration open",
+"stale": false
+},
+{
+"name": "Independent Baby",
+"sport": "swim",
+"provider": "Goldfish Swim School - Rogers NWA",
+"city": "Rogers",
+"address": "4319 S. Pleasant Crossing Blvd., Ste 105",
+"price": 27.0,
+"month": 108.0,
+"dist": 1.4983960912722405,
+"quality": 64.4,
+"dev": "6",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "drop-off",
+"indoor": "yes",
+"weekend_or_evening": "unknown",
+"session_length_min": "30",
+"registration_url": "https://portal.iclasspro.com/gssrogersnwa",
+"source_url": "https://goldfishswimschool.com/rogers-nwa/pricing/",
+"session": "Checked 8 Sep 2026: ongoing enrollment, no session dates named · registration open",
+"stale": false
+},
+{
+"name": "Parent-tot Group Swim Lessons",
+"sport": "swim",
+"provider": "Bentonville Community Center",
+"city": "Bentonville",
+"address": "1101 SW Citizens Circle",
+"price": 11.0,
+"month": 88.0,
+"dist": 4.489582202127708,
+"quality": 81.1,
+"dev": "8",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "30",
+"registration_url": "https://www.bentonville.ar.gov/1391/Group-Swim-Lessons",
+"source_url": "https://www.bentonville.ar.gov/1391/Group-Swim-Lessons",
+"session": "Checked 8 Sep 2026: weekday Sept 14 - Oct 8; Saturday Sept 12 - Oct 31 (2026) · registration closed",
+"stale": true
+},
+{
+"name": "Water Tots",
+"sport": "swim",
+"provider": "Jones Center",
+"city": "Springdale",
+"address": "922 E. Emma Ave.",
+"price": 12.5,
+"month": 50.0,
+"dist": 8.312560697806113,
+"quality": 77.7,
+"dev": "7",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "30",
+"registration_url": "https://thejonescenter.org/kids-classes-fall",
+"source_url": "https://thejonescenter.org/kids-classes-fall",
+"session": "Checked 8 Sep 2026: Fall Session 1 Aug 31 - Oct 12; Session 2 Oct 13 - Nov 23; Mini-Session 3 Nov 30 - Dec 19 · registration open",
+"stale": false
+},
+{
+"name": "Toddler & Me",
+"sport": "dance",
+"provider": "Tippi Toes Dance Northwest Arkansas",
+"city": "Lowell",
+"address": "225 Grant Place",
+"price": null,
+"month": null,
+"dist": 3.475061771922713,
+"quality": 74.4,
+"dev": "6",
+"unscored": true,
+"varies": true,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "30",
+"registration_url": "https://app.gostudiopro.com/online/classes.php?account_id=8110",
+"source_url": "https://app.gostudiopro.com/online/classes.php?account_id=8110",
+"session": "Checked 8 Sep 2026: Dance Season 2026-2027, no start/end dates published · registration open",
+"stale": false
+},
+{
+"name": "Baby Ballet",
+"sport": "dance",
+"provider": "Tippi Toes Dance Northwest Arkansas",
+"city": "Lowell",
+"address": "225 Grant Place",
+"price": null,
+"month": null,
+"dist": 3.475061771922713,
+"quality": 74.4,
+"dev": "6",
+"unscored": true,
+"varies": true,
+"age_status": "eligible-now",
+"format": "unknown",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "30",
+"registration_url": "https://app.gostudiopro.com/online/classes.php?account_id=8110",
+"source_url": "https://app.gostudiopro.com/online/classes.php?account_id=8110",
+"session": "Checked 8 Sep 2026: Dance Season 2026-2027, no start/end dates published · registration open",
+"stale": false
+},
+{
+"name": "Wee Dance w/Mom",
+"sport": "dance",
+"provider": "NWA Conservatory of Classical Ballet",
+"city": "Bentonville",
+"address": "3111 SE \"J\" St.",
+"price": 13.75,
+"month": 55.0,
+"dist": 3.478712798455407,
+"quality": 77.7,
+"dev": "7",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "yes",
+"session_length_min": "30",
+"registration_url": "https://www.nwaballet.com/classes-tuition",
+"source_url": "https://www.nwaballet.com/classes-tuition",
+"session": "Checked 8 Sep 2026: 2026-27 School Year Program, August 31 through May 22 · registration open",
+"stale": false
+},
+{
+"name": "Toddler Storytime",
+"sport": "storytime",
+"provider": "Bentonville Public Library",
+"city": "Bentonville",
+"address": "405 S. Main Street",
+"price": 0.0,
+"month": 0.0,
+"dist": 5.434294835834171,
+"quality": 67.7,
+"dev": "7",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "parent-tot",
+"indoor": "yes",
+"weekend_or_evening": "no",
+"session_length_min": "20",
+"registration_url": "https://bentonvillelibrary.org/kids",
+"source_url": "https://bentonvillelibrary.org/kids",
+"session": "Checked 8 Sep 2026: ongoing weekly, Tuesdays and Wednesdays 9:30 am",
+"stale": false
+},
+{
+"name": "Bike Playground (open play)",
+"sport": "biking",
+"provider": "Bentonville Parks & Recreation",
+"city": "Bentonville",
+"address": "2400 N. Walton Blvd.",
+"price": null,
+"month": null,
+"dist": 7.501561177258078,
+"quality": 64.4,
+"dev": "9",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "open-play",
+"indoor": "no",
+"weekend_or_evening": "unknown",
+"session_length_min": "unknown",
+"registration_url": "https://www.bentonville.ar.gov/783/Bentonville-Bike-Playground",
+"source_url": "https://www.bentonville.ar.gov/783/Bentonville-Bike-Playground",
+"session": "Checked 8 Sep 2026: session dates not published",
+"stale": false
+},
+{
+"name": "The Fountains at Lawrence Plaza (splash park)",
+"sport": "water-play",
+"provider": "Bentonville Parks & Recreation",
+"city": "Bentonville",
+"address": "214 NE A Street",
+"price": 0.0,
+"month": 0.0,
+"dist": 5.8074537589472675,
+"quality": 74.4,
+"dev": "9",
+"unscored": false,
+"varies": false,
+"age_status": "eligible-now",
+"format": "open-play",
+"indoor": "no",
+"weekend_or_evening": "yes",
+"session_length_min": "unknown",
+"registration_url": "https://www.bentonville.ar.gov/1315/The-Fountains-at-Lawrence-Plaza",
+"source_url": "https://www.bentonville.ar.gov/1315/The-Fountains-at-Lawrence-Plaza",
+"session": "Checked 8 Sep 2026: May 23 - September 13 splash season (no year stated on page)",
+"stale": true
+}
+];
+
+const SHORT = {
+  "The Fountains at Lawrence Plaza (splash park)": "The Fountains (splash park)",
+  "Parent-tot Group Swim Lessons": "Parent-tot Group Swim",
+  "Beasts/Super Beasts (Parent/Child)": "Beasts / Super Beasts"
+};
+
+const tbody = document.querySelector("#grid tbody");
+const headers = Array.from(document.querySelectorAll("#grid thead th[data-key]"));
+let sortKey = "quality";
+let sortDir = -1; // -1 descending, 1 ascending
+
+function fmtMoney(v) {
+  if (v === null) return '<span class="unk">unknown</span>';
+  if (v === 0) return "free";
+  return "$" + v.toFixed(2);
+}
+
+function fmtDist(r) {
+  if (r.dist === null) return '<span class="unk">unknown</span>';
+  let s = r.dist.toFixed(1) + " mi";
+  let sub = r.city;
+  if (r.varies) sub += ", location varies";
+  return s + '<span class="sub">' + sub + "</span>";
+}
+
+function sortValue(r, key) {
+  if (key === "name") return r.name.toLowerCase();
+  if (key === "dev") return Number(r.dev);
+  return r[key];
+}
+
+function render() {
+  const rows = ROWS.slice().sort((a, b) => {
+    const av = sortValue(a, sortKey), bv = sortValue(b, sortKey);
+    const an = av === null || av === undefined, bn = bv === null || bv === undefined;
+    if (an && bn) return a.name.localeCompare(b.name);
+    if (an) return 1;   // unknown always last, in both directions
+    if (bn) return -1;
+    if (av < bv) return -1 * sortDir;
+    if (av > bv) return 1 * sortDir;
+    return a.name.localeCompare(b.name);
+  });
+
+  tbody.innerHTML = rows.map((r, i) => {
+    const notYet = r.age_status === "not-yet";
+    const dev = r.dev + "/12" + (r.unscored ? "*" : "");
+    const pct = Math.round((Number(r.dev) / 12) * 100);
+    return '<tr class="' + (notYet ? "dim" : "") + '">'
+      + '<td class="rank">' + (i + 1) + "</td>"
+      + '<td class="prog"><strong>' + (r.registration_url
+            ? '<a href="' + r.registration_url + '" target="_blank" rel="noopener">' + (SHORT[r.name] || r.name) + ' \u2197</a>'
+            : (SHORT[r.name] || r.name)) + "</strong>"
+      + '<span class="prov">' + r.provider
+      + (r.source_url ? ' &middot; <a class="src" href="' + r.source_url.split(' | ')[0] + '" target="_blank" rel="noopener">source</a>' : '')
+      + (r.session ? '<span class="sess' + (r.stale ? ' stale' : '') + '">' + r.session + '</span>' : '')
+      + "</span></td>"
+      + '<td><span class="chip" style="--chip-c: var(--chip-' + r.sport + ')">'
+      + '<span class="dot"></span>' + r.sport.replace("-", " ") + "</span></td>"
+      + '<td class="num">' + fmtMoney(r.price) + "</td>"
+      + '<td class="num">' + fmtMoney(r.month) + "</td>"
+      + '<td class="num">' + fmtDist(r) + "</td>"
+      + '<td class="num"><span class="bar"><span class="track"><span class="fill" style="width:'
+      + pct + '%"></span></span>' + dev + "</span></td>"
+      + '<td class="num">' + r.quality.toFixed(1) + "</td>"
+      + "<td>" + (notYet ? '<span class="pill notyet">not yet</span>'
+                         : '<span class="pill now">eligible</span>') + "</td>"
+      + "</tr>";
+  }).join("");
+
+  headers.forEach(th => {
+    const arrow = th.querySelector(".arrow");
+    if (th.dataset.key === sortKey) {
+      th.setAttribute("aria-sort", sortDir === 1 ? "ascending" : "descending");
+      arrow.innerHTML = sortDir === 1 ? "&#9650;" : "&#9660;";
+    } else {
+      th.removeAttribute("aria-sort");
+      arrow.innerHTML = "&#9650;";
+    }
+  });
+}
+
+headers.forEach(th => {
+  th.querySelector("button").addEventListener("click", () => {
+    const key = th.dataset.key;
+    if (key === sortKey) {
+      sortDir = -sortDir;
+    } else {
+      sortKey = key;
+      // price, distance and name read best ascending; scores read best descending
+      sortDir = (key === "quality" || key === "dev") ? -1 : 1;
+    }
+    render();
+  });
+});
+
+render();
+</script>
